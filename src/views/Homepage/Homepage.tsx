@@ -1,19 +1,17 @@
 import { useState } from "react";
 import { Button, Form, FloatingLabel } from "react-bootstrap";
 import {
-  Wrapper,
   Content,
   MiddleSection,
   Title,
   SubTitle,
   Submit,
   Login,
-  FooterSection,
   Background,
   Image,
 } from "./Homepage.style";
-import Footer from "../../components/layout/Footer/Footer";
-import homepage_img from "../../assets/homepage_img.jpg";
+import Footer from "../../components/layout/footer/Footer";
+import { Wrapper } from "../../styles/global.style";
 
 type Props = {};
 
@@ -26,7 +24,6 @@ export default function Homepage({}: Props) {
       event.preventDefault();
       event.stopPropagation();
     }
-
     setValidated(true);
   };
   return (
@@ -63,17 +60,15 @@ export default function Homepage({}: Props) {
                   >
                     Login
                   </Button>
-                  <Button variant="warning">Forgot Your Password?</Button>
+                  <Button variant="outline-primary">Forgot Your Password?</Button>
                 </Submit>
               </Form>
             </Login>
           </MiddleSection>
         </Content>
-        <Image/>
+        <Image />
       </Background>
-      <FooterSection>
-        <Footer />
-      </FooterSection>
+      <Footer />
     </Wrapper>
   );
 }

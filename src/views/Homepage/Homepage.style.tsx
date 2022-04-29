@@ -1,13 +1,6 @@
 import styled from "styled-components";
 import myImage from "../../assets/homepage_img.jpg";
 
-export const Wrapper = styled.section`
-  height: 100vh;
-  display: grid;
-  grid-template-rows: 1fr 3rem;
-  background: #f9f7f7;
-`;
-
 export const Background = styled.section`
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -31,9 +24,12 @@ export const MiddleSection = styled.div`
 
 export const Title = styled.div`
   font-size: 70px;
-  color: #343a40 !important;
   font-weight: 700;
   line-height: 1.25;
+  background: linear-gradient(to right, #3F72AF, #BBE1FA);
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
   @media (max-width: 768px) {
     font-size: 50px;
   }
@@ -58,14 +54,6 @@ export const Submit = styled.div`
   margin-top: 2rem;
   display: flex;
   column-gap: 1rem;
-`;
-
-export const FooterSection = styled.section`
-  display: grid;
-  justify-content: center;
-  align-content: center;
-  background: #ffffff;
-  text-alignment: center
 `;
 
 export const Image = styled.section`
