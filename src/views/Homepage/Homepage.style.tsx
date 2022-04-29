@@ -26,7 +26,7 @@ export const Title = styled.div`
   font-size: 70px;
   font-weight: 700;
   line-height: 1.25;
-  background: linear-gradient(to right, #3F72AF, #BBE1FA);
+  background: linear-gradient(to right, #27b9bd, #a7d4db);
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
@@ -36,7 +36,7 @@ export const Title = styled.div`
 `;
 
 export const SubTitle = styled.div`
-  font-size: 24px;
+  font-size: 20px;
   line-height: 1.55;
   @media (max-width: 768px) {
     font-size: 18px;

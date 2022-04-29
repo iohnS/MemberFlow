@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Container, Nav, Navbar } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 type Props = {};
 
@@ -11,6 +12,12 @@ const Heading = styled.h2.attrs(() => ({
 `;
 
 export default function Navigation(props: Props) {
+  const navigate = useNavigate();
+  
+  const handleLogOut = () => {
+    return navigate('/');
+  }
+
   return (
     <div>
       <Navbar bg="light" expand="lg">
@@ -28,7 +35,7 @@ export default function Navigation(props: Props) {
               <Nav.Link href="">My Account</Nav.Link>
             </Nav>
             <Nav>
-              <Nav.Link href="">Logout</Nav.Link>
+              <Nav.Link href="" onClick={handleLogOut}>Logout</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

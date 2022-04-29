@@ -12,13 +12,16 @@ import {
 } from "./Homepage.style";
 import Footer from "../../components/layout/footer/Footer";
 import { Wrapper } from "../../styles/global.style";
+import { useNavigate } from "react-router-dom";
 
 type Props = {};
 
 export default function Homepage({}: Props) {
   const [validated, setValidated] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = (event: any) => {
+    return navigate("/dashboard");
     const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
@@ -31,7 +34,7 @@ export default function Homepage({}: Props) {
       <Background>
         <Content>
           <MiddleSection>
-            <Title>MemberFlow</Title>
+            <Title>MemberFlow.</Title>
             <SubTitle>
               Easy membership management software to streamline card membership
               and member database for your organization - Memberflow is created
@@ -44,7 +47,10 @@ export default function Homepage({}: Props) {
                   label="Email address"
                   className="mb-3"
                 >
-                  <Form.Control type="email" placeholder="name@example.com" />
+                  <Form.Control
+                    type="email"
+                    placeholder="name@example.com"
+                  />
                   <Form.Control.Feedback type="invalid">
                     Please provide a valid email.
                   </Form.Control.Feedback>
@@ -60,7 +66,9 @@ export default function Homepage({}: Props) {
                   >
                     Login
                   </Button>
-                  <Button variant="outline-primary">Forgot Your Password?</Button>
+                  <Button variant="outline-primary">
+                    Forgot Your Password?
+                  </Button>
                 </Submit>
               </Form>
             </Login>
