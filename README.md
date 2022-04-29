@@ -5,8 +5,6 @@
 - Typescript
 - Styled-Components
 - React-Bootstrap
-
-###### Ska implementeras
 - Docker
 - CI/CD
 
