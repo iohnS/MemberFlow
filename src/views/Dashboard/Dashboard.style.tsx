@@ -1,12 +1,26 @@
 import styled from "styled-components";
 
 export const CardSection = styled.section`
-  padding: 1rem;
   display: flex;
-  column-gap: 3rem;
+  column-gap: 2rem;
   flex-wrap: wrap;
+
   .h5 {
-    font-size: 32px !important;
+    font-size: 28px !important;
+  }
+
+  .card {
+    width: 14rem;
+    height: 14rem;
+    border-radius: 2rem;
+  }
+
+  .card-body {
+    padding: 2.5rem 1rem 1rem 1rem;
+  }
+
+  .card-subtitle {
+    opacity: 0.5 !important;
   }
 `;
 

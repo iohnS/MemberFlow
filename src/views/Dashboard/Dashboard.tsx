@@ -3,7 +3,6 @@ import Footer from "../../components/layout/footer/Footer";
 import Navigation from "../../components/layout/navigation/Navigation";
 import { Card } from "react-bootstrap";
 import { CardSection, Content, Title } from "./Dashboard.style";
-import "./Dashboard.scss";
 
 type Props = {};
 

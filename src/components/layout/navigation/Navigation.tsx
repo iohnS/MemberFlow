@@ -1,6 +1,6 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import "./Navigation.scss";
+import { NavigationStyle } from "./Navigation.style";
 
 type Props = {};
 
@@ -12,7 +12,7 @@ export default function Navigation(props: Props) {
   };
 
   return (
-    <div>
+    <NavigationStyle>
       <Navbar bg="light" expand="lg" sticky='top' variant="light" className="Navbar">
         <Container fluid>
           <Navbar.Brand href="#">MemberFlow.</Navbar.Brand>
@@ -35,6 +35,6 @@ export default function Navigation(props: Props) {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-    </div>
+    </NavigationStyle>
   );
 }
