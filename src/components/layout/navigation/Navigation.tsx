@@ -1,28 +1,21 @@
-import styled from "styled-components";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import "./Navigation.scss";
 
 type Props = {};
 
-const Heading = styled.h2.attrs(() => ({
-  className: "display-4",
-}))`
-  font-weight: bold,
-  color: #968c8c,
-`;
-
 export default function Navigation(props: Props) {
   const navigate = useNavigate();
-  
+
   const handleLogOut = () => {
-    return navigate('/');
-  }
+    return navigate("/");
+  };
 
   return (
     <div>
-      <Navbar bg="light" expand="lg">
+      <Navbar bg="light" expand="lg" sticky='top' variant="light" className="Navbar">
         <Container fluid>
-          <Navbar.Brand href="#">MemberFlow</Navbar.Brand>
+          <Navbar.Brand href="#">MemberFlow.</Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
@@ -35,7 +28,9 @@ export default function Navigation(props: Props) {
               <Nav.Link href="">My Account</Nav.Link>
             </Nav>
             <Nav>
-              <Nav.Link href="" onClick={handleLogOut}>Logout</Nav.Link>
+              <Nav.Link href="" onClick={handleLogOut}>
+                Logout
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

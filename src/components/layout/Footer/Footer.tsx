@@ -24,5 +24,5 @@ export const FooterSection = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #ffffff;
+  background: #f9f7f7;
 `;

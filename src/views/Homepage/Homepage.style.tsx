@@ -26,7 +26,7 @@ export const Title = styled.div`
   font-size: 70px;
   font-weight: 700;
   line-height: 1.25;
-  background: linear-gradient(to right, #27b9bd, #a7d4db);
+  background: linear-gradient(to left, #27b9bd, #3DE2E8);
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;

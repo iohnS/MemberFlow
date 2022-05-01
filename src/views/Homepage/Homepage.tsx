@@ -13,6 +13,7 @@ import {
 import Footer from "../../components/layout/footer/Footer";
 import { Wrapper } from "../../styles/global.style";
 import { useNavigate } from "react-router-dom";
+import "./Homepage.scss";
 
 type Props = {};
 
@@ -22,13 +23,14 @@ export default function Homepage({}: Props) {
 
   const handleSubmit = (event: any) => {
     return navigate("/dashboard");
-    const form = event.currentTarget;
+    /* const form = event.currentTarget;
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
     }
-    setValidated(true);
+    setValidated(true); */
   };
+
   return (
     <Wrapper>
       <Background>
@@ -63,10 +65,11 @@ export default function Homepage({}: Props) {
                     variant="primary"
                     type="submit"
                     onClick={handleSubmit}
+                    className="btn_primary"
                   >
                     Login
                   </Button>
-                  <Button variant="outline-primary">
+                  <Button variant="outline-primary"  className="btn-outline-primary">
                     Forgot Your Password?
                   </Button>
                 </Submit>

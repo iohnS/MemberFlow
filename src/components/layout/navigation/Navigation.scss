@@ -1,0 +1,17 @@
+.bg-light {
+  background-color: #f9f7f7 !important;
+  --bs-bg-opacity: 0 !important; 
+}
+
+.Navbar {
+  background-color: #f9f7f7 !important;
+}
+
+.navbar-brand {
+  font-size: 1.5em !important;
+  font-weight: 700 !important;
+  background: linear-gradient(to right, #27b9bd, #3DE2E8) !important;
+  color: transparent !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+}
