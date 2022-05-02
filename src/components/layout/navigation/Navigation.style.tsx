@@ -4,7 +4,7 @@ export const NavigationStyle = styled.section`
   .bg-light {
     background-color: #ffffff !important;
     --bs-bg-opacity: 0 !important;
-    border-bottom: 1px solid;
+    border-bottom: none;
   }
 
   .navbar-brand {

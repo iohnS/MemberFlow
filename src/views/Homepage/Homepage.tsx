@@ -49,10 +49,7 @@ export default function Homepage({}: Props) {
                   label="Email address"
                   className="mb-3"
                 >
-                  <Form.Control
-                    type="email"
-                    placeholder="name@example.com"
-                  />
+                  <Form.Control type="email" placeholder="name@example.com" />
                   <Form.Control.Feedback type="invalid">
                     Please provide a valid email.
                   </Form.Control.Feedback>
@@ -69,7 +66,10 @@ export default function Homepage({}: Props) {
                   >
                     Login
                   </Button>
-                  <Button variant="outline-primary"  className="btn-outline-primary">
+                  <Button
+                    variant="outline-primary"
+                    className="btn-outline-primary"
+                  >
                     Forgot Your Password?
                   </Button>
                 </Submit>

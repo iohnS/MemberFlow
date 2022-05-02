@@ -1,22 +1,34 @@
 import styled from "styled-components";
 
-export const CardSection = styled.section`
+export const Content = styled.section`
+  display: grid;
+  padding: 2rem;
+  row-gap: 2rem;
+  .card {
+    border: none;
+    border-radius: 0.75rem;
+    box-shadow: 0px 10.9688px 21.9375px rgba(118, 118, 118, 0.2);
+  }
+`;
+
+export const CardSection = styled.div`
   display: flex;
-  column-gap: 2rem;
-  flex-wrap: wrap;
+  justify-content: space-between;
 
   .h5 {
     font-size: 28px !important;
   }
 
   .card {
-    width: 14rem;
+    width: 13rem;
     height: 14rem;
-    border-radius: 2rem;
+    border-radius: 0.75rem;
+    box-shadow: 0px 10.9688px 21.9375px rgba(118, 118, 118, 0.2);
+    border: none;
   }
 
   .card-body {
-    padding: 2.5rem 1rem 1rem 1rem;
+    padding: 1rem 1rem 1rem 1rem;
   }
 
   .card-subtitle {
@@ -24,15 +36,38 @@ export const CardSection = styled.section`
   }
 `;
 
-export const Content = styled.section`
-  display: grid;
-  padding: 2rem;
-  row-gap: 1rem;
+export const IntroductionCard = styled.div`
+  .card {
+    background: #3de2e8;
+  }
+
+  .card-body {
+    padding: 3rem 2rem 1rem 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .h5 {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
 `;
 
-export const Title = styled.section`
+export const FirstColumn = styled.section`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2rem;
+`;
+
+export const Title = styled.div`
   display: grid;
   h6 {
     opacity: 0.6 !important;
   }
+`;
+
+export const SecondColumn = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2rem;
 `;
