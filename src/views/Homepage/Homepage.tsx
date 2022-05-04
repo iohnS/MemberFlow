@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Form, FloatingLabel, Spinner } from "react-bootstrap";
+import { Button, Form, FloatingLabel } from "react-bootstrap";
 import {
   Content,
   MiddleSection,
@@ -10,7 +10,7 @@ import {
   Background,
 } from "./Homepage.style";
 import Footer from "../../components/layout/footer/Footer";
-import { HomepageFooter } from "../../styles/global.style";
+import { HomepageFooter, MobileScreen } from "../../styles/global.style";
 import { useNavigate } from "react-router-dom";
 import "../../styles/App.scss";
 import myImage from "../../assets/homepage_img.jpg";
@@ -112,5 +112,8 @@ const ImageWrapper = styled.div`
     max-height: 100vh;
     width: 100%;
     object-fit: cover !important;
+    @media (max-width: ${MobileScreen}) {
+      display: none;
+    }
   }
 `;

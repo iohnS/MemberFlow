@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-
 /* .navbar-dark .navbar-nav .nav-link {
   color: rgba(255, 255, 255, 0.9);
 }
@@ -19,8 +18,8 @@ export const NavigationStyle = styled.section`
     color: transparent !important;
     -webkit-background-clip: text !important;
     background-clip: text !important;
-    padding-right: 2rem;
-    padding-left: 1.25rem;
+
+    padding-left: 2rem;
   }
 
   .nav-link:hover {

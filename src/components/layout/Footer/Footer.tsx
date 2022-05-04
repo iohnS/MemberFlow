@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { MobileScreen } from "../../../styles/global.style";
 
 export default function Footer() {
   return (
@@ -28,4 +29,9 @@ const FooterStyle = styled.section`
   position: absolute;
   bottom: 0;
   width: 100%;
+
+  @media (max-width: ${MobileScreen}) {
+    display: none;
+    visibility: hidden;
+  }
 `;

@@ -56,15 +56,3 @@ export const Submit = styled.div`
   display: flex;
   column-gap: 1rem;
 `;
-
-export const Image = styled.section`
-  background-image: url(${myImage});
-  max-width: 100%;
-  max-height: 100%;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  @media (max-width: ${MobileScreen}) {
-    display: none;
-  }
-`;

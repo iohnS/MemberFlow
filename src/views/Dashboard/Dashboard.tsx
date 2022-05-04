@@ -1,4 +1,4 @@
-import { Card } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import {
   CardSection,
   Content,
@@ -13,6 +13,7 @@ import {
 import introductionImg from "../../assets/dashboard.png";
 import adImg from "../../assets/teamwork.png";
 import {
+  ArrowRight,
   Calendar2HeartFill,
   Cash,
   PersonHeart,
@@ -20,10 +21,13 @@ import {
 } from "react-bootstrap-icons";
 import LineChart from "../../components/charts/LineChart/LineChart";
 import DashboardTemplate from "../DashboardTemplate";
+import { useNavigate } from "react-router";
 
 type Props = {};
 
 export default function Dashboard(props: Props) {
+  const navigate = useNavigate();
+
   return (
     <DashboardTemplate
       body={
@@ -38,6 +42,21 @@ export default function Dashboard(props: Props) {
                       This platform is made to manage your organization simpler
                       and more efficient. Overview your members and income flow.
                     </Card.Text>
+                    <div
+                      style={{
+                        display: "grid",
+                        justifyContent: "left",
+                        alignContent: "center",
+                      }}
+                    >
+                      <Button
+                        onClick={() => navigate("/members")}
+                        variant="outline-light"
+                      >
+                        {" "}
+                        Go to Members {<ArrowRight />}
+                      </Button>
+                    </div>
                   </div>
                   <div
                     style={{
@@ -106,8 +125,8 @@ export default function Dashboard(props: Props) {
             <GraphCard>
               <Card>
                 <Card.Body>
-                  <Card.Title>New Members By Month</Card.Title>
-                  <Card.Text> Overview of recent months</Card.Text>
+                  <Card.Title>East Asia Student Association Lund</Card.Title>
+                  <Card.Text>New Members By Month</Card.Text>
                   <LineChart />
                 </Card.Body>
               </Card>

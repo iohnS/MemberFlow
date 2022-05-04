@@ -12,6 +12,12 @@ export const Content = styled.section`
   grid-template-columns: 1fr 0.75fr;
   padding: 1.5rem;
   column-gap: ${ComponentGap};
+  row-gap: ${ComponentGap};
+
+  @media (max-width: ${MobileScreen}) {
+    display: flex;
+    flex-direction: column;
+  }
 
   .card {
     border: none;
@@ -37,25 +43,39 @@ export const IntroductionCard = styled.div`
     transition: all ease 200ms;
     box-shadow: 0px 10.9688px 21.9375px rgba(118, 118, 118, 0.2);
   }
-  
+
   .h5 {
     color: white;
   }
-  
+
   p {
     color: white;
   }
-  
+
   .card-body {
     padding: 3rem 4rem 2rem 2rem;
     display: grid;
     grid-template-columns: 1fr 0.7fr;
   }
+
+  @media (max-width: ${MobileScreen}) {
+    img {
+      display: none;
+      visibility: hidden;
+    }
+
+    .card-body {
+      padding: 2rem 4rem 2rem 2rem;
+      display: flex;
+    }
+  }
 `;
 
 export const CardSection = styled.div`
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
+  row-gap: ${ComponentGap};
 
   .h5 {
     font-size: 1.5rem !important;
@@ -94,6 +114,10 @@ export const CardSection = styled.div`
     .card {
       width: 8rem;
     }
+  }
+
+  @media (max-width: ${MobileScreen}) {
+    justify-content: space-evenly;
   }
 `;
 
@@ -147,7 +171,6 @@ export const GraphCard = styled.div`
   .card-body {
     padding: 1.5rem;
   }
-
 `;
 
 export const AdCard = styled.div`
