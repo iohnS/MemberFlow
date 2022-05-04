@@ -1,8 +1,19 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.section`
-  height: 100vh;
-  display: grid;
-  grid-template-rows: 1fr 3rem;
-  background: #FAFAFA;
+export const AppThemeColor = "#3de2e8";
+
+export const ThemeMode = "dark";
+
+export const HomepageFooter = styled.section`
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 `;
+
+export const ComponentGap = `1.5rem`;
+
+export const MobileScreen = "768px";
+
+export const MediumScreen = "992";
+
+export const LargeScreen = "1200px";

@@ -1,8 +1,13 @@
 import styled from "styled-components";
 
+
+/* .navbar-dark .navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.9);
+}
+ */
 export const NavigationStyle = styled.section`
   .bg-light {
-    background-color: #ffffff !important;
+    background-color: #fafafa !important;
     --bs-bg-opacity: 0 !important;
     border-bottom: none;
   }
@@ -16,5 +21,9 @@ export const NavigationStyle = styled.section`
     background-clip: text !important;
     padding-right: 2rem;
     padding-left: 1.25rem;
+  }
+
+  .nav-link:hover {
+    text-decoration-line: underline;
   }
 `;

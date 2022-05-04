@@ -3,26 +3,29 @@ import styled from "styled-components";
 
 export default function Footer() {
   return (
-    <FooterSection>
-      <div>
-        If you have any questions please contact:{" "}
-        <Link
-          to="#"
-          onClick={(e) => {
-            window.location.href = "mailto:patriktao@gmail.com";
-            e.preventDefault();
-          }}
-        >
-          patriktao@gmail.com
-        </Link>
-      </div>
-    </FooterSection>
+    <FooterStyle>
+      If you have any questions please contact:
+      <Link
+        to="#"
+        onClick={(e) => {
+          window.location.href = "mailto:patriktao@gmail.com";
+          e.preventDefault();
+        }}
+      >
+        patriktao@gmail.com
+      </Link>
+    </FooterStyle>
   );
 }
 
-export const FooterSection = styled.section`
+/* #fafafa */
+const FooterStyle = styled.section`
+  background: white;
+  padding: 0.75rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #f9f7f7;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 `;

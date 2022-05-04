@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Button, Form, FloatingLabel } from "react-bootstrap";
+import { useEffect, useState } from "react";
+import { Button, Form, FloatingLabel, Spinner } from "react-bootstrap";
 import {
   Content,
   MiddleSection,
@@ -8,18 +8,31 @@ import {
   Submit,
   Login,
   Background,
-  Image,
 } from "./Homepage.style";
 import Footer from "../../components/layout/footer/Footer";
-import { Wrapper } from "../../styles/global.style";
+import { HomepageFooter } from "../../styles/global.style";
 import { useNavigate } from "react-router-dom";
-import "./Homepage.scss";
+import "../../styles/App.scss";
+import myImage from "../../assets/homepage_img.jpg";
+import styled from "styled-components";
+import Functions from "../../utils/Functions";
+import RenderSmoothImage from "render-smooth-image-react";
+import "render-smooth-image-react/build/style.css";
 
 type Props = {};
 
 export default function Homepage({}: Props) {
-  const [validated, setValidated] = useState(false);
   const navigate = useNavigate();
+  const [validated, setValidated] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {}, []);
+
+  const handleLoadImage = async () => {
+    await Functions.timeout(1000).then(() => {
+      setLoading(false);
+    });
+  };
 
   const handleSubmit = (event: any) => {
     return navigate("/dashboard");
@@ -77,9 +90,27 @@ export default function Homepage({}: Props) {
             </Login>
           </MiddleSection>
         </Content>
-        <Image />
+        <ImageWrapper>
+          <RenderSmoothImage src={myImage} alt="" />
+        </ImageWrapper>
       </Background>
-      <Footer />
+      <HomepageFooter>
+        <Footer />
+      </HomepageFooter>
     </Wrapper>
   );
 }
+
+const Wrapper = styled.section`
+  display: grid;
+  height: 100vh;
+  background: white;
+`;
+
+const ImageWrapper = styled.div`
+  img {
+    max-height: 100vh;
+    width: 100%;
+    object-fit: cover !important;
+  }
+`;

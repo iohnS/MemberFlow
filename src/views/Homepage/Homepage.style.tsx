@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import myImage from "../../assets/homepage_img.jpg";
+import { MobileScreen } from "../../styles/global.style";
 
 export const Background = styled.section`
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  @media (max-width: 768px) {
+  grid-template-columns: 0.65fr 1fr;
+  @media (max-width: ${MobileScreen}) {
     grid-template-columns: none;
   }
 `;
@@ -26,11 +27,11 @@ export const Title = styled.div`
   font-size: 70px;
   font-weight: 700;
   line-height: 1.25;
-  background: linear-gradient(to left, #27b9bd, #3DE2E8);
+  background: linear-gradient(to right, #3de2e8, #27b9bd);
   color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
-  @media (max-width: 768px) {
+  @media (max-width: ${MobileScreen}) {
     font-size: 50px;
   }
 `;
@@ -38,14 +39,14 @@ export const Title = styled.div`
 export const SubTitle = styled.div`
   font-size: 20px;
   line-height: 1.55;
-  @media (max-width: 768px) {
+  @media (max-width: ${MobileScreen}) {
     font-size: 18px;
   }
 `;
 
 export const Login = styled.div`
   max-width: 75%;
-  @media (max-width: 768px) {
+  @media (max-width: ${MobileScreen}) {
     max-width: 100%;
   }
 `;
@@ -63,7 +64,7 @@ export const Image = styled.section`
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  @media (max-width: 768px) {
+  @media (max-width: ${MobileScreen}) {
     display: none;
   }
 `;
