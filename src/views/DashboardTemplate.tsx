@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Footer from "../components/layout/footer/Footer";
+import Footer from "../components/layout/Footer/Footer";
 import Navigation from "../components/layout/navigation/Navigation";
 
 type Props = {
@@ -9,10 +9,8 @@ type Props = {
 const DashboardTemplate = ({ body = "N/A" }: Props) => {
   return (
     <Wrapper>
-      <div>
-        <Navigation />
-        {body}
-      </div>
+      <Navigation />
+      {body}
       <Footer />
     </Wrapper>
   );
@@ -20,8 +18,8 @@ const DashboardTemplate = ({ body = "N/A" }: Props) => {
 
 const Wrapper = styled.section`
   display: grid;
+  grid-template-rows: 0.2fr 1fr 0.2fr
   height: 100vh;
-  background: white;
 `;
 
 export default DashboardTemplate;
