@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { MobileScreen } from "../../../styles/global.style";
 
-export default function Footer() {
+const Footer = () => {
   return (
     <FooterStyle>
       If you have any questions please contact:
@@ -26,12 +26,9 @@ const FooterStyle = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
+  position: relative;
   bottom: 0;
   width: 100%;
-
-  @media (max-width: ${MobileScreen}) {
-    display: none;
-    visibility: hidden;
-  }
 `;
+
+export default Footer;

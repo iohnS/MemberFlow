@@ -9,12 +9,12 @@ import {
   Login,
   Background,
 } from "./Homepage.style";
-import { MobileScreen } from "../../styles/global.style";
-import { useNavigate, Link } from "react-router-dom";
+import Footer from "../../components/layout/Footer/Footer";
+import { HomepageFooter, MobileScreen } from "../../styles/global.style";
+import { useNavigate } from "react-router-dom";
 import "../../styles/App.scss";
 import myImage from "../../assets/homepage_img.jpg";
 import styled from "styled-components";
-import Functions from "../../utils/Functions";
 import RenderSmoothImage from "render-smooth-image-react";
 import "render-smooth-image-react/build/style.css";
 import Notification from "../../components/layout/notification/Notification";
@@ -25,15 +25,8 @@ type Props = {};
 export default function Homepage({}: Props) {
   const navigate = useNavigate();
   const [validated, setValidated] = useState(false);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {}, []);
-
-  const handleLoadImage = async () => {
-    await Functions.timeout(1000).then(() => {
-      setLoading(false);
-    });
-  };
 
   const handleSubmit = (event: any) => {
     return navigate("/dashboard");

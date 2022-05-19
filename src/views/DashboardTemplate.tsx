@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Footer from "../components/layout/footer/Footer";
+import Footer from "../components/layout/Footer/Footer";
 import Navigation from "../components/layout/navigation/Navigation";
 
 type Props = {
