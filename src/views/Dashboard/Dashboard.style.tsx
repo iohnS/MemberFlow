@@ -5,18 +5,50 @@ import {
   MobileScreen,
   ComponentGap,
   AppThemeColor,
+  NavBarHeight,
 } from "../../styles/global.style";
 
 export const Content = styled.section`
-  display: grid;
-  grid-template-columns: 1fr 0.75fr;
-  padding: 1.5rem;
-  column-gap: ${ComponentGap};
-  row-gap: ${ComponentGap};
+  min-height: calc(100vh - ${NavBarHeight});
+  padding: ${ComponentGap};
+  display: flex;
 
-  @media (max-width: ${MobileScreen}) {
+  .side-to-side {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: ${ComponentGap};
+    row-gap: ${ComponentGap};
+  }
+
+  .up-down-1 {
     display: flex;
+    row-gap: ${ComponentGap};
     flex-direction: column;
+  }
+
+  .up-down-2 {
+    display: flex;
+    row-gap: ${ComponentGap};
+    flex-direction: column;
+  }
+
+  .container {
+    margin: 0;
+    padding: 0;
+    min-width: 100%;
+
+    .row {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      column-gap: ${ComponentGap};
+    }
+
+    .col {
+      display: flex;
+      padding: 0;
+      height: 100%;
+    }
   }
 
   .card {
@@ -24,16 +56,12 @@ export const Content = styled.section`
     border-radius: 0.75rem;
     box-shadow: 0px 10.9688px 21.9375px rgba(118, 118, 118, 0.2);
   }
-`;
 
-export const FirstColumn = styled.section`
-  display: flex;
-  flex-direction: column;
-  row-gap: ${ComponentGap};
-
-  .h5 {
-    font-size: 40px;
-    font-weight: 700;
+  @media (max-width: ${MediumScreen}) {
+    .side-to-side {
+      display: flex;
+      flex-direction: column;
+    }
   }
 `;
 
@@ -42,23 +70,46 @@ export const IntroductionCard = styled.div`
     background: ${AppThemeColor};
     transition: all ease 200ms;
     box-shadow: 0px 10.9688px 21.9375px rgba(118, 118, 118, 0.2);
+
+    .card-body {
+      padding: 2rem 2rem 2rem 2rem;
+      display: flex;
+      flex-direction: rows;
+
+      .h5 {
+        color: white;
+        font-size: 2.4rem;
+      }
+
+      p {
+        color: white;
+        font-size: 1.1rem;
+      }
+
+      .text-container {
+        display: flex;
+        flex-direction: column;
+
+        .button {
+          display: grid;
+          justify-content: left;
+          align-content: center;
+        }
+      } 
+
+      .img-container{
+        display:flex;
+        justify-content:flex-end;
+        .img {
+          height: 100%;
+          width: 100%;
+        }
+      }
+      }
+    }
   }
 
-  .h5 {
-    color: white;
-  }
-
-  p {
-    color: white;
-  }
-
-  .card-body {
-    padding: 3rem 4rem 2rem 2rem;
-    display: grid;
-    grid-template-columns: 1fr 0.7fr;
-  }
-
-  @media (max-width: ${MobileScreen}) {
+  @media (max-width: ${LargeScreen}) {
     img {
       display: none;
       visibility: hidden;
@@ -78,42 +129,14 @@ export const CardSection = styled.div`
   row-gap: ${ComponentGap};
 
   .h5 {
-    font-size: 1.5rem !important;
+    font-size: 1.5rem;
     transition: all ease-in 100ms;
   }
 
-  .card {
-    width: 10rem;
-    height: 13rem;
-    border-radius: 0.75rem;
-    border: none;
-    transition: all ease 200ms;
-    box-shadow: 0px 10.9688px 21.9375px rgba(118, 118, 118, 0.2);
-  }
-
-  .card:hover {
-    transform: scale(1.03);
-    box-shadow: 0 13px 40px -5px hsla(240, 30.1%, 28%, 0.12),
-      0 8px 32px -8px hsla(0, 0%, 0%, 0.14),
-      0 -6px 32px -6px hsla(0, 0%, 0%, 0.02);
-  }
-
-  .card-body {
-    padding: 1rem 1rem 1rem 1rem;
-    text-align: center;
+  @media (min-width: ${LargeScreen}) {
     display: grid;
-    grid-template-rows: 1fr 0.45fr 0.5fr;
-  }
-
-  .card-subtitle {
-    opacity: 0.9 !important;
-    text-align: center;
-  }
-
-  @media (max-width: ${LargeScreen}) {
-    .card {
-      width: 8rem;
-    }
+    grid-template-columns: repeat(4, 175px);
+    column-gap: ${ComponentGap};
   }
 
   @media (max-width: ${MobileScreen}) {
@@ -128,56 +151,34 @@ export const Title = styled.div`
   }
 `;
 
-export const IconContainer = styled.div`
-  font-size: 2rem;
-  display: grid;
-  align-items: center;
-  justify-items: center;
-`;
-
-export const IconBackground = styled.div`
-  color: #ffffff;
-  display: grid;
-  justify-items: center;
-  align-items: center;
-  opacity: 0.7;
-  padding: 0.7rem;
-  border-radius: 1rem;
-`;
-
-export const SecondColumn = styled.section`
-  display: flex;
-  flex-direction: column;
-  row-gap: ${ComponentGap};
-
-  .card {
-    box-shadow: 0 13px 40px -5px hsla(240, 30.1%, 28%, 0.12),
-      0 8px 32px -8px hsla(0, 0%, 0%, 0.14),
-      0 -6px 32px -6px hsla(0, 0%, 0%, 0.02);
-  }
-
-  .h5 {
-    font-size: 1.5rem;
-    font-weight: 700;
-  }
-`;
-
 export const GraphCard = styled.div`
   .card {
-    display: grid;
     box-shadow: 0px 10.9688px 21.9375px rgba(118, 118, 118, 0.2);
+    height: auto;
+    width: 100%;
   }
 
   .card-body {
     padding: 1.5rem;
+    height: auto;
+    width: 100%;
+  }
+
+  .graphStyle {
+    height: auto !important;
+    width: 100% !important;
+    max-height: 100% !important;
+    max-width: 100% !important;
   }
 `;
 
 export const AdCard = styled.div`
+  height: 100%;
   .card {
     transition: all ease 200ms;
     box-shadow: 0px 10.9688px 21.9375px rgba(118, 118, 118, 0.2);
   }
+
   .card:hover {
     transform: scale(1.01);
     box-shadow: 0 13px 40px -5px hsla(240, 30.1%, 28%, 0.12),
@@ -192,6 +193,7 @@ export const AdCard = styled.div`
 
   .card-body {
     padding: 0;
+    height: 100%;
     border-radius: 30px;
     border-radius: 0.75rem;
     background: linear-gradient(130.44deg, ${AppThemeColor} 0%, #a89de8 100%);

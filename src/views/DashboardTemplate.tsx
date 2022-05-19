@@ -9,19 +9,19 @@ type Props = {
 const DashboardTemplate = ({ body = "N/A" }: Props) => {
   return (
     <Wrapper>
-      <div>
-        <Navigation />
-        {body}
-      </div>
-      <Footer />
+      <Navigation />
+      {body}
+      {/* <Footer /> */}
     </Wrapper>
   );
 };
 
 const Wrapper = styled.section`
   display: grid;
-  height: 100vh;
+  min-height: 100vh;
+  max-width: 100vw;
   background: white;
+  overflow: hidden;
 `;
 
 export default DashboardTemplate;

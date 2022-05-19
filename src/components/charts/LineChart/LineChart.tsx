@@ -39,7 +39,7 @@ const LineChart: React.FunctionComponent = () => {
     ],
   };
 
-  return <Line data={state} options={options} />;
+  return <Line data={state} options={options} className="graphStyle"/>;
 };
 
 export default LineChart;

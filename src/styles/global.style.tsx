@@ -14,6 +14,9 @@ export const ComponentGap = `1.5rem`;
 
 export const MobileScreen = "768px";
 
-export const MediumScreen = "992";
+export const MediumScreen = "992px";
 
 export const LargeScreen = "1200px";
+
+export const NavBarHeight = "62px";
+

@@ -3,11 +3,7 @@ import {
   CardSection,
   Content,
   IntroductionCard,
-  FirstColumn,
-  SecondColumn,
   GraphCard,
-  IconContainer,
-  IconBackground,
   AdCard,
 } from "./Dashboard.style";
 import introductionImg from "../../assets/dashboard.png";
@@ -22,136 +18,116 @@ import {
 import LineChart from "../../components/charts/LineChart/LineChart";
 import DashboardTemplate from "../DashboardTemplate";
 import { useNavigate } from "react-router";
+import InfoCard from "../../components/layout/information/InfoCard/InfoCard";
+import SupportNotification from "../../components/layout/notification/SupportNotification";
 
 type Props = {};
 
 export default function Dashboard(props: Props) {
   const navigate = useNavigate();
 
-  return (
-    <DashboardTemplate
-      body={
-        <Content>
-          <FirstColumn>
-            <IntroductionCard>
-              <Card>
-                <Card.Body>
-                  <div>
-                    <Card.Title>Welcome to your Dashboard.</Card.Title>
-                    <Card.Text>
-                      This platform is made to manage your organization simpler
-                      and more efficient. Overview your members and income flow.
-                    </Card.Text>
-                    <div
-                      style={{
-                        display: "grid",
-                        justifyContent: "left",
-                        alignContent: "center",
-                      }}
-                    >
-                      <Button
-                        onClick={() => navigate("/members")}
-                        variant="outline-light"
-                      >
-                        {" "}
-                        Go to Members {<ArrowRight />}
-                      </Button>
-                    </div>
-                  </div>
-                  <div
-                    style={{
-                      display: "grid",
-                      justifyContent: "end",
-                      alignContent: "center",
-                    }}
-                  >
-                    <img
-                      src={introductionImg}
-                      alt="hej"
-                      style={{ height: "225px" }}
-                    />
-                  </div>
-                </Card.Body>
-              </Card>
-            </IntroductionCard>
-            <CardSection>
-              <Card>
-                <Card.Body>
-                  <IconContainer>
-                    <IconBackground style={{ background: "#7371d1" }}>
-                      <PersonHeart />
-                    </IconBackground>
-                  </IconContainer>
-                  <Card.Title>188</Card.Title>
-                  <Card.Subtitle>Active Members</Card.Subtitle>
-                </Card.Body>
-              </Card>
-              <Card>
-                <Card.Body>
-                  <IconContainer>
-                    <IconBackground style={{ background: "#03A89E" }}>
-                      <Calendar2HeartFill />
-                    </IconBackground>
-                  </IconContainer>
-                  <Card.Title>9</Card.Title>
-                  <Card.Subtitle>Monthly Registers</Card.Subtitle>
-                </Card.Body>
-              </Card>
-              <Card>
-                <Card.Body>
-                  <IconContainer>
-                    <IconBackground style={{ background: "#56CCF2" }}>
-                      <PiggyBankFill />
-                    </IconBackground>
-                  </IconContainer>
-                  <Card.Title>10000</Card.Title>
-                  <Card.Subtitle>Total Income</Card.Subtitle>
-                </Card.Body>
-              </Card>
-              <Card>
-                <Card.Body>
-                  <IconContainer>
-                    <IconBackground style={{ background: "#FF69B4" }}>
-                      <Cash />
-                    </IconBackground>
-                  </IconContainer>
-                  <Card.Title>540</Card.Title>
-                  <Card.Subtitle>Monthly Income</Card.Subtitle>
-                </Card.Body>
-              </Card>
-            </CardSection>
-          </FirstColumn>
-          <SecondColumn>
-            <GraphCard>
-              <Card>
-                <Card.Body>
-                  <Card.Title>East Asia Student Association Lund</Card.Title>
-                  <Card.Text>New Members By Month</Card.Text>
-                  <LineChart />
-                </Card.Body>
-              </Card>
-            </GraphCard>
-            <AdCard>
-              <Card>
-                <Card.Body>
-                  <Card.Title>
-                    Made In Lund. By{" "}
-                    <span style={{ textDecorationLine: "underline" }}>
-                      Someone
-                    </span>
-                    .
-                  </Card.Title>
-                  <img
-                    src={adImg}
-                    alt=""
-                    style={{ height: "120px", position: "relative" }}
-                  />
-                </Card.Body>
-              </Card>
-            </AdCard>
-          </SecondColumn>
-        </Content>
-      }
-    />
+  const IntroCard = (
+    <IntroductionCard>
+      <Card>
+        <Card.Body>
+          <div className="text-container">
+            <Card.Title>Welcome to your Dashboard.</Card.Title>
+            <Card.Text>
+              This platform is made to manage your organization simpler and more
+              efficient. Overview your members and income flow.
+            </Card.Text>
+            <div className="button">
+              <Button
+                onClick={() => navigate("/members")}
+                variant="outline-light"
+              >
+                {" "}
+                Go to Members {<ArrowRight />}
+              </Button>
+            </div>
+          </div>
+          <div className="img-container">
+            <img src={introductionImg} alt="hej" className="img" />
+          </div>
+        </Card.Body>
+      </Card>
+    </IntroductionCard>
   );
+
+  const InfoCards = (
+    <CardSection>
+      <InfoCard
+        title="188"
+        subtitle="Active Members"
+        color="#7371d1"
+        icon={<PersonHeart />}
+      />
+      <InfoCard
+        title="9"
+        subtitle="Monthly Registers"
+        color="#03A89E"
+        icon={<Calendar2HeartFill />}
+      />
+      <InfoCard
+        title="10000"
+        subtitle="Total Income"
+        color="#56CCF2"
+        icon={<PiggyBankFill />}
+      />
+      <InfoCard
+        title="540"
+        subtitle="Monthly Income"
+        color="#FF69B4"
+        icon={<Cash />}
+      />
+    </CardSection>
+  );
+
+  const Graph = (
+    <GraphCard>
+      <Card>
+        <Card.Body>
+          <Card.Title>East Asia Student Association Lund</Card.Title>
+          <Card.Text>New Members By Month</Card.Text>
+          <LineChart />
+        </Card.Body>
+      </Card>
+    </GraphCard>
+  );
+
+  const Ads = (
+    <AdCard>
+      <Card>
+        <Card.Body>
+          <Card.Title>
+            Made In Lund. By{" "}
+            <span style={{ textDecorationLine: "underline" }}>Someone</span>.
+          </Card.Title>
+          <img
+            src={adImg}
+            alt=""
+            style={{ height: "120px", position: "relative" }}
+          />
+        </Card.Body>
+      </Card>
+    </AdCard>
+  );
+
+  const body = (
+    <Content>
+      <div className="side-to-side">
+        <div className="up-down-1">
+          {IntroCard}
+          {InfoCards}
+        </div>
+        <div className="up-down-2">
+          {Graph}
+          {Ads}
+        </div>
+      </div>
+      <SupportNotification />
+    </Content>
+  );
+
+  return <DashboardTemplate body={body} />;
 }

@@ -11,6 +11,8 @@ export const Background = styled.section`
 `;
 
 export const Content = styled.section`
+  height:100vh;
+  max-height: -webkit-fill-available;
   display: flex;
   align-items: center;
   justify-content: center;

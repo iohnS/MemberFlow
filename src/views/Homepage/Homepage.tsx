@@ -9,15 +9,16 @@ import {
   Login,
   Background,
 } from "./Homepage.style";
-import Footer from "../../components/layout/footer/Footer";
-import { HomepageFooter, MobileScreen } from "../../styles/global.style";
-import { useNavigate } from "react-router-dom";
+import { MobileScreen } from "../../styles/global.style";
+import { useNavigate, Link } from "react-router-dom";
 import "../../styles/App.scss";
 import myImage from "../../assets/homepage_img.jpg";
 import styled from "styled-components";
 import Functions from "../../utils/Functions";
 import RenderSmoothImage from "render-smooth-image-react";
 import "render-smooth-image-react/build/style.css";
+import Notification from "../../components/layout/notification/Notification";
+import SupportNotification from "../../components/layout/notification/SupportNotification";
 
 type Props = {};
 
@@ -94,16 +95,12 @@ export default function Homepage({}: Props) {
           <RenderSmoothImage src={myImage} alt="" />
         </ImageWrapper>
       </Background>
-      <HomepageFooter>
-        <Footer />
-      </HomepageFooter>
+      <SupportNotification />
     </Wrapper>
   );
 }
 
 const Wrapper = styled.section`
-  display: grid;
-  height: 100vh;
   background: white;
 `;
 
