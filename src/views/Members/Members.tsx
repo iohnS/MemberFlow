@@ -2,8 +2,14 @@ import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import MemberTable from "../../components/tables/MemberTable";
 import { AdCard } from "../Dashboard/Dashboard.style";
 import DashboardTemplate from "../DashboardTemplate";
-import { Content, OptionStyle, TableStyle } from "./Members.style";
-import { Plus, PencilSquare, Upload, PersonX } from "react-bootstrap-icons";
+import { Content, Options, TableStyle } from "./Members.style";
+import {
+  Plus,
+  PencilSquare,
+  Upload,
+  PersonX,
+  Download,
+} from "react-bootstrap-icons";
 
 type Props = {};
 
@@ -20,34 +26,30 @@ const Members = (props: Props) => {
     </AdCard>
   );
 
-  const Options = (
-    <OptionStyle>
-      <Card>
-        <Card.Body>
-          <Card.Title>Management</Card.Title>
-          <Row>
-            <Col>
-              <Button variant="outline-primary" className="button">
-                Add
-                <Plus />
-              </Button>
-            </Col>
-            <Col>
-              <Button variant="outline-danger" className="button">
-                Remove
-                <PersonX />
-              </Button>
-            </Col>
-            <Col>
-              <Button variant="outline-secondary" className="button">
-                Import
-                <Upload />
-              </Button>
-            </Col>
-          </Row>
-        </Card.Body>
-      </Card>
-    </OptionStyle>
+  const Buttons = (
+    <div className="buttons">
+      <Button variant="primary" className="button">
+        Add <Plus />
+      </Button>
+      <Button variant="secondary" className="button">
+        Import
+        <Upload />
+      </Button>
+      <Button variant="success" className="button">
+        Export
+        <Download />
+      </Button>
+    </div>
+  );
+
+  const SearchBar = (
+    <Form style={{ marginLeft: "3rem" }}>
+      <Form.Control
+        style={{ width: "350px" }}
+        type="text"
+        placeholder="Search for a name..."
+      />
+    </Form>
   );
 
   const Table = (
@@ -57,14 +59,11 @@ const Members = (props: Props) => {
           <Card.Body>
             <Row style={{ paddingBottom: "0.5rem" }}>
               <div className="menu">
-                <h3>Members</h3>
-                <Form style={{marginLeft: "3rem"}}>
-                  <Form.Control
-                    style={{ width: "350px" }}
-                    type="text"
-                    placeholder="Search for a name..."
-                  />
-                </Form>
+                <div className="searchbar">
+                  <h4>Active Members</h4>
+                  {SearchBar}
+                </div>
+                {Buttons}
               </div>
             </Row>
             <Row>
@@ -78,11 +77,7 @@ const Members = (props: Props) => {
 
   const body = (
     <Content>
-      <Row>
-        {Table}
-        {Options}
-        <Col>{Ads}</Col>
-      </Row>
+      <Row>{Table}</Row>
     </Content>
   );
 

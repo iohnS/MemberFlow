@@ -1,12 +1,18 @@
 import styled from "styled-components";
-import { Container, Form, FormControl, Nav, Navbar } from "react-bootstrap";
+import {
+  Container,
+  Form,
+  FormControl,
+  Nav,
+  Navbar as BootstrapNavbar,
+} from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect } from "react";
-import { ThemeMode, NavBarHeight } from "../../../styles/global.style";
+import { ThemeMode, NavBarHeight } from "../../../../styles/global.style";
 
 type Props = {};
 
-export default function Navigation(props: Props) {
+const Navbar: React.FC = (props: Props) => {
   const navigate = useNavigate();
   const location = useLocation().pathname;
 
@@ -28,7 +34,6 @@ export default function Navigation(props: Props) {
  */
   const NavigationStyle = styled.section`
     .bg-light {
-      background-color: #fafafa !important;
       --bs-bg-opacity: 0 !important;
       border-bottom: none;
     }
@@ -69,7 +74,7 @@ export default function Navigation(props: Props) {
 
   return (
     <NavigationStyle>
-      <Navbar
+      <BootstrapNavbar
         expand="lg"
         sticky="top"
         bg={ThemeMode}
@@ -77,9 +82,9 @@ export default function Navigation(props: Props) {
         className="Navbar"
       >
         <Container fluid>
-          <Navbar.Brand href="#">MemberFlow.</Navbar.Brand>
-          <Navbar.Toggle aria-controls="navbarScroll" />
-          <Navbar.Collapse id="navbarScroll">
+          <BootstrapNavbar.Brand href="#">MemberFlow.</BootstrapNavbar.Brand>
+          <BootstrapNavbar.Toggle aria-controls="navbarScroll" />
+          <BootstrapNavbar.Collapse id="navbarScroll">
             <Nav
               className="me-auto my-2 my-lg-0"
               style={{ maxHeight: NavBarHeight }}
@@ -118,35 +123,11 @@ export default function Navigation(props: Props) {
             <Nav>
               <Nav.Link onClick={handleLogOut}>Logout</Nav.Link>
             </Nav>
-          </Navbar.Collapse>
+          </BootstrapNavbar.Collapse>
         </Container>
-      </Navbar>
+      </BootstrapNavbar>
     </NavigationStyle>
   );
-}
+};
 
-/* .navbar-dark .navbar-nav .nav-link {
-  color: rgba(255, 255, 255, 0.9);
-}
- */
-const NavigationStyle = styled.div`
-  .bg-light {
-    background-color: #fafafa !important;
-    --bs-bg-opacity: 0 !important;
-    border-bottom: none;
-  }
-
-  .navbar-brand {
-    font-size: 1.5em !important;
-    font-weight: 700 !important;
-    background: linear-gradient(to right, #27b9bd, #3de2e8) !important;
-    color: transparent !important;
-    -webkit-background-clip: text !important;
-    background-clip: text !important;
-    padding-left: 2rem;
-  }
-
-  .nav-link:hover {
-    text-decoration-line: underline;
-  }
-`;
+export default Navbar;

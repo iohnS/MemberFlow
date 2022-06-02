@@ -19,7 +19,12 @@ import LineChart from "../../components/charts/LineChart/LineChart";
 import DashboardTemplate from "../DashboardTemplate";
 import { useNavigate } from "react-router";
 import InfoCard from "../../components/layout/information/InfoCard/InfoCard";
-import SupportNotification from "../../components/layout/notification/SupportNotification";
+import {
+  FlowBlue,
+  FlowGreen,
+  FlowPink,
+  FlowPurple,
+} from "../../styles/global.style";
 
 type Props = {};
 
@@ -46,10 +51,10 @@ export default function Dashboard(props: Props) {
               </Button>
             </div>
           </div>
-          <div className="img-container">
-            <img src={introductionImg} alt="hej" className="img" />
-          </div>
         </Card.Body>
+        <div className="img-container">
+          <img src={introductionImg} alt="hej" className="img" />
+        </div>
       </Card>
     </IntroductionCard>
   );
@@ -59,25 +64,25 @@ export default function Dashboard(props: Props) {
       <InfoCard
         title="188"
         subtitle="Active Members"
-        color="#7371d1"
+        color={FlowPurple}
         icon={<PersonHeart />}
       />
       <InfoCard
         title="9"
         subtitle="Monthly Registers"
-        color="#03A89E"
+        color={FlowGreen}
         icon={<Calendar2HeartFill />}
       />
       <InfoCard
         title="10000"
         subtitle="Total Income"
-        color="#56CCF2"
+        color={FlowBlue}
         icon={<PiggyBankFill />}
       />
       <InfoCard
         title="540"
         subtitle="Monthly Income"
-        color="#FF69B4"
+        color={FlowPink}
         icon={<Cash />}
       />
     </CardSection>
@@ -125,7 +130,6 @@ export default function Dashboard(props: Props) {
           {Ads}
         </div>
       </div>
-      <SupportNotification />
     </Content>
   );
 

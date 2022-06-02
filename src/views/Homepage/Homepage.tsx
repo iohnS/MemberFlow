@@ -9,7 +9,6 @@ import {
   Login,
   Background,
 } from "./Homepage.style";
-import Footer from "../../components/layout/Footer/Footer";
 import { HomepageFooter, MobileScreen } from "../../styles/global.style";
 import { useNavigate } from "react-router-dom";
 import "../../styles/App.scss";

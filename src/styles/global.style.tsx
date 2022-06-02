@@ -4,6 +4,8 @@ export const AppThemeColor = "#3de2e8";
 
 export const ThemeMode = "dark";
 
+export const BorderRadius = "0px";
+
 export const HomepageFooter = styled.section`
   position: fixed;
   bottom: 0;
@@ -20,3 +22,11 @@ export const LargeScreen = "1200px";
 
 export const NavBarHeight = "62px";
 
+/* Colors */
+export const FlowBlue = "#56CCF2";
+
+export const FlowPurple = "#7371d1";
+
+export const FlowGreen = "#03A89E";
+
+export const FlowPink = "#FF69B4";

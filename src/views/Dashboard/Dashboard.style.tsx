@@ -6,6 +6,7 @@ import {
   ComponentGap,
   AppThemeColor,
   NavBarHeight,
+  BorderRadius,
 } from "../../styles/global.style";
 
 export const Content = styled.section`
@@ -21,9 +22,9 @@ export const Content = styled.section`
   }
 
   .up-down-1 {
-    display: flex;
+    display: grid;
+    grid-template-row: 1fr 1fr;
     row-gap: ${ComponentGap};
-    flex-direction: column;
   }
 
   .up-down-2 {
@@ -53,8 +54,7 @@ export const Content = styled.section`
 
   .card {
     border: none;
-    border-radius: 0.75rem;
-    box-shadow: 0px 10.9688px 21.9375px rgba(118, 118, 118, 0.2);
+    border-radius: ${BorderRadius};
   }
 
   @media (max-width: ${MediumScreen}) {
@@ -69,12 +69,12 @@ export const IntroductionCard = styled.div`
   .card {
     background: ${AppThemeColor};
     transition: all ease 200ms;
-    box-shadow: 0px 10.9688px 21.9375px rgba(118, 118, 118, 0.2);
+    height: 100%;
 
     .card-body {
       padding: 2rem 2rem 2rem 2rem;
-      display: flex;
-      flex-direction: rows;
+      display: grid;
+      grid-template-columns: 1fr 0.4fr;
 
       .h5 {
         color: white;
@@ -95,16 +95,19 @@ export const IntroductionCard = styled.div`
           justify-content: left;
           align-content: center;
         }
-      } 
-
-      .img-container{
-        display:flex;
-        justify-content:flex-end;
-        .img {
-          height: 100%;
-          width: 100%;
-        }
       }
+    }
+    .img-container {
+      display: flex;
+      justify-content: flex-end;
+      position: absolute;
+      bottom: 0;
+      right: 25px;
+
+      .img {
+        height: auto;
+        width: 50%;
+        position: relatve;
       }
     }
   }
@@ -118,6 +121,7 @@ export const IntroductionCard = styled.div`
     .card-body {
       padding: 2rem 4rem 2rem 2rem;
       display: flex;
+      grid-template-columns: none;
     }
   }
 `;
@@ -153,7 +157,6 @@ export const Title = styled.div`
 
 export const GraphCard = styled.div`
   .card {
-    box-shadow: 0px 10.9688px 21.9375px rgba(118, 118, 118, 0.2);
     height: auto;
     width: 100%;
   }
@@ -176,14 +179,11 @@ export const AdCard = styled.div`
   height: 100%;
   .card {
     transition: all ease 200ms;
-    box-shadow: 0px 10.9688px 21.9375px rgba(118, 118, 118, 0.2);
   }
 
   .card:hover {
     transform: scale(1.01);
-    box-shadow: 0 13px 40px -5px hsla(240, 30.1%, 28%, 0.12),
-      0 8px 32px -8px hsla(0, 0%, 0%, 0.14),
-      0 -6px 32px -6px hsla(0, 0%, 0%, 0.02);
+    box-shadow: 0 13px 40px -5px hsla(240, 30.1%, 28%, 0.12);
   }
 
   .h5 {
@@ -194,8 +194,7 @@ export const AdCard = styled.div`
   .card-body {
     padding: 0;
     height: 100%;
-    border-radius: 30px;
-    border-radius: 0.75rem;
+    border-radius: ${BorderRadius};
     background: linear-gradient(130.44deg, ${AppThemeColor} 0%, #a89de8 100%);
     color: white;
     display: flex;

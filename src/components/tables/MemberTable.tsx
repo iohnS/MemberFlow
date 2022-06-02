@@ -1,14 +1,8 @@
-import { CompactTable } from "@table-library/react-table-library/compact";
-import { useTheme } from "@table-library/react-table-library/theme";
-import {
-  DEFAULT_OPTIONS,
-  getTheme,
-} from "@table-library/react-table-library/mantine";
 import styled from "styled-components";
 import { AppThemeColor } from "../../styles/global.style";
 import React from "react";
+import { Button } from "react-bootstrap";
 
-const key = "Base";
 
 interface Props {
   data?: JSON;
@@ -16,12 +10,9 @@ interface Props {
 }
 
 const MemberTable = ({}: Props) => {
-  const [search, setSearch] = React.useState('');
+  const [search, setSearch] = React.useState("");
 
-  const mantineTheme = getTheme(DEFAULT_OPTIONS);
-  const theme = useTheme(mantineTheme);
-
-  const nodes = [
+  const data = [
     {
       id: "0",
       time: "2021-08-23",
@@ -32,7 +23,7 @@ const MemberTable = ({}: Props) => {
       period: "12 Months (60 kr)",
       expiration_date: "2022/08/23",
       payed: true,
-      expired: false,
+      expired: true,
     },
     {
       id: "1",
@@ -48,38 +39,68 @@ const MemberTable = ({}: Props) => {
     },
   ];
 
-  const data1 = { nodes };
-
-  const COLUMNS = [
-    { label: "Registration Date", renderCell: (item) => item.time },
-    { label: "Name", renderCell: (item) => item.name },
-    { label: "Email", renderCell: (item) => item.email },
-    { label: "Date of Birth", renderCell: (item) => item.birth },
-    { label: "Gender", renderCell: (item) => item.gender },
-    { label: "Membership Period", renderCell: (item) => item.period },
+  const columns = [
     {
-      label: "Payed",
-      renderCell: (item) => (
+      dataField: "time",
+      text: "Registration Date",
+      sort: true,
+      /* renderCell: (item) => item.time, */
+    },
+    {
+      dataField: "name",
+      text: "Name",
+      renderCell: (item) => item.name,
+      sort: true,
+    },
+    { dataField: "email", text: "Email", renderCell: (item) => item.email },
+    {
+      dataField: "birth",
+      text: "Date of Birth",
+      /* renderCell: (item) => item.birth, */
+    },
+    {
+      dataField: "gender",
+      text: "Gender" /* renderCell: (item) => item.gender */,
+    },
+    {
+      dataField: "period",
+      text: "Membership Period",
+      /* renderCell: (item) => item.period, */
+    },
+    {
+      dataField: "payed",
+      text: "Payed",
+      sort: true,
+      /*  renderCell: (item) => (
         <Cell>
           <div>{item.payed ? <Yes>Yes</Yes> : <No>No</No>}</div>
         </Cell>
-      ),
+      ), */
     },
-    { label: "Expiration Date", renderCell: (item) => item.expiration_date },
     {
-      label: "Expired",
-      renderCell: (item) => item.expired,
+      dataField: "expiration_date",
+      text: "Expiration Date",
+      sort: true,
+      /*  renderCell: (item) => item.expiration_date, */
+    },
+    {
+      dataField: "status",
+      text: "Status",
+      sort: true,
+      /* renderCell: (item) => (
+        <Cell>
+          <div>{item.expired ? <No>Expired</No> : <Yes>Active</Yes>}</div>
+        </Cell>
+      ), */
+    },
+    {
+      text: "Edit",
+      /* renderCell: (item) => <Button variant="outline-primary"> Edit </Button>, */
     },
   ];
 
   return (
     <div>
-      <CompactTable
-        columns={COLUMNS}
-        data={data1}
-        theme={theme}
-        layout={{ horizontalScroll: true }}
-      />
 
       <br />
     </div>
@@ -97,9 +118,9 @@ export const Yes = styled.div`
   justify-content: center;
   color: white;
   border-radius: 1rem;
-  background: #03A89E;
-  padding: 4px 12px 4px 12px;
-  font-weight: 700;
+  background: #03a89e;
+  padding: 6px 12px 6px 12px;
+  font-weight: 600;
 `;
 
 export const No = styled.div`
@@ -108,9 +129,9 @@ export const No = styled.div`
   justify-content: center;
   color: white;
   border-radius: 1rem;
-  background: #5B696E;
-  padding: 4px 12px 4px 12px;
-  font-weight: 700;
+  background: #5b696e;
+  padding: 6px 12px 6px 12px;
+  font-weight: 600;
   opacity: 0.75;
 `;
 

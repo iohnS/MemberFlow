@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ComponentGap } from "../../styles/global.style";
+import { BorderRadius, ComponentGap } from "../../styles/global.style";
 import { NavBarHeight } from "../../styles/global.style";
 
 export const Content = styled.section`
@@ -15,8 +15,12 @@ export const Content = styled.section`
 
   .card {
     border: none;
-    border-radius: 0.75rem;
-    box-shadow: 0px 10.9688px 21.9375px rgba(118, 118, 118, 0.2);
+    border-radius: ${BorderRadius};
+    box-shadow: 0px 10.9688px 21.9375px rgba(118, 118, 118, 0);
+  }
+
+  .card-body {
+    padding: 1.5rem;
   }
 
   .ads {
@@ -24,37 +28,36 @@ export const Content = styled.section`
   }
 `;
 
-export const OptionStyle = styled.div`
-  .row {
-    row-gap: ${ComponentGap};
-  }
-
-  .col {
-    width: 100%;
-  }
-
-  .button {
-    width: 100%;
-    display:flex;
-    justify-content: center;
-    align-items:center;
-  }
-
-  .container {
-    padding: 0 !important;
-  }
+export const Options = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 export const TableStyle = styled.div`
   display: grid;
 
-
   .menu {
-    h4{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h4 {
       margin: 0;
     }
 
-    display: flex;
-    align-items:center;
+    .searchbar {
+      display: flex;
+    }
+
+    .buttons {
+      display: flex;
+      column-gap: 1rem;
+
+      .button {
+        display: flex;
+        align-items: center;
+        column-gap: 0.5rem;
+      }
+    }
   }
 `;
