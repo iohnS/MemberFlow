@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { AppThemeColor } from "../../styles/global.style";
 import React from "react";
 import { Button } from "react-bootstrap";
 
