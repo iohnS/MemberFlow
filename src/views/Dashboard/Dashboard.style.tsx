@@ -7,6 +7,7 @@ import {
   AppThemeColor,
   NavBarHeight,
   BorderRadius,
+  LightGray,
 } from "../../styles/global.style";
 
 export const Content = styled.section`
@@ -22,8 +23,8 @@ export const Content = styled.section`
   }
 
   .up-down-1 {
-    display: grid;
-    grid-template-row: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
     row-gap: ${ComponentGap};
   }
 
@@ -67,7 +68,7 @@ export const Content = styled.section`
 
 export const IntroductionCard = styled.div`
   .card {
-    background: ${AppThemeColor};
+    background: ${LightGray};
     transition: all ease 200ms;
     height: 100%;
 
@@ -77,12 +78,13 @@ export const IntroductionCard = styled.div`
       grid-template-columns: 1fr 0.4fr;
 
       .h5 {
-        color: white;
         font-size: 2.4rem;
+        line-height: 1.16667;
+        font-weight: 600;
+        letter-spacing: 0.009em;
       }
 
       p {
-        color: white;
         font-size: 1.1rem;
       }
 
@@ -139,7 +141,7 @@ export const CardSection = styled.div`
 
   @media (min-width: ${LargeScreen}) {
     display: grid;
-    grid-template-columns: repeat(4, 175px);
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     column-gap: ${ComponentGap};
   }
 
@@ -157,14 +159,22 @@ export const Title = styled.div`
 
 export const GraphCard = styled.div`
   .card {
+    background-color: ${LightGray};
     height: auto;
     width: 100%;
-  }
 
-  .card-body {
-    padding: 1.5rem;
-    height: auto;
-    width: 100%;
+    .card-body {
+      padding: 1.5rem;
+      height: auto;
+      width: 100%;
+    }
+
+    .card-title {
+      font-size: 24px;
+      line-height: 1.16667;
+      font-weight: 600;
+      letter-spacing: 0.009em;
+    }
   }
 
   .graphStyle {
@@ -172,12 +182,14 @@ export const GraphCard = styled.div`
     width: 100% !important;
     max-height: 100% !important;
     max-width: 100% !important;
+    font-size: 16px !important;
   }
 `;
 
 export const AdCard = styled.div`
   height: 100%;
   .card {
+    height: 6rem;
     transition: all ease 200ms;
   }
 
@@ -195,7 +207,7 @@ export const AdCard = styled.div`
     padding: 0;
     height: 100%;
     border-radius: ${BorderRadius};
-    background: linear-gradient(130.44deg, ${AppThemeColor} 0%, #a89de8 100%);
+    background: ${AppThemeColor};
     color: white;
     display: flex;
     justify-content: space-around;

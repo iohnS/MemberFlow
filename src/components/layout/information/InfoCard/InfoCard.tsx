@@ -1,6 +1,6 @@
 import { Card } from "react-bootstrap";
 import styled from "styled-components";
-import { BorderRadius } from "../../../../styles/global.style";
+import { BorderRadius, LightGray } from "../../../../styles/global.style";
 import FlowIcon from "../../flowicon/FlowIcon";
 
 interface Props {
@@ -40,6 +40,7 @@ export const CardStyle = styled.div`
   }
 
   .card-body {
+    background-color: ${LightGray};
     text-align: center;
     display: grid;
     grid-template-rows: 1fr 0.45fr 0.5fr;
@@ -47,7 +48,10 @@ export const CardStyle = styled.div`
   }
 
   .card-subtitle {
-    opacity: 0.9 !important;
+    font-size: 15px !important;
+    font-weight: 400;
+    line-height: 1.47059;
+    letter-spacing: -0.022em;
     text-align: center;
   }
 `;

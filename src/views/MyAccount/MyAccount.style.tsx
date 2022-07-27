@@ -4,32 +4,39 @@ import { ComponentGap, NavBarHeight } from "../../styles/global.style";
 export const Content = styled.div`
   min-height: calc(100vh - ${NavBarHeight});
   padding: ${ComponentGap};
-  background:white;
+  background: white;
+  display: grid;
+  justify-content: center;
 `;
 
-export const CardMenu = styled.div`
-  display: flex;
-  justify-content: center;
-  text-align: center;
+export const MenuWrapper = styled.div`
+  width: 50rem;
 
-
-  .card {
-    width: 40rem;
-    border: none;
+  .h4 {
+    line-height: 1.16667;
+    font-weight: 600;
+    letter-spacing: 0.009em;
   }
 
   .row {
-    padding: 1rem;
-
     .col {
       display: flex;
       flex-direction: column;
       align-items: center;
-      row-gap:0.75rem;
+      row-gap: 0.75rem;
 
       .icon {
         font-size: 2rem;
       }
     }
+  }
+
+  .form-label {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .form-control {
+    font-size: 14px;
   }
 `;

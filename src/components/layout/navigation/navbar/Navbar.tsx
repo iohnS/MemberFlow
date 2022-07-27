@@ -7,18 +7,17 @@ import {
   Navbar as BootstrapNavbar,
 } from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useEffect } from "react";
-import { ThemeMode, NavBarHeight } from "../../../../styles/global.style";
+import {
+  ThemeMode,
+  NavBarHeight,
+  BackgroundColor,
+} from "../../../../styles/global.style";
 
 type Props = {};
 
 const Navbar: React.FC = (props: Props) => {
   const navigate = useNavigate();
   const location = useLocation().pathname;
-
-  useEffect(() => {
-    console.log(location);
-  }, []);
 
   const handleLogOut = () => {
     return navigate("/");
@@ -36,17 +35,21 @@ const Navbar: React.FC = (props: Props) => {
     .bg-light {
       --bs-bg-opacity: 0 !important;
       border-bottom: none;
+      background-color: ${BackgroundColor} !important;
     }
 
     .navbar-brand {
-      font-size: 1.5em !important;
+      font-size: 1.25rem !important;
       font-weight: 700 !important;
-      background: linear-gradient(to right, #27b9bd, #3de2e8) !important;
+      background: #3de2e8 !important;
       color: transparent !important;
       -webkit-background-clip: text !important;
       background-clip: text !important;
-
       padding-left: 1rem;
+    }
+
+    .nav-link {
+      font-size: 14px;
     }
 
     .nav-link:hover {
@@ -56,21 +59,23 @@ const Navbar: React.FC = (props: Props) => {
 
   const SearchField = styled.div`
     .me-2 {
-      width 250px;
+      width: 250px;
       margin-right: 2rem !important;
     }
 
-    
-    .form-control{
-      background-color: transparent;
-      color: white;
-      border: 1px solid #fff;
-      ::placeholder { 
-          color: white;
-          opacity: 1; /* Firefox */
-        }
+    .form-control {
+      font-size: 14px;
+     
     }
   `;
+
+  /*   color: white;
+  border: 1px solid #fff;
+  ::placeholder { 
+      color: white;
+      opacity: 1;
+    } 
+    */
 
   return (
     <NavigationStyle>
@@ -82,7 +87,9 @@ const Navbar: React.FC = (props: Props) => {
         className="Navbar"
       >
         <Container fluid>
-          <BootstrapNavbar.Brand href="#">MemberFlow.</BootstrapNavbar.Brand>
+          <BootstrapNavbar.Brand href="/dashboard">
+            Memberflow.
+          </BootstrapNavbar.Brand>
           <BootstrapNavbar.Toggle aria-controls="navbarScroll" />
           <BootstrapNavbar.Collapse id="navbarScroll">
             <Nav
@@ -104,10 +111,10 @@ const Navbar: React.FC = (props: Props) => {
                 Members
               </Nav.Link>
               <Nav.Link
-                onClick={() => navigateTo("/my-account")}
-                eventKey="/my-account"
+                onClick={() => navigateTo("/settings")}
+                eventKey="/settings"
               >
-                My Account
+                Settings
               </Nav.Link>
             </Nav>
             <SearchField>

@@ -2918,7 +2918,7 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   resolved "https://registry.npmjs.org/boolbase/-/boolbase-1.0.0.tgz"
   integrity sha1-aN/1++YMUes3cl6p4+0xDcwed24=
 
-bootstrap@5.1.3, bootstrap@^5.1.3:
+bootstrap@^5.1.3:
   version "5.1.3"
   resolved "https://registry.npmjs.org/bootstrap/-/bootstrap-5.1.3.tgz"
   integrity sha512-fcQztozJ8jToQWXxVuEyXWW+dSo8AiXWKwiSSrKWsRB/Qt+Ewwza+JWoLKiTuQLaEPhdNAJ7+Dosc9DOIqNy7Q==
@@ -8140,13 +8140,6 @@ stackframe@^1.1.1:
   version "1.2.1"
   resolved "https://registry.npmjs.org/stackframe/-/stackframe-1.2.1.tgz"
   integrity sha512-h88QkzREN/hy8eRdyNhhsO7RSJ5oyTqxxmmn0dzBIMUclZsjpfmrsg81vp8mjjAs2vAZ72nyWxRUwSwmh0e4xg==
-
-startbootstrap-simple-sidebar@^6.0.5:
-  version "6.0.5"
-  resolved "https://registry.yarnpkg.com/startbootstrap-simple-sidebar/-/startbootstrap-simple-sidebar-6.0.5.tgz#0ba4e14c07eb7c187c4309ca9421aceecdd19852"
-  integrity sha512-XxvKKG7iGKPxnr4vp0RFDUbXUC9og8iSR8xIoSpHG0OP+6za5uzcjJHJiiN6Sco60CpMeA6bHcjaM7PR7/kwkw==
-  dependencies:
-    bootstrap "5.1.3"
 
 statuses@2.0.1:
   version "2.0.1"

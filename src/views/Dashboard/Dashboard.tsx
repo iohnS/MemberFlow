@@ -4,10 +4,7 @@ import {
   Content,
   IntroductionCard,
   GraphCard,
-  AdCard,
 } from "./Dashboard.style";
-import introductionImg from "../../assets/dashboard.png";
-import adImg from "../../assets/teamwork.png";
 import {
   ArrowRight,
   Calendar2HeartFill,
@@ -25,10 +22,13 @@ import {
   FlowPink,
   FlowPurple,
 } from "../../styles/global.style";
+import { useState } from "react";
 
 type Props = {};
 
 export default function Dashboard(props: Props) {
+  const [orgName, setOrgName] = useState("EASA Lund");
+
   const navigate = useNavigate();
 
   const IntroCard = (
@@ -36,25 +36,19 @@ export default function Dashboard(props: Props) {
       <Card>
         <Card.Body>
           <div className="text-container">
-            <Card.Title>Welcome to your Dashboard.</Card.Title>
+            <Card.Title>Welcome to {orgName}.</Card.Title>
             <Card.Text>
               This platform is made to manage your organization simpler and more
               efficient. Overview your members and income flow.
             </Card.Text>
             <div className="button">
-              <Button
-                onClick={() => navigate("/members")}
-                variant="outline-light"
-              >
+              <Button onClick={() => navigate("/members")} variant="primary">
                 {" "}
                 Go to Members {<ArrowRight />}
               </Button>
             </div>
           </div>
         </Card.Body>
-        <div className="img-container">
-          <img src={introductionImg} alt="hej" className="img" />
-        </div>
       </Card>
     </IntroductionCard>
   );
@@ -92,43 +86,23 @@ export default function Dashboard(props: Props) {
     <GraphCard>
       <Card>
         <Card.Body>
-          <Card.Title>East Asia Student Association Lund</Card.Title>
-          <Card.Text>New Members By Month</Card.Text>
+          <Card.Title>EASA Lund</Card.Title>
           <LineChart />
         </Card.Body>
       </Card>
     </GraphCard>
   );
 
-  const Ads = (
-    <AdCard>
-      <Card>
-        <Card.Body>
-          <Card.Title>
-            Made In Lund. By{" "}
-            <span style={{ textDecorationLine: "underline" }}>Someone</span>.
-          </Card.Title>
-          <img
-            src={adImg}
-            alt=""
-            style={{ height: "120px", position: "relative" }}
-          />
-        </Card.Body>
-      </Card>
-    </AdCard>
-  );
-
   const body = (
     <Content>
       <div className="side-to-side">
-        <div className="up-down-1">
-          {IntroCard}
-          {InfoCards}
+        <div style={{ display: "grid" }}>
+          <div className="up-down-1">
+            {InfoCards}
+            {Graph}
+          </div>
         </div>
-        <div className="up-down-2">
-          {Graph}
-          {Ads}
-        </div>
+        <div className="up-down-2">{IntroCard}</div>
       </div>
     </Content>
   );

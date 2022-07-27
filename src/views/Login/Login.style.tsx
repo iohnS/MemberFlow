@@ -46,7 +46,7 @@ export const SubTitle = styled.div`
   }
 `;
 
-export const Login = styled.div`
+export const LoginStyle = styled.div`
   max-width: 75%;
   @media (max-width: ${MobileScreen}) {
     max-width: 100%;

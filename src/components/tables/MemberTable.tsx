@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import React from "react";
-import { Button } from "react-bootstrap";
 
 
 interface Props {

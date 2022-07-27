@@ -6,9 +6,9 @@ import {
   Title,
   SubTitle,
   Submit,
-  Login,
+  LoginStyle,
   Background,
-} from "./Homepage.style";
+} from "./Login.style";
 import { HomepageFooter, MobileScreen } from "../../styles/global.style";
 import { useNavigate } from "react-router-dom";
 import "../../styles/App.scss";
@@ -21,11 +21,9 @@ import SupportNotification from "../../components/layout/notification/SupportNot
 
 type Props = {};
 
-export default function Homepage({}: Props) {
+export default function Login({}: Props) {
   const navigate = useNavigate();
   const [validated, setValidated] = useState(false);
-
-  useEffect(() => {}, []);
 
   const handleSubmit = (event: any) => {
     return navigate("/dashboard");
@@ -37,18 +35,22 @@ export default function Homepage({}: Props) {
     setValidated(true); */
   };
 
+  const handlePassword = () => {
+    return window.open("/password_reset", "_blank"); //to open new page
+  };
+
   return (
     <Wrapper>
       <Background>
         <Content>
           <MiddleSection>
-            <Title>MemberFlow.</Title>
+            <Title>Memberflow.</Title>
             <SubTitle>
               Easy membership management software to streamline card membership
               and member database for your organization - Memberflow is created
               to ease the pain of Google Excels.
             </SubTitle>
-            <Login>
+            <LoginStyle>
               <Form>
                 <FloatingLabel
                   controlId="floatingInput"
@@ -75,12 +77,13 @@ export default function Homepage({}: Props) {
                   <Button
                     variant="outline-primary"
                     className="btn-outline-primary"
+                    onClick={handlePassword}
                   >
                     Forgot Your Password?
                   </Button>
                 </Submit>
               </Form>
-            </Login>
+            </LoginStyle>
           </MiddleSection>
         </Content>
         <ImageWrapper>
