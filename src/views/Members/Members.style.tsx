@@ -32,32 +32,3 @@ export const Options = styled.div`
   display: flex;
   align-items: center;
 `;
-
-export const TableStyle = styled.div`
-  display: grid;
-
-  .menu {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    h4 {
-      margin: 0;
-    }
-
-    .searchbar {
-      display: flex;
-    }
-
-    .buttons {
-      display: flex;
-      column-gap: 1rem;
-
-      .button {
-        display: flex;
-        align-items: center;
-        column-gap: 0.5rem;
-      }
-    }
-  }
-`;

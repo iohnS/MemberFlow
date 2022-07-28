@@ -1,6 +1,17 @@
-import styled from "styled-components";
-import React from "react";
-
+import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+import React, { useState } from "react";
+import { Button, Card, Form, Row } from "react-bootstrap";
+import { dummy_data } from "./DummyData";
+import { No, TableStyle, Yes } from "./MemberTable.style";
+import {
+  Plus,
+  PencilSquare,
+  Upload,
+  PersonX,
+  Download,
+} from "react-bootstrap-icons";
+import BootstrapTable from "react-bootstrap-table-next";
+import paginationFactory from "react-bootstrap-table2-paginator";
 
 interface Props {
   data?: JSON;
@@ -10,127 +21,158 @@ interface Props {
 const MemberTable = ({}: Props) => {
   const [search, setSearch] = React.useState("");
 
-  const data = [
-    {
-      id: "0",
-      time: "2021-08-23",
-      name: "Patrik Tao",
-      email: "patriktao@gmail.com",
-      birth: "1999/09/17",
-      gender: "Male",
-      period: "12 Months (60 kr)",
-      expiration_date: "2022/08/23",
-      payed: true,
-      expired: true,
-    },
-    {
-      id: "1",
-      time: "2021-08-23",
-      name: "Jola Enke",
-      email: "enkezhuola@sina.com",
-      birth: "1996/05/26",
-      gender: "Female",
-      period: "12 Months (60 kr)",
-      expiration_date: "2022/08/23",
-      payed: false,
-      expired: false,
-    },
-  ];
-
   const columns = [
     {
-      dataField: "time",
+      dataField: "id",
+      text: "ID",
+    },
+    {
+      dataField: "registration",
       text: "Registration Date",
       sort: true,
-      /* renderCell: (item) => item.time, */
     },
     {
       dataField: "name",
       text: "Name",
-      renderCell: (item) => item.name,
       sort: true,
     },
-    { dataField: "email", text: "Email", renderCell: (item) => item.email },
+    {
+      dataField: "email",
+      text: "Email",
+    },
     {
       dataField: "birth",
-      text: "Date of Birth",
-      /* renderCell: (item) => item.birth, */
+      text: "Birth",
+      sort: true,
     },
     {
       dataField: "gender",
-      text: "Gender" /* renderCell: (item) => item.gender */,
+      text: "Gender",
     },
     {
       dataField: "period",
-      text: "Membership Period",
-      /* renderCell: (item) => item.period, */
-    },
-    {
-      dataField: "payed",
-      text: "Payed",
+      text: "Membership Type",
       sort: true,
-      /*  renderCell: (item) => (
-        <Cell>
-          <div>{item.payed ? <Yes>Yes</Yes> : <No>No</No>}</div>
-        </Cell>
-      ), */
     },
     {
       dataField: "expiration_date",
       text: "Expiration Date",
       sort: true,
-      /*  renderCell: (item) => item.expiration_date, */
     },
     {
-      dataField: "status",
+      dataField: "paid",
+      text: "Payment",
+      sort: true,
+      type: "bool",
+      editor: {
+        value: "true:false",
+      },
+      formatter: (cellContent, row) => {
+        return row.paid ? (
+          <div
+            style={{
+              display: "grid",
+              justifyItems: "start",
+            }}
+          >
+            <Yes>Paid</Yes>
+          </div>
+        ) : (
+          <div style={{ display: "grid", justifyItems: "start" }}>
+            <No>Unpaid</No>
+          </div>
+        );
+      },
+    },
+    {
+      dataField: "expired",
       text: "Status",
       sort: true,
-      /* renderCell: (item) => (
-        <Cell>
-          <div>{item.expired ? <No>Expired</No> : <Yes>Active</Yes>}</div>
-        </Cell>
-      ), */
-    },
-    {
-      text: "Edit",
-      /* renderCell: (item) => <Button variant="outline-primary"> Edit </Button>, */
+      type: "bool",
+      editor: {
+        type: "Type.CHECKBOX",
+        value: "true:false",
+      },
+      formatter: (cellContent, row) => {
+        return row.expired ? (
+          <div style={{ display: "grid", justifyItems: "start" }}>
+            <No>Expired</No>
+          </div>
+        ) : (
+          <div
+            style={{
+              display: "grid",
+              justifyItems: "start",
+            }}
+          >
+            <Yes>Active</Yes>
+          </div>
+        );
+      },
     },
   ];
 
-  return (
-    <div>
+  const remote = {
+    filter: true,
+    pagination: false,
+    sort: false,
+    cellEdit: false,
+  };
 
-      <br />
-    </div>
+  return (
+    <TableStyle>
+      <Card.Body>
+        <Row style={{ paddingBottom: "0.5rem" }}>
+          <div className="menu">
+            <div className="searchbar">
+              <h4>Active Members</h4>
+              <Form style={{ marginLeft: "3rem" }}>
+                <Form.Control
+                  style={{ width: "350px" }}
+                  type="text"
+                  placeholder="Search for a name..."
+                />
+              </Form>
+              <Button
+                style={{ marginLeft: "12px" }}
+                variant="outline-secondary"
+              >
+                Clear
+              </Button>
+            </div>
+            <div className="buttons">
+              <Button variant="primary" className="button">
+                Add <Plus />
+              </Button>
+              <Button variant="secondary" className="button">
+                Import
+                <Upload />
+              </Button>
+              <Button variant="success" className="button">
+                Export
+                <Download />
+              </Button>
+            </div>
+          </div>
+        </Row>
+        <Row>
+          <BootstrapTable
+            bootstrap4
+            keyField="id"
+            data={dummy_data}
+            columns={columns}
+            loading={true}
+            bordered={false}
+            noDataIndication="Empty data"
+            pagination={paginationFactory()}
+            striped
+            hover
+            condensed
+          />
+        </Row>
+      </Card.Body>
+    </TableStyle>
   );
 };
-
-export const Cell = styled.div`
-  display: grid;
-  justify-content: start;
-`;
-
-export const Yes = styled.div`
-  width: 4rem;
-  display: grid;
-  justify-content: center;
-  color: white;
-  border-radius: 1rem;
-  background: #03a89e;
-  padding: 6px 12px 6px 12px;
-  font-weight: 600;
-`;
-
-export const No = styled.div`
-  width: 4rem;
-  display: grid;
-  justify-content: center;
-  color: white;
-  border-radius: 1rem;
-  background: #5b696e;
-  padding: 6px 12px 6px 12px;
-  font-weight: 600;
-  opacity: 0.75;
-`;
 
 export default MemberTable;

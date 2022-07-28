@@ -23,6 +23,7 @@ import {
   FlowPurple,
 } from "../../styles/global.style";
 import { useState } from "react";
+import SupportNotification from "../../components/layout/notification/SupportNotification";
 
 type Props = {};
 
@@ -104,6 +105,7 @@ export default function Dashboard(props: Props) {
         </div>
         <div className="up-down-2">{IntroCard}</div>
       </div>
+      <SupportNotification />
     </Content>
   );
 

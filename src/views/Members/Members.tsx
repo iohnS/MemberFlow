@@ -1,16 +1,8 @@
-import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
+import { Card, Container, Row } from "react-bootstrap";
 import MemberTable from "../../components/tables/MemberTable";
 import { AdCard } from "../Dashboard/Dashboard.style";
 import DashboardTemplate from "../DashboardTemplate";
-import { Content, Options, TableStyle } from "./Members.style";
-import {
-  Plus,
-  PencilSquare,
-  Upload,
-  PersonX,
-  Download,
-} from "react-bootstrap-icons";
-
+import { Content } from "./Members.style";
 type Props = {};
 
 const Members = (props: Props) => {
@@ -26,51 +18,10 @@ const Members = (props: Props) => {
     </AdCard>
   );
 
-  const Buttons = (
-    <div className="buttons">
-      <Button variant="primary" className="button">
-        Add <Plus />
-      </Button>
-      <Button variant="secondary" className="button">
-        Import
-        <Upload />
-      </Button>
-      <Button variant="success" className="button">
-        Export
-        <Download />
-      </Button>
-    </div>
-  );
-
-  const SearchBar = (
-    <Form style={{ marginLeft: "3rem" }}>
-      <Form.Control
-        style={{ width: "350px" }}
-        type="text"
-        placeholder="Search for a name..."
-      />
-    </Form>
-  );
-
   const Table = (
     <Container>
       <Card>
-        <TableStyle>
-          <Card.Body>
-            <Row style={{ paddingBottom: "0.5rem" }}>
-              <div className="menu">
-                <div className="searchbar">
-                  <h4>Active Members</h4>
-                  {SearchBar}
-                </div>
-                {Buttons}
-              </div>
-            </Row>
-            <Row>
-              <MemberTable />
-            </Row>
-          </Card.Body>
-        </TableStyle>
+        <MemberTable />
       </Card>
     </Container>
   );

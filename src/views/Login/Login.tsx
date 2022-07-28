@@ -16,8 +16,6 @@ import myImage from "../../assets/homepage_img.jpg";
 import styled from "styled-components";
 import RenderSmoothImage from "render-smooth-image-react";
 import "render-smooth-image-react/build/style.css";
-import Notification from "../../components/layout/notification/Notification";
-import SupportNotification from "../../components/layout/notification/SupportNotification";
 
 type Props = {};
 
@@ -90,7 +88,6 @@ export default function Login({}: Props) {
           <RenderSmoothImage src={myImage} alt="" />
         </ImageWrapper>
       </Background>
-      <SupportNotification />
     </Wrapper>
   );
 }
