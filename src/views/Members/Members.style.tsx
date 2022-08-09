@@ -3,7 +3,6 @@ import { BorderRadius, ComponentGap } from "../../styles/global.style";
 import { NavBarHeight } from "../../styles/global.style";
 
 export const Content = styled.section`
-  padding: ${ComponentGap};
   min-height: calc(100vh - ${NavBarHeight});
   display: flex;
   flex-direction: column;

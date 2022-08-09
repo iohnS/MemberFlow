@@ -14,4 +14,4 @@ root.render(
   </React.StrictMode>
 );
 
-module.exports = {};
+export default root;

@@ -129,10 +129,9 @@ export const IntroductionCard = styled.div`
 `;
 
 export const CardSection = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  row-gap: ${ComponentGap};
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: ${ComponentGap};
 
   .h5 {
     font-size: 1.5rem;
@@ -141,12 +140,15 @@ export const CardSection = styled.div`
 
   @media (min-width: ${LargeScreen}) {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     column-gap: ${ComponentGap};
   }
 
   @media (max-width: ${MobileScreen}) {
-    justify-content: space-evenly;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: ${ComponentGap};
+    justify-content: space-around
   }
 `;
 

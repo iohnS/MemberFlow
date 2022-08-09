@@ -1,4 +1,4 @@
-import { Bar } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 import { Chart as ChartJS, registerables } from "chart.js";
 import { AppThemeColor } from "../../../styles/global.style";
 ChartJS.register(...registerables);
@@ -31,18 +31,18 @@ const LineChart: React.FunctionComponent = () => {
 
   const state = {
     labels: [
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
       "January",
       "February",
       "Mars",
       "April",
       "May",
-      /* "June",
+      "June",
       "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December", */
     ],
     datasets: [
       {
@@ -71,7 +71,7 @@ const LineChart: React.FunctionComponent = () => {
     ],
   };
 
-  return <Bar data={state} options={options} className="graphStyle" />;
+  return <Line data={state} options={options} className="graphStyle" />;
 };
 
 export default LineChart;

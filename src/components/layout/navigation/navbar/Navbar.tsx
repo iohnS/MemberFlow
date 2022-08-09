@@ -57,18 +57,6 @@ const Navbar: React.FC = (props: Props) => {
     }
   `;
 
-  const SearchField = styled.div`
-    .me-2 {
-      width: 250px;
-      margin-right: 2rem !important;
-    }
-
-    .form-control {
-      font-size: 14px;
-     
-    }
-  `;
-
   /*   color: white;
   border: 1px solid #fff;
   ::placeholder { 
@@ -117,16 +105,6 @@ const Navbar: React.FC = (props: Props) => {
                 Settings
               </Nav.Link>
             </Nav>
-            <SearchField>
-              <Form className="d-flex">
-                <FormControl
-                  type="search"
-                  placeholder="Search for a member..."
-                  className="me-2"
-                  aria-label="Search"
-                />
-              </Form>
-            </SearchField>
             <Nav>
               <Nav.Link onClick={handleLogOut}>Logout</Nav.Link>
             </Nav>

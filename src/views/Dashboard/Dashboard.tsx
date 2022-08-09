@@ -42,6 +42,7 @@ export default function Dashboard(props: Props) {
               This platform is made to manage your organization simpler and more
               efficient. Overview your members and income flow.
             </Card.Text>
+            <br/>
             <div className="button">
               <Button onClick={() => navigate("/members")} variant="primary">
                 {" "}
@@ -59,7 +60,7 @@ export default function Dashboard(props: Props) {
       <InfoCard
         title="188"
         subtitle="Active Members"
-        color={FlowPurple}
+        color={FlowBlue}
         icon={<PersonHeart />}
       />
       <InfoCard
@@ -67,18 +68,6 @@ export default function Dashboard(props: Props) {
         subtitle="Monthly Registers"
         color={FlowGreen}
         icon={<Calendar2HeartFill />}
-      />
-      <InfoCard
-        title="10000"
-        subtitle="Total Income"
-        color={FlowBlue}
-        icon={<PiggyBankFill />}
-      />
-      <InfoCard
-        title="540"
-        subtitle="Monthly Income"
-        color={FlowPink}
-        icon={<Cash />}
       />
     </CardSection>
   );
@@ -99,11 +88,11 @@ export default function Dashboard(props: Props) {
       <div className="side-to-side">
         <div style={{ display: "grid" }}>
           <div className="up-down-1">
+            {IntroCard}
             {InfoCards}
-            {Graph}
           </div>
         </div>
-        <div className="up-down-2">{IntroCard}</div>
+        <div className="up-down-2">{Graph}</div>
       </div>
       <SupportNotification />
     </Content>
