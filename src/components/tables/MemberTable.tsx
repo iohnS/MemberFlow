@@ -242,19 +242,16 @@ const MemberTable = ({}: Props) => {
                 Clear All Filters
               </Button>
             </div>
-            <div className="buttons">
-              <Button variant="primary" className="button">
-                Add <Plus />
-              </Button>
-              <Button variant="secondary" className="button">
-                Import
-                <Upload />
-              </Button>
-              <Button variant="success" className="button">
-                Export
-                <Download />
-              </Button>
-            </div>
+            <Dropdown>
+              <Dropdown.Toggle variant="secondary" id="dropdown-basic">
+                Actions
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">Add</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">Import</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Export</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
           </div>
         </Row>
         <Row>
