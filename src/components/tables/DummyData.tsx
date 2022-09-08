@@ -1,10 +1,23 @@
-export const dummy_data = [
+interface DataType {
+  id: number;
+  registration: string;
+  name: string;
+  email: string;
+  ssn: string;
+  gender: string;
+  period: string;
+  expiration_date: string;
+  paid: boolean;
+  expired: boolean;
+}
+
+export const dummy_data: DataType[] = [
   {
     id: 0,
     registration: "2021-08-23",
     name: "Patrik Tao",
     email: "patriktao@gmail.com",
-    birth: "1999-09-17",
+    ssn: "19990917-8338",
     gender: "male",
     period: "12 Months",
     expiration_date: "2022-08-23",
@@ -16,7 +29,7 @@ export const dummy_data = [
     registration: "2021-08-23",
     name: "Enkezhuola",
     email: "enkezhuola@sina.com",
-    birth: "1996-05-26",
+    ssn: "19960526-1234",
     gender: "female",
     period: "6 Months",
     expiration_date: "2022-08-23",
@@ -24,9 +37,9 @@ export const dummy_data = [
     expired: true,
   },
   {
-    id: 0,
+    id: 3,
     name: "Steele Mosley",
-    birth: "2021-05-21",
+    ssn: "20210521-1234",
     registration: "2021-11-26",
     expiration_date: "2014-01-19",
     gender: "male",
@@ -36,9 +49,9 @@ export const dummy_data = [
     expired: true,
   },
   {
-    id: 1,
+    id: 4,
     name: "Natalie Kemp",
-    birth: "2014-11-30",
+    ssn: "20141130-1234",
     registration: "2018-02-24",
     expiration_date: "2018-05-29",
     gender: "female",
@@ -48,9 +61,9 @@ export const dummy_data = [
     expired: true,
   },
   {
-    id: 2,
+    id: 5,
     name: "Myra Wells",
-    birth: "2021-05-28",
+    ssn: "20210528-1234",
     registration: "2018-11-13",
     expiration_date: "2021-01-22",
     gender: "female",
@@ -60,33 +73,33 @@ export const dummy_data = [
     expired: false,
   },
   {
-    id: 3,
+    id: 6,
     name: "Michelle Osborne",
-    birth: "2020-11-30",
+    ssn: "20201130-1234",
     registration: "2014-02-13",
     expiration_date: "2020-04-24",
     gender: "female",
     period: "6 Months",
     email: "michelleosborne@isoswitch.com",
-    paid: true,
-    expired: true,
+    paid: false,
+    expired: false,
   },
   {
-    id: 4,
+    id: 7,
     name: "Barr Hawkins",
-    birth: "2016-11-05",
+    ssn: "20161105-1234",
     registration: "2021-12-23",
     expiration_date: "2021-10-26",
     gender: "male",
     period: "6 Months",
     email: "barrhawkins@isoswitch.com",
-    paid: true,
+    paid: false,
     expired: false,
   },
   {
-    id: 5,
+    id: 8,
     name: "Calderon Mccarty",
-    birth: "2014-03-17",
+    ssn: "20140317-1234",
     registration: "2019-12-31",
     expiration_date: "2017-11-02",
     gender: "male",
@@ -96,9 +109,33 @@ export const dummy_data = [
     expired: true,
   },
   {
-    id: 6,
-    name: "Johnnie Tucker",
-    birth: "2015-04-05",
+    id: 2,
+    name: "Mad Dog",
+    ssn: "20150405-1234",
+    registration: "2021-09-25",
+    expiration_date: "2017-11-15",
+    gender: "female",
+    period: "6 Months",
+    email: "johnnietucker@isoswitch.com",
+    paid: true,
+    expired: false,
+  },
+  {
+    id: 9,
+    name: "Damn",
+    ssn: "20150405-1234",
+    registration: "2021-09-25",
+    expiration_date: "2017-11-15",
+    gender: "female",
+    period: "6 Months",
+    email: "johnnietucker@isoswitch.com",
+    paid: true,
+    expired: false,
+  },
+  {
+    id: 10,
+    name: "Damn",
+    ssn: "20150405-1234",
     registration: "2021-09-25",
     expiration_date: "2017-11-15",
     gender: "female",
