@@ -1,6 +1,6 @@
-import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import React, { useEffect, useState } from "react";
 import { Button, Card, Form, Row } from "react-bootstrap";
+import { dummy_data } from "./DummyData";
 import { No, TableStyle, Yes } from "./MemberTable.style";
 import {
   Plus,
@@ -8,21 +8,10 @@ import {
   Upload,
   PersonX,
   Download,
+  Bootstrap,
 } from "react-bootstrap-icons";
-import ToolkitProvider, {
-  CSVExport,
-} from "react-bootstrap-table2-toolkit/dist/react-bootstrap-table2-toolkit.min";
-import BootstrapTable from "react-bootstrap-table-next";
-import paginationFactory from "react-bootstrap-table2-paginator";
-import filterFactory, {
-  textFilter,
-  dateFilter,
-  selectFilter,
-  numberFilter,
-  Comparator,
-} from "react-bootstrap-table2-filter";
-
-const { ExportCSVButton } = CSVExport;
+import "rsuite-table/dist/css/rsuite-table.css";
+import { Table, Column, HeaderCell, Cell } from "rsuite-table";
 
 interface Props {
   data?: JSON;
@@ -42,160 +31,31 @@ interface DataType {
   expired: boolean;
 }
 
-export const dummy_data: DataType[] = [
-  {
-    id: 0,
-    registration: "2021-08-23",
-    name: "Patrik Tao",
-    email: "patriktao@gmail.com",
-    ssn: "19990917-8338",
-    gender: "male",
-    period: "12 Months",
-    expiration_date: "2022-08-23",
-    paid: true,
-    expired: false,
-  },
-  {
-    id: 1,
-    registration: "2021-08-23",
-    name: "Enkezhuola",
-    email: "enkezhuola@sina.com",
-    ssn: "19960526-1234",
-    gender: "female",
-    period: "6 Months",
-    expiration_date: "2022-08-23",
-    paid: false,
-    expired: true,
-  },
-  {
-    id: 3,
-    name: "Steele Mosley",
-    ssn: "20210521-1234",
-    registration: "2021-11-26",
-    expiration_date: "2014-01-19",
-    gender: "male",
-    period: "6 Months",
-    email: "steelemosley@isoswitch.com",
-    paid: false,
-    expired: true,
-  },
-  {
-    id: 4,
-    name: "Natalie Kemp",
-    ssn: "20141130-1234",
-    registration: "2018-02-24",
-    expiration_date: "2018-05-29",
-    gender: "female",
-    period: "6 Months",
-    email: "nataliekemp@isoswitch.com",
-    paid: true,
-    expired: true,
-  },
-  {
-    id: 5,
-    name: "Myra Wells",
-    ssn: "20210528-1234",
-    registration: "2018-11-13",
-    expiration_date: "2021-01-22",
-    gender: "female",
-    period: "6 Months",
-    email: "myrawells@isoswitch.com",
-    paid: true,
-    expired: false,
-  },
-  {
-    id: 6,
-    name: "Michelle Osborne",
-    ssn: "20201130-1234",
-    registration: "2014-02-13",
-    expiration_date: "2020-04-24",
-    gender: "female",
-    period: "6 Months",
-    email: "michelleosborne@isoswitch.com",
-    paid: false,
-    expired: false,
-  },
-  {
-    id: 7,
-    name: "Barr Hawkins",
-    ssn: "20161105-1234",
-    registration: "2021-12-23",
-    expiration_date: "2021-10-26",
-    gender: "male",
-    period: "6 Months",
-    email: "barrhawkins@isoswitch.com",
-    paid: false,
-    expired: false,
-  },
-  {
-    id: 8,
-    name: "Calderon Mccarty",
-    ssn: "20140317-1234",
-    registration: "2019-12-31",
-    expiration_date: "2017-11-02",
-    gender: "male",
-    period: "6 Months",
-    email: "calderonmccarty@isoswitch.com",
-    paid: true,
-    expired: true,
-  },
-  {
-    id: 2,
-    name: "Mad Dog",
-    ssn: "20150405-1234",
-    registration: "2021-09-25",
-    expiration_date: "2017-11-15",
-    gender: "female",
-    period: "6 Months",
-    email: "johnnietucker@isoswitch.com",
-    paid: true,
-    expired: false,
-  },
-  {
-    id: 9,
-    name: "Damn",
-    ssn: "20150405-1234",
-    registration: "2021-09-25",
-    expiration_date: "2017-11-15",
-    gender: "female",
-    period: "6 Months",
-    email: "johnnietucker@isoswitch.com",
-    paid: true,
-    expired: false,
-  },
-  {
-    id: 10,
-    name: "Damn",
-    ssn: "20150405-1234",
-    registration: "2021-09-25",
-    expiration_date: "2017-11-15",
-    gender: "female",
-    period: "6 Months",
-    email: "johnnietucker@isoswitch.com",
-    paid: true,
-    expired: false,
-  },
-];
-
-
-const loadDataOnlyOnce = () => {
-  var temp: any = [];
-  dummy_data.forEach((person: any) => {
-    temp.push(person);
-  });
-  return temp;
+interface PaymentType  {
+  rowData: any;
+  dataKey: string;
 };
 
-let idFilter;
-let nameFilter;
-let emailFilter;
-let ssnFilter;
-let genderFilter;
-let membershipFilter;
-let regFilter;
-let expFilter;
-let paymentFilter;
-let statusFilter;
+const PaymentCell = ({ rowData, dataKey, ...props }: PaymentType) => {
+  return (
+    <Cell dataKey={dataKey} {...props}>
+      {rowData.paid ? (
+        <div
+          style={{
+            display: "grid",
+            justifyItems: "start",
+          }}
+        >
+          <Yes>Paid</Yes>
+        </div>
+      ) : (
+        <div style={{ display: "grid", justifyItems: "start" }}>
+          <No>Unpaid</No>
+        </div>
+      )}
+    </Cell>
+  );
+};
 
 const columns = [
   {
@@ -224,7 +84,6 @@ const columns = [
     dataField: "gender",
     text: "Gender",
     sort: true,
-    filter: textFilter(),
   },
   {
     dataField: "period",
@@ -288,24 +147,7 @@ const columns = [
 ];
 
 const MemberTable = ({}: Props) => {
-  var [data, setData] = useState<string[]>([]);
-
-  useEffect(() => {
-    setData(loadDataOnlyOnce());
-  }, []);
-
-  const clearAllFilter = () => {
-    idFilter("");
-    nameFilter("");
-    emailFilter("");
-    ssnFilter("");
-    genderFilter("");
-    membershipFilter("");
-    regFilter("");
-    expFilter("");
-    paymentFilter("");
-    statusFilter("");
-  };
+  //var [data, setData] = useState<string[]>([]);
 
   return (
     <TableStyle>
@@ -314,9 +156,7 @@ const MemberTable = ({}: Props) => {
           <div className="menu">
             <div className="searchbar">
               <h4>Active Members</h4>
-              <Button variant="secondary" onClick={clearAllFilter}>
-                Clear All Filters
-              </Button>
+              <Button variant="secondary">Clear All Filters</Button>
             </div>
             <div className="buttons">
               <Button variant="primary" className="button">
@@ -333,34 +173,54 @@ const MemberTable = ({}: Props) => {
             </div>
           </div>
         </Row>
-        <Row>
-          <ToolkitProvider
-            keyField="id"
-            loading={true}
-            columns={columns}
-            data={dummy_data}
-            bordered={false}
-            filter={ filterFactory() }
-            noDataIndication="Empty data"
-            pagination={paginationFactory()}
-            hover
-            defaultSorted={[
-              {
-                dataField: "name",
-                order: "asc",
-              },
-            ]}
-            filterPosition="inline"
-            exportCSV
-          >
-            {(props) => (
-              <div>
-                <hr />
-                <BootstrapTable {...props.baseProps} />
-              </div>
-            )}
-          </ToolkitProvider>
-        </Row>
+        <div>
+          <Table height={700} bordered cellBordered data={dummy_data}>
+            <Column width={50} align="center">
+              <HeaderCell>ID</HeaderCell>
+              <Cell dataKey="id" />
+            </Column>
+
+            <Column flexGrow={1} fixed sortable>
+              <HeaderCell>Name</HeaderCell>
+              <Cell dataKey="name" />
+            </Column>
+
+            <Column flexGrow={2} sortable>
+              <HeaderCell>Email</HeaderCell>
+              <Cell dataKey="email" />
+            </Column>
+
+            <Column flexGrow={1} sortable>
+              <HeaderCell>SSN</HeaderCell>
+              <Cell dataKey="ssn" />
+            </Column>
+
+            <Column flexGrow={1} sortable>
+              <HeaderCell>Gender</HeaderCell>
+              <Cell dataKey="gender" />
+            </Column>
+
+            <Column flexGrow={1} sortable>
+              <HeaderCell>Period</HeaderCell>
+              <Cell dataKey="period" />
+            </Column>
+
+            <Column flexGrow={1} sortable>
+              <HeaderCell>Registration</HeaderCell>
+              <Cell dataKey="registration" />
+            </Column>
+
+            <Column flexGrow={1} sortable>
+              <HeaderCell>Expiration Date</HeaderCell>
+              <Cell dataKey="expiration_date" />
+            </Column>
+
+            <Column flexGrow={1} sortable>
+              <HeaderCell>Payment</HeaderCell>
+              <PaymentCell rowData={(res) => res} dataKey="expired" />
+            </Column>
+          </Table>
+        </div>
       </Card.Body>
     </TableStyle>
   );
