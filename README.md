@@ -8,6 +8,7 @@
 - React-Bootstrap
 - Chart.js
 - CI/CD
+- Moment.js
 
 #### `npm install or yarn install`
 
