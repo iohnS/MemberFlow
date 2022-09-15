@@ -1,5 +1,5 @@
 import { Card, Container, Row } from "react-bootstrap";
-import MemberTable from "../../components/tables/MemberTable";
+import MemberTable from "../../components/tables/MemberTableOld";
 import { AdCard } from "../Dashboard/Dashboard.style";
 import DashboardTemplate from "../DashboardTemplate";
 import { Content } from "./Members.style";
