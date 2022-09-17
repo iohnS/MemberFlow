@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import myImage from "../../assets/homepage_img.jpg";
 import { MobileScreen } from "../../styles/global.style";
 
 export const Background = styled.section`
@@ -11,7 +10,7 @@ export const Background = styled.section`
 `;
 
 export const Content = styled.section`
-  height:100vh;
+  height: 100vh;
   max-height: -webkit-fill-available;
   display: flex;
   align-items: center;
@@ -57,4 +56,27 @@ export const Submit = styled.div`
   margin-top: 2rem;
   display: flex;
   column-gap: 1rem;
+`;
+
+export const Wrapper = styled.section`
+  background: white;
+`;
+
+export const ImageWrapper = styled.div`
+  img {
+    max-height: 100vh;
+    width: 100%;
+    object-fit: cover !important;
+    @media (max-width: ${MobileScreen}) {
+      display: none;
+    }
+  }
+`;
+
+export const InvalidLogin = styled.div`
+  color: red;
+  font-size: 16;
+  @media (max-width: ${MobileScreen}) {
+    font-size: 18px;
+  }
 `;

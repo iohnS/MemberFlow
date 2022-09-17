@@ -6,7 +6,14 @@ import { Content } from "./Members.style";
 type Props = {};
 
 const Members = (props: Props) => {
-  const Ads = (
+  return <div>MEMBERS</div>;
+};
+
+export default Members;
+
+/**
+ * 
+ * const Ads = (
     <AdCard>
       <Card style={{ height: "150px" }}>
         <Card.Body>
@@ -33,6 +40,4 @@ const Members = (props: Props) => {
   );
 
   return <DashboardTemplate body={body} />;
-};
-
-export default Members;
+ */

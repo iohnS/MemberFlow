@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button, Form, FloatingLabel } from "react-bootstrap";
 import {
   Content,
@@ -8,34 +8,48 @@ import {
   Submit,
   LoginStyle,
   Background,
+  Wrapper,
+  ImageWrapper,
+  InvalidLogin,
 } from "./Login.style";
 import { HomepageFooter, MobileScreen } from "../../styles/global.style";
 import { useNavigate } from "react-router-dom";
 import "../../styles/App.scss";
 import myImage from "../../assets/homepage_img.jpg";
-import styled from "styled-components";
 import RenderSmoothImage from "render-smooth-image-react";
 import "render-smooth-image-react/build/style.css";
+import auth from "../../backend/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 type Props = {};
 
 export default function Login({}: Props) {
   const navigate = useNavigate();
-  const [validated, setValidated] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = (event: any) => {
-    return navigate("/dashboard");
-    /* const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-    setValidated(true); */
+    event.preventDefault();
+    signInWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        navigate("/dashboard");
+      })
+      .catch((error) => {
+        setErrorMessage("Wrong login credentials");
+      });
   };
 
-  const handlePassword = () => {
-    return window.open("/password_reset", "_blank"); //to open new page
-  };
+  function App() {
+    const handleClick = () => {
+      setErrorMessage("Example error message!");
+    };
+    return (
+      <div className="App">
+        <button onClick={handleClick}>Show error message</button>
+      </div>
+    );
+  }
 
   return (
     <Wrapper>
@@ -55,14 +69,27 @@ export default function Login({}: Props) {
                   label="Email address"
                   className="mb-3"
                 >
-                  <Form.Control type="email" placeholder="name@example.com" />
+                  <Form.Control
+                    type="email"
+                    placeholder="name@example.com"
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
                   <Form.Control.Feedback type="invalid">
                     Please provide a valid email.
                   </Form.Control.Feedback>
                 </FloatingLabel>
                 <FloatingLabel controlId="floatingPassword" label="Password">
-                  <Form.Control type="password" placeholder="Password" />
+                  <Form.Control
+                    type="password"
+                    placeholder="Password"
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
                 </FloatingLabel>
+                <InvalidLogin>
+                  {errorMessage && (
+                    <div className="error"> {errorMessage} </div>
+                  )}
+                </InvalidLogin>
                 <Submit>
                   <Button
                     variant="primary"
@@ -75,7 +102,7 @@ export default function Login({}: Props) {
                   <Button
                     variant="outline-primary"
                     className="btn-outline-primary"
-                    onClick={handlePassword}
+                    //onClick={handlePassword}
                   >
                     Forgot Your Password?
                   </Button>
@@ -91,18 +118,3 @@ export default function Login({}: Props) {
     </Wrapper>
   );
 }
-
-const Wrapper = styled.section`
-  background: white;
-`;
-
-const ImageWrapper = styled.div`
-  img {
-    max-height: 100vh;
-    width: 100%;
-    object-fit: cover !important;
-    @media (max-width: ${MobileScreen}) {
-      display: none;
-    }
-  }
-`;
