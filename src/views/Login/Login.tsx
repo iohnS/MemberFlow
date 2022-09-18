@@ -12,14 +12,13 @@ import {
   ImageWrapper,
   InvalidLogin,
 } from "./Login.style";
-import { HomepageFooter, MobileScreen } from "../../styles/global.style";
 import { useNavigate } from "react-router-dom";
 import "../../styles/App.scss";
 import myImage from "../../assets/homepage_img.jpg";
 import RenderSmoothImage from "render-smooth-image-react";
 import "render-smooth-image-react/build/style.css";
 import auth from "../../backend/auth";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, UserCredential } from "firebase/auth";
 
 type Props = {};
 
@@ -32,24 +31,17 @@ export default function Login({}: Props) {
   const handleSubmit = (event: any) => {
     event.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
-      .then(() => {
+      .then((response: UserCredential) => {
+        if (response.user.email == null) {
+          return;
+        }
+        localStorage.setItem("user", response.user.email);
         navigate("/dashboard");
       })
-      .catch((error) => {
+      .catch(() => {
         setErrorMessage("Wrong login credentials");
       });
   };
-
-  function App() {
-    const handleClick = () => {
-      setErrorMessage("Example error message!");
-    };
-    return (
-      <div className="App">
-        <button onClick={handleClick}>Show error message</button>
-      </div>
-    );
-  }
 
   return (
     <Wrapper>
