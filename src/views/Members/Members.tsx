@@ -1,19 +1,14 @@
 import { Card, Container, Row } from "react-bootstrap";
-import MemberTable from "../../components/tables/MemberTableOld";
+import MemberTable from "../../components/tables/MemberTable";
 import { AdCard } from "../Dashboard/Dashboard.style";
 import DashboardTemplate from "../DashboardTemplate";
 import { Content } from "./Members.style";
 type Props = {};
 
 const Members = (props: Props) => {
-  return <div>MEMBERS</div>;
-};
+  console.log("MEMBERS");
 
-export default Members;
-
-/**
- * 
- * const Ads = (
+  const Ads = (
     <AdCard>
       <Card style={{ height: "150px" }}>
         <Card.Body>
@@ -40,4 +35,6 @@ export default Members;
   );
 
   return <DashboardTemplate body={body} />;
- */
+};
+
+export default Members;

@@ -1,62 +1,62 @@
+import "rsuite-table/dist/css/rsuite-table.css";
+import { useState } from "react";
 import { Table } from "rsuite";
-import { dummy_data } from "./DummyData";
-
 const { Column, HeaderCell, Cell } = Table;
-const data = dummy_data;
 
 const MemberTable = () => {
+  const [sortColumn, setSortColumn] = useState();
+  const [sortType, setSortType] = useState();
+  const [loading, setLoading] = useState(false);
+
+  const sampleData = [
+    { id: "1", name: "A", gender: "asdf", age: 1, email: "fake@mail.com" },
+    { id: "2", name: "B", gender: "fsdf", age: 2, email: "fake@mail.com" },
+    { id: "3", name: "C", gender: "sdfs", age: 3, email: "fake@mail.com" },
+    { id: "4", name: "D", gender: "qwqe", age: 4, email: "fake@mail.com" },
+    { id: "5", name: "E", gender: "xcvx", age: 5, email: "fake@mail.com" },
+  ];
+
+  const handleSortColumn = (sortColumn, sortType) => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      setSortColumn(sortColumn);
+      setSortType(sortType);
+    }, 500);
+  };
+
   return (
     <Table
-      height={400}
-      data={data}
-      onRowClick={(rowData) => {
-        console.log(rowData);
-      }}
+      height={420}
+      data={sampleData}
+      sortColumn={sortColumn}
+      sortType={sortType}
+      onSortColumn={handleSortColumn}
+      loading={loading}
     >
-      <Column width={60} align="center" fixed>
+      <Column width={70} align="center" fixed sortable>
         <HeaderCell>Id</HeaderCell>
         <Cell dataKey="id" />
       </Column>
 
-      <Column width={150}>
-        <HeaderCell>First Name</HeaderCell>
-        <Cell dataKey="firstName" />
+      <Column width={130} fixed sortable>
+        <HeaderCell>Name</HeaderCell>
+        <Cell dataKey="name" />
       </Column>
 
-      <Column width={150}>
-        <HeaderCell>Last Name</HeaderCell>
-        <Cell dataKey="lastName" />
-      </Column>
-
-      <Column width={100}>
+      <Column width={100} sortable>
         <HeaderCell>Gender</HeaderCell>
         <Cell dataKey="gender" />
       </Column>
 
-      <Column width={100}>
+      <Column width={100} sortable>
         <HeaderCell>Age</HeaderCell>
         <Cell dataKey="age" />
       </Column>
 
-      <Column width={150}>
-        <HeaderCell>Postcode</HeaderCell>
-        <Cell dataKey="postcode" />
-      </Column>
-
-      <Column width={300}>
+      <Column width={200} sortable>
         <HeaderCell>Email</HeaderCell>
         <Cell dataKey="email" />
-      </Column>
-      <Column width={80} fixed="right">
-        <HeaderCell>...</HeaderCell>
-
-        <Cell>
-          {(rowData) => (
-            <span>
-              <a onClick={() => alert(`id:${rowData.id}`)}> Edit </a>
-            </span>
-          )}
-        </Cell>
       </Column>
     </Table>
   );

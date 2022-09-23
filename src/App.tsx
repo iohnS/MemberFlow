@@ -13,7 +13,7 @@ import { getData } from "./backend/db";
 // Problemet just nu är att auth försvinner efter refresh. Localstorage finns kvar men auth till firebase är null.
 // Går fortfarande att göra get data fastän auth är null.
 const ProtectedRoute = ({ children }) => {
-  if (auth.currentUser != null || localStorage.getItem("user") != null) {
+  if (auth.currentUser != null) {
     return children;
   } else {
     return <Navigate to="/" />;

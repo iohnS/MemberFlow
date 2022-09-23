@@ -35,7 +35,6 @@ export default function Login({}: Props) {
         if (response.user.email == null) {
           return;
         }
-        localStorage.setItem("user", response.user.email);
         navigate("/dashboard");
       })
       .catch(() => {
