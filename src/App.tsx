@@ -8,10 +8,7 @@ import ChangePassword from "./views/ChangePassword/ChangePassword";
 import PasswordReset from "./views/PasswordReset/PasswordReset";
 import ChangeEmail from "./views/ChangeEmail/ChangeEmail";
 import auth from "./backend/auth";
-import { getData } from "./backend/db";
 
-// Problemet just nu är att auth försvinner efter refresh. Localstorage finns kvar men auth till firebase är null.
-// Går fortfarande att göra get data fastän auth är null.
 const ProtectedRoute = ({ children }) => {
   if (auth.currentUser != null) {
     return children;

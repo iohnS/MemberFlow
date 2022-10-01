@@ -1,13 +1,15 @@
-import { Card, Container, Row } from "react-bootstrap";
+import "rsuite-table/dist/css/rsuite-table.css";
+import { Card, Container, Row, Col } from "react-bootstrap";
 import MemberTable from "../../components/tables/MemberTable";
-import { AdCard } from "../Dashboard/Dashboard.style";
+import { AdCard, IntroductionCard } from "../Dashboard/Dashboard.style";
 import DashboardTemplate from "../DashboardTemplate";
 import { Content } from "./Members.style";
+import AddMember from "../../components/buttons/AddMember";
+import RefreshTable from "../../components/buttons/RefreshTable";
+
 type Props = {};
 
 const Members = (props: Props) => {
-  console.log("MEMBERS");
-
   const Ads = (
     <AdCard>
       <Card style={{ height: "150px" }}>
@@ -22,9 +24,27 @@ const Members = (props: Props) => {
 
   const Table = (
     <Container>
-      <Card>
-        <MemberTable />
-      </Card>
+      <Row>
+        <IntroductionCard>
+          <Card>
+            <Card.Title>Welcome to EASA Lund</Card.Title>
+            <Card.Text>
+              Membership management page. Handle members information and status.
+            </Card.Text>
+          </Card>
+        </IntroductionCard>
+        <Col>
+          <AddMember />
+        </Col>
+
+        <Col>
+          <RefreshTable />
+        </Col>
+
+        <Card>
+          <MemberTable />
+        </Card>
+      </Row>
     </Container>
   );
 

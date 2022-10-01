@@ -104,3 +104,9 @@ export const No = styled.div`
   padding-right: 0.5rem;
   padding-left: 0.5rem;
 `;
+
+export const EditButton = styled.button`
+  border: none;
+  color: blue;
+  background: white;
+`;

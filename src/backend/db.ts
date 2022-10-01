@@ -3,41 +3,51 @@ import {
   collection,
   getFirestore,
   doc,
+  getDocs,
   setDoc,
-  getDoc,
 } from "firebase/firestore";
 import { firebaseConfig } from "./config";
+import type { DocumentData } from "firebase/firestore";
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const userRef = collection(db, "users");
 
-const testRef = collection(db, "test");
+export async function getData() {
+  const docsSnap = await getDocs(userRef);
+  const dataList: DocumentData[] = [];
 
-async function docSnap() {
+  docsSnap.forEach((doc) => {
+    doc.data();
+    const data = doc.data();
+    dataList.push(data);
+  });
+
+  return dataList;
+}
+
+export async function addData(
+  email: string,
+  name: string,
+  ssn: string,
+  period: number,
+  status: boolean
+) {
   try {
-    await setDoc(doc(testRef, "SF"), {
-      name: "San Francisco",
-      state: "CA",
-      country: "USA",
-      capital: false,
-      population: 860000,
-      regions: ["west_coast", "norcal"],
+    let currentDate = new Date().toJSON().slice(0, 10);
+    let collectionSize = (await getDocs(userRef)).size;
+    await setDoc(doc(userRef, email), {
+      name: name,
+      email: email,
+      ssn: ssn,
+      period: period,
+      status: status,
+      regDate: currentDate,
+      id: collectionSize,
     });
   } catch (error) {
     console.log(error);
   }
+
+  console.log("Data added");
 }
-
-async function getData() {
-  const docRef = doc(db, "test", "WnDW0i0J68MHATnNI6bx");
-  const docSnap = await getDoc(docRef);
-  if (docSnap.exists()) {
-    console.log("Document data:", docSnap.data());
-  } else {
-    console.log("No such document!");
-  }
-}
-
-export { docSnap, getData };
-
-export default db;
