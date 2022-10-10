@@ -1,6 +1,7 @@
 import "rsuite-table/dist/css/rsuite-table.css";
 import { useEffect, useState } from "react";
 import { Table } from "rsuite";
+import { Button, Form } from "react-bootstrap";
 import { getData } from "../../backend/db";
 import { EditButton } from "./MemberTable.style";
 import type { DocumentData } from "firebase/firestore";
@@ -32,10 +33,10 @@ const MemberTable = () => {
         let x = a[sortColumn];
         let y = b[sortColumn];
 
-        if (sortColumn == "regDate") {
+        if (sortColumn === "regDate") {
           x = new Date(x);
           y = new Date(y);
-        } else if (sortColumn == "ssn") {
+        } else if (sortColumn === "ssn") {
           x = parseInt(x.split("-")[0]);
           y = parseInt(y.split("-")[0]);
         } else {
@@ -58,6 +59,66 @@ const MemberTable = () => {
     return data;
   }
 
+  const EditableCell = ({ rowData, dataKey, onChange, type, ...props }) => {
+    const editing = rowData.edit === "EDIT";
+    return (
+      <Cell {...props}>
+        {editing ? (
+          type === "select" ? (
+            <Form.Select
+              placeholder={rowData[dataKey]}
+              onChange={(event) => {
+                onChange && onChange(rowData.id, dataKey, event.target.value);
+              }}
+            >
+              {dataKey === "period" ? (
+                <>
+                  <option value="0" disabled>
+                    Choose period
+                  </option>
+                  <option value="6">6 Months</option>
+                  <option value="12">12 Months</option>
+                </>
+              ) : (
+                <>
+                  <option value="1" disabled>
+                    Select status
+                  </option>
+                  <option value="2">Active</option>
+                  <option value="3">Inactive</option>
+                </>
+              )}
+            </Form.Select>
+          ) : (
+            <Form.Control
+              placeholder={rowData[dataKey]}
+              onChange={(event) => {
+                onChange && onChange(rowData.id, dataKey, event.target.value);
+              }}
+            />
+          )
+        ) : (
+          <div>{rowData[dataKey]}</div>
+        )}
+      </Cell>
+    );
+  };
+
+  const EditCell = ({ rowData, dataKey, onClick, ...props }) => {
+    return (
+      <Cell {...props} style={{ padding: "6px" }}>
+        <Button
+          variant="link"
+          onClick={() => {
+            onClick(rowData.id);
+          }}
+        >
+          {rowData.edit === "EDIT" ? "Save" : "Edit"}
+        </Button>
+      </Cell>
+    );
+  };
+
   const handleSortColumn = (sortColumn, sortType) => {
     setLoading(true);
     setTimeout(() => {
@@ -67,18 +128,41 @@ const MemberTable = () => {
     }, 500);
   };
 
-  function edit() {
-    console.log("EDIT");
+  function handleChange(id: string, dataKey: string, value) {
+    if (dbData) {
+      let dataCopy = dbData;
+      let member = dataCopy.find((member) => member.id === id);
+      if (member) {
+        member[dataKey] = value;
+      }
+      setData(dataCopy);
+    }
   }
 
-  // 1. När man trycker på edit så blir saker som status en sak man kan ändra. Antingen input field eller fler vals.
-  //  - Hur gör man så att hela raden editas?
-  //  - Hur ska man hämta värdet från den raden för att sedan ändra staten?
+  function refresh() {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 50);
+  }
+
+  function handleEdit(id: string) {
+    if (dbData) {
+      const dataCopy = dbData;
+      const member = dataCopy.find((member) => member.id === id);
+      if (member) {
+        member.edit = member.edit ? null : "EDIT";
+      }
+      setData(dataCopy);
+      refresh();
+    }
+  }
 
   return (
     <Table
-      height={420}
+      virtualized
       data={sortData(dbData)}
+      height={420}
       sortColumn={sortColumn}
       sortType={sortType}
       onSortColumn={handleSortColumn}
@@ -91,39 +175,67 @@ const MemberTable = () => {
 
       <Column width={130} fixed sortable resizable>
         <HeaderCell>Name</HeaderCell>
-        <Cell dataKey="name" />
+        <EditableCell
+          rowData
+          dataKey="name"
+          type="form"
+          onChange={handleChange}
+        />
       </Column>
 
       <Column width={200} sortable resizable>
         <HeaderCell>Email</HeaderCell>
-        <Cell dataKey="email" />
+        <EditableCell
+          rowData
+          dataKey="email"
+          type="form"
+          onChange={handleChange}
+        />
       </Column>
 
       <Column width={200} sortable resizable>
         <HeaderCell>SSN</HeaderCell>
-        <Cell dataKey="ssn" />
+        <EditableCell
+          rowData
+          dataKey="ssn"
+          type="form"
+          onChange={handleChange}
+        />
       </Column>
 
       <Column width={200} sortable resizable>
         <HeaderCell>Registration date</HeaderCell>
-        <Cell dataKey="regDate" />
+        <EditableCell
+          rowData
+          dataKey="regDate"
+          type="form"
+          onChange={handleChange}
+        />
       </Column>
 
       <Column width={200} sortable resizable>
         <HeaderCell>Period</HeaderCell>
-        <Cell dataKey="period" />
+        <EditableCell
+          rowData
+          dataKey="period"
+          type="select"
+          onChange={handleChange}
+        />
       </Column>
 
       <Column width={100} sortable resizable>
         <HeaderCell>Status</HeaderCell>
-        <Cell dataKey="status" />
+        <EditableCell
+          rowData
+          dataKey="status"
+          type="select"
+          onChange={handleChange}
+        />
       </Column>
 
       <Column width={80} align="left">
         <HeaderCell>...</HeaderCell>
-        <Cell>
-          <EditButton onClick={edit}>Edit</EditButton>
-        </Cell>
+        <EditCell rowData dataKey="edit" onClick={handleEdit} />
       </Column>
     </Table>
   );

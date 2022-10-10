@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^13.2.1",
     "@types/babel__generator": "^7.6.4",
     "@types/bootstrap": "^5.1.10",
+    "@types/firebase": "^3.2.1",
     "@types/jest": "^27.4.1",
     "@types/react-bootstrap": "^0.32.29",
     "@types/react-bootstrap-table-next": "^4.0.18",

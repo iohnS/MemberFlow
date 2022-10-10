@@ -10,11 +10,12 @@ import ChangeEmail from "./views/ChangeEmail/ChangeEmail";
 import auth from "./backend/auth";
 
 const ProtectedRoute = ({ children }) => {
-  if (auth.currentUser != null) {
+  return children;
+  /**if (auth.currentUser != null) {
     return children;
   } else {
     return <Navigate to="/" />;
-  }
+  }*/
 };
 
 const App = () => {
