@@ -5,20 +5,21 @@ import {
   doc,
   getDocs,
   setDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { firebaseConfig } from "./config";
 import type { DocumentData } from "firebase/firestore";
+import { UserType } from "../types";
 
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const userRef = collection(db, "users");
+export const db = getFirestore(app);
+const userCollectionRef = collection(db, "users");
 
 export async function getData() {
-  const docsSnap = await getDocs(userRef);
+  const docsSnap = await getDocs(userCollectionRef);
   const dataList: DocumentData[] = [];
 
   docsSnap.forEach((doc) => {
-    doc.data();
     const data = doc.data();
     dataList.push(data);
   });
@@ -26,28 +27,41 @@ export async function getData() {
   return dataList;
 }
 
-export async function addData(
+export async function addUser(
   email: string,
   name: string,
   ssn: string,
   period: number,
-  status: boolean
+  status: string
 ) {
   try {
     let currentDate = new Date().toJSON().slice(0, 10);
-    let collectionSize = (await getDocs(userRef)).size;
-    await setDoc(doc(userRef, email), {
+    const docRef = doc(userCollectionRef);
+    const id = docRef.id;
+    await setDoc(docRef, {
       name: name,
       email: email,
       ssn: ssn,
       period: period,
       status: status,
       regDate: currentDate,
-      id: collectionSize,
+      id: id,
     });
   } catch (error) {
     console.log(error);
   }
+}
 
-  console.log("Data added");
+export async function updateUser(rowData: UserType) {
+  const userRef = doc(db, "users", String(rowData.id));
+  await updateDoc(userRef, {
+    name: rowData.name,
+    email: rowData.email,
+    ssn: rowData.ssn,
+    period: rowData.period,
+    status: rowData.status,
+    regDate: rowData.regDate,
+    id: rowData.id,
+  });
+  console.log("update DOC");
 }

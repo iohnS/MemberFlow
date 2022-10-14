@@ -1,6 +1,6 @@
 import { Button, Modal, Row, Container, Col, Form } from "react-bootstrap";
 import { useState } from "react";
-import { addData } from "../../backend/db";
+import { addUser } from "../../backend/db";
 
 const AddMember = () => {
   const [show, setShow] = useState(false);
@@ -16,8 +16,7 @@ const AddMember = () => {
   const addMember = () => {
     console.log();
     let intPeriod = parseInt(period);
-    let boolStatus = status === "Active" ? true : false;
-    addData(email, name, ssn, intPeriod, boolStatus);
+    addUser(email, name, ssn, intPeriod, status);
     handleClose();
   };
 
@@ -79,7 +78,7 @@ const AddMember = () => {
                       defaultValue={0}
                       onChange={(e) => setPeriod(e.target.value)}
                     >
-                      <option value="0" disabled>
+                      <option value="0" disabled hidden>
                         Choose period
                       </option>
                       <option value="6">6 Months</option>
@@ -95,11 +94,11 @@ const AddMember = () => {
                       defaultValue={1}
                       onChange={(e) => setStatus(e.target.value)}
                     >
-                      <option value="1" disabled>
+                      <option value="1" disabled hidden>
                         Select status
                       </option>
-                      <option value="2">Active</option>
-                      <option value="3">Inactive</option>
+                      <option value="Active">Active</option>
+                      <option value="Inactive">Inactive</option>
                     </Form.Select>
                   </Form.Group>
                 </Col>
