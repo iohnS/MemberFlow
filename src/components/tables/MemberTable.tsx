@@ -5,6 +5,7 @@ import type { DocumentData } from "firebase/firestore";
 import { UserType } from "../../types";
 import { updateUser, db, removeUser } from "../../backend/db";
 import { onSnapshot, collection } from "firebase/firestore";
+import { Form } from "react-bootstrap";
 import {
   EditableCell,
   EditActionCell,
@@ -20,6 +21,7 @@ const MemberTable = () => {
   const prevData = useRef<DocumentData[]>([]);
   const [dbData, setData] = useState<DocumentData[]>(prevData.current);
   const [changed, setChanged] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const unsub = onSnapshot(collection(db, "users"), (snapshot) => {
@@ -75,6 +77,10 @@ const MemberTable = () => {
     }
   }
 
+  useEffect(() => {
+    console.log(searchTerm);
+  }, [searchTerm]);
+
   function sortData(data: DocumentData[] | undefined) {
     if (!data) {
       return;
@@ -104,6 +110,19 @@ const MemberTable = () => {
       });
     }
 
+    return data;
+  }
+
+  function formatedData(data: DocumentData[] | undefined) {
+    if (!data) {
+      return;
+    }
+
+    if (searchTerm) {
+      return data.filter((document: DocumentData) =>
+        document.name.toLowerCase().includes(searchTerm)
+      );
+    }
     return data;
   }
 
@@ -158,90 +177,98 @@ const MemberTable = () => {
   }
 
   return (
-    <Table
-      virtualized
-      data={sortData(dbData)}
-      height={420}
-      sortColumn={sortColumn}
-      sortType={sortType}
-      onSortColumn={handleSortColumn}
-      loading={loading}
-    >
-      <Column width={130} fixed sortable resizable>
-        <HeaderCell>Name</HeaderCell>
-        <EditableCell
-          rowData
-          dataKey="name"
-          type="form"
-          onChange={handleChange}
+    <>
+      <Form>
+        <Form.Control
+          placeholder="Search..."
+          onChange={(event) => setSearchTerm(event.target.value.toLowerCase())}
         />
-      </Column>
+      </Form>
+      <Table
+        virtualized
+        data={formatedData(sortData(dbData))}
+        height={420}
+        sortColumn={sortColumn}
+        sortType={sortType}
+        onSortColumn={handleSortColumn}
+        loading={loading}
+      >
+        <Column width={130} fixed sortable resizable>
+          <HeaderCell>Name</HeaderCell>
+          <EditableCell
+            rowData
+            dataKey="name"
+            type="form"
+            onChange={handleChange}
+          />
+        </Column>
 
-      <Column width={200} sortable resizable>
-        <HeaderCell>Email</HeaderCell>
-        <EditableCell
-          rowData
-          dataKey="email"
-          type="form"
-          onChange={handleChange}
-        />
-      </Column>
+        <Column width={200} sortable resizable>
+          <HeaderCell>Email</HeaderCell>
+          <EditableCell
+            rowData
+            dataKey="email"
+            type="form"
+            onChange={handleChange}
+          />
+        </Column>
 
-      <Column width={200} sortable resizable>
-        <HeaderCell>SSN</HeaderCell>
-        <EditableCell
-          rowData
-          dataKey="ssn"
-          type="form"
-          onChange={handleChange}
-        />
-      </Column>
+        <Column width={200} sortable resizable>
+          <HeaderCell>SSN</HeaderCell>
+          <EditableCell
+            rowData
+            dataKey="ssn"
+            type="form"
+            onChange={handleChange}
+          />
+        </Column>
 
-      <Column width={200} sortable resizable>
-        <HeaderCell>Registration date</HeaderCell>
-        <EditableCell
-          rowData
-          dataKey="regDate"
-          type="form"
-          onChange={handleChange}
-        />
-      </Column>
+        <Column width={200} sortable resizable>
+          <HeaderCell>Registration date</HeaderCell>
+          <EditableCell
+            rowData
+            dataKey="regDate"
+            type="form"
+            onChange={handleChange}
+          />
+        </Column>
 
-      <Column width={150} sortable resizable>
-        <HeaderCell>Period</HeaderCell>
-        <EditableSelectCell
-          rowData
-          dataKey="period"
-          type="select"
-          onChange={handleChange}
-        />
-      </Column>
+        <Column width={150} sortable resizable>
+          <HeaderCell>Period</HeaderCell>
+          <EditableSelectCell
+            rowData
+            dataKey="period"
+            type="select"
+            onChange={handleChange}
+          />
+        </Column>
 
-      <Column width={200} sortable resizable>
-        <HeaderCell>Status</HeaderCell>
-        <EditableSelectCell
-          rowData
-          dataKey="status"
-          type="select"
-          onChange={handleChange}
-        />
-      </Column>
+        <Column width={200} sortable resizable>
+          <HeaderCell>Status</HeaderCell>
+          <EditableSelectCell
+            rowData
+            dataKey="status"
+            type="select"
+            onChange={handleChange}
+          />
+        </Column>
 
-      <Column width={100}>
-        <HeaderCell>#</HeaderCell>
-        <RemoveActionCell rowData removeClick={removeUser} />
-      </Column>
+        <Column width={100}>
+          <HeaderCell>#</HeaderCell>
+          <RemoveActionCell rowData removeClick={removeUser} />
+        </Column>
 
-      <Column width={80} align="left" fixed="right">
-        <HeaderCell>...</HeaderCell>
-        <EditActionCell
-          rowData
-          dataKey="edit"
-          onEdit={handleEdit}
-          onSave={handleSave}
-        />
-      </Column>
-    </Table>
+        <Column width={80} align="left" fixed="right">
+          <HeaderCell>...</HeaderCell>
+          <EditActionCell
+            rowData
+            dataKey="edit"
+            onEdit={handleEdit}
+            onSave={handleSave}
+          />
+        </Column>
+      </Table>
+    </>
   );
 };
 
