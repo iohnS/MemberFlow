@@ -5,7 +5,6 @@ import { AdCard, IntroductionCard } from "../Dashboard/Dashboard.style";
 import DashboardTemplate from "../DashboardTemplate";
 import { Content } from "./Members.style";
 import AddMember from "../../components/buttons/AddMember";
-import RefreshTable from "../../components/buttons/RefreshTable";
 
 type Props = {};
 
@@ -36,11 +35,6 @@ const Members = (props: Props) => {
         <Col>
           <AddMember />
         </Col>
-
-        <Col>
-          <RefreshTable />
-        </Col>
-
         <Card>
           <MemberTable />
         </Card>

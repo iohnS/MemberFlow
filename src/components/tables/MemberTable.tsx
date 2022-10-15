@@ -1,11 +1,16 @@
 import "rsuite-table/dist/css/rsuite-table.css";
 import { useEffect, useState, useRef } from "react";
 import { Table } from "rsuite";
-import { Button, Form } from "react-bootstrap";
 import type { DocumentData } from "firebase/firestore";
 import { UserType } from "../../types";
-import { updateUser, db } from "../../backend/db";
+import { updateUser, db, removeUser } from "../../backend/db";
 import { onSnapshot, collection } from "firebase/firestore";
+import {
+  EditableCell,
+  EditActionCell,
+  EditableSelectCell,
+  RemoveActionCell,
+} from "./TableComponents";
 const { Column, HeaderCell, Cell } = Table;
 
 const MemberTable = () => {
@@ -102,96 +107,6 @@ const MemberTable = () => {
     return data;
   }
 
-  const EditableCell = ({ rowData, dataKey, onChange, type, ...props }) => {
-    const editing = rowData.edit === "EDIT";
-    return (
-      <Cell {...props}>
-        {editing ? (
-          <Form.Control
-            placeholder={rowData[dataKey]}
-            onChange={(event) => {
-              onChange && onChange(rowData.id, dataKey, event.target.value);
-            }}
-          />
-        ) : (
-          <div>{rowData[dataKey]}</div>
-        )}
-      </Cell>
-    );
-  };
-
-  const EditableSelectCell = ({
-    rowData,
-    dataKey,
-    onChange,
-    type,
-    ...props
-  }) => {
-    const editing = rowData.edit === "EDIT";
-    let statusPlaceholder = "";
-    let dataValue = "";
-    if (dataKey === "status") {
-      statusPlaceholder = rowData.status === "Active" ? "Active" : "Inactive";
-      dataValue = statusPlaceholder;
-    }
-    if (dataKey === "period") {
-      statusPlaceholder = rowData.period == 6 ? "6 Months" : "12 Months";
-      dataValue = String(rowData.period);
-    }
-    return (
-      <Cell {...props}>
-        {editing ? (
-          <Form.Select
-            placeholder={statusPlaceholder}
-            onChange={(event) => {
-              onChange && onChange(rowData.id, dataKey, event.target.value);
-            }}
-            defaultValue={dataValue}
-          >
-            {dataKey === "period" ? (
-              <>
-                <option value="0" disabled>
-                  Choose period
-                </option>
-                <option value="6">6 Months</option>
-                <option value="12">12 Months</option>
-              </>
-            ) : (
-              <>
-                <option value="0" disabled>
-                  Select status
-                </option>
-                <option value="Active">Active</option>
-                <option value="Inactive">Inactive</option>
-              </>
-            )}
-          </Form.Select>
-        ) : (
-          <div>{rowData[dataKey]}</div>
-        )}
-      </Cell>
-    );
-  };
-
-  const EditActionCell = ({ rowData, dataKey, onEdit, onSave, ...props }) => {
-    return (
-      <Cell {...props} style={{ padding: "6px" }}>
-        <Button
-          variant="link"
-          onClick={() => {
-            if (rowData.edit) {
-              onSave(rowData.id, rowData);
-            } else {
-              onEdit(rowData.id);
-            }
-          }}
-        >
-          {rowData.edit === "EDIT" ? "Save" : "Edit"}
-        </Button>
-      </Cell>
-    );
-  };
-
   const handleSortColumn = (sortColumn, sortType) => {
     setLoading(true);
     setTimeout(() => {
@@ -252,11 +167,6 @@ const MemberTable = () => {
       onSortColumn={handleSortColumn}
       loading={loading}
     >
-      <Column width={250} align="center" fixed sortable resizable>
-        <HeaderCell>Id</HeaderCell>
-        <Cell dataKey="id" />
-      </Column>
-
       <Column width={130} fixed sortable resizable>
         <HeaderCell>Name</HeaderCell>
         <EditableCell
@@ -317,7 +227,12 @@ const MemberTable = () => {
         />
       </Column>
 
-      <Column width={80} align="left">
+      <Column width={100}>
+        <HeaderCell>#</HeaderCell>
+        <RemoveActionCell rowData removeClick={removeUser} />
+      </Column>
+
+      <Column width={80} align="left" fixed="right">
         <HeaderCell>...</HeaderCell>
         <EditActionCell
           rowData

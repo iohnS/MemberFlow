@@ -6,6 +6,7 @@ import {
   getDocs,
   setDoc,
   updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import { firebaseConfig } from "./config";
 import type { DocumentData } from "firebase/firestore";
@@ -64,4 +65,8 @@ export async function updateUser(rowData: UserType) {
     id: rowData.id,
   });
   console.log("update DOC");
+}
+
+export async function removeUser(id: string) {
+  await deleteDoc(doc(db, "users", id));
 }
