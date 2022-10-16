@@ -1,7 +1,6 @@
 import "rsuite-table/dist/css/rsuite-table.css";
 import { useEffect, useState, useRef } from "react";
 import { Table } from "rsuite";
-import type { DocumentData } from "firebase/firestore";
 import { UserType } from "../../types";
 import { updateUser, db, removeUser } from "../../backend/db";
 import { onSnapshot, collection } from "firebase/firestore";
@@ -12,6 +11,7 @@ import {
   EditableSelectCell,
   RemoveActionCell,
 } from "./TableComponents";
+import type { DocumentData } from "firebase/firestore";
 const { Column, HeaderCell, Cell } = Table;
 
 const MemberTable = () => {
@@ -77,10 +77,6 @@ const MemberTable = () => {
     }
   }
 
-  useEffect(() => {
-    console.log(searchTerm);
-  }, [searchTerm]);
-
   function sortData(data: DocumentData[] | undefined) {
     if (!data) {
       return;
@@ -119,8 +115,11 @@ const MemberTable = () => {
     }
 
     if (searchTerm) {
-      return data.filter((document: DocumentData) =>
-        document.name.toLowerCase().includes(searchTerm)
+      return data.filter(
+        (document: DocumentData) =>
+          document.name.toLowerCase().includes(searchTerm) ||
+          document.email.toLowerCase().includes(searchTerm) ||
+          document.ssn.toLowerCase().includes(searchTerm)
       );
     }
     return data;
@@ -176,6 +175,18 @@ const MemberTable = () => {
     }
   }
 
+  function handleCancel(id: string) {
+    if (dbData) {
+      const dataCopy = dbData;
+      const member = dataCopy.find((member) => member.id === id);
+      if (member) {
+        member.edit = null;
+      }
+      setData(dataCopy);
+      refresh();
+    }
+  }
+
   return (
     <>
       <Form>
@@ -213,7 +224,7 @@ const MemberTable = () => {
           />
         </Column>
 
-        <Column width={200} sortable resizable>
+        <Column width={180} sortable resizable>
           <HeaderCell>SSN</HeaderCell>
           <EditableCell
             rowData
@@ -223,7 +234,7 @@ const MemberTable = () => {
           />
         </Column>
 
-        <Column width={200} sortable resizable>
+        <Column width={180} sortable resizable>
           <HeaderCell>Registration date</HeaderCell>
           <EditableCell
             rowData
@@ -243,7 +254,7 @@ const MemberTable = () => {
           />
         </Column>
 
-        <Column width={200} sortable resizable>
+        <Column width={120} sortable resizable>
           <HeaderCell>Status</HeaderCell>
           <EditableSelectCell
             rowData
@@ -255,7 +266,11 @@ const MemberTable = () => {
 
         <Column width={100}>
           <HeaderCell>#</HeaderCell>
-          <RemoveActionCell rowData removeClick={removeUser} />
+          <RemoveActionCell
+            rowData
+            removeClick={removeUser}
+            handleCancel={handleCancel}
+          />
         </Column>
 
         <Column width={80} align="left" fixed="right">

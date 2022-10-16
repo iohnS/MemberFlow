@@ -1,7 +1,7 @@
 import { Button, Form, Modal } from "react-bootstrap";
 import { Table } from "rsuite";
 import { useState } from "react";
-const { Column, HeaderCell, Cell } = Table;
+const { Cell } = Table;
 
 export const EditableCell = ({
   rowData,
@@ -105,7 +105,12 @@ export const EditActionCell = ({
   );
 };
 
-export const RemoveActionCell = ({ rowData, removeClick, ...props }) => {
+export const RemoveActionCell = ({
+  rowData,
+  removeClick,
+  handleCancel,
+  ...props
+}) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -114,8 +119,17 @@ export const RemoveActionCell = ({ rowData, removeClick, ...props }) => {
   return (
     <Cell {...props}>
       <div>
-        <Button variant="danger" onClick={handleShow}>
-          Delete
+        <Button
+          variant={rowData.edit ? "secondary" : "danger"}
+          onClick={() => {
+            if (rowData.edit) {
+              handleCancel(rowData.id);
+            } else {
+              handleShow();
+            }
+          }}
+        >
+          {rowData.edit ? "Cancel" : "Delete"}
         </Button>
 
         <Modal show={show} onHide={handleClose} centered>
