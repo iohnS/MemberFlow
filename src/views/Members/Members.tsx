@@ -5,21 +5,12 @@ import { AdCard, IntroductionCard } from "../Dashboard/Dashboard.style";
 import DashboardTemplate from "../DashboardTemplate";
 import { Content } from "./Members.style";
 import AddMember from "../../components/buttons/AddMember";
+import ExportCSV from "../../components/buttons/ExportCSV";
+import { useState } from "react";
+import type { DocumentData } from "firebase/firestore";
 
-type Props = {};
-
-const Members = (props: Props) => {
-  const Ads = (
-    <AdCard>
-      <Card style={{ height: "150px" }}>
-        <Card.Body>
-          <Card.Title style={{ fontSize: "1.8rem" }}>
-            Track membership information.
-          </Card.Title>
-        </Card.Body>
-      </Card>
-    </AdCard>
-  );
+const Members = () => {
+  const [data, setData] = useState<DocumentData[]>([]);
 
   const Table = (
     <Container>
@@ -35,8 +26,11 @@ const Members = (props: Props) => {
         <Col>
           <AddMember />
         </Col>
+        <Col>
+          <ExportCSV data={data} />
+        </Col>
         <Card>
-          <MemberTable />
+          <MemberTable dbData={data} setData={setData} />
         </Card>
       </Row>
     </Container>

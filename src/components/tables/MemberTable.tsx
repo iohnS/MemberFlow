@@ -14,12 +14,11 @@ import {
 import type { DocumentData } from "firebase/firestore";
 const { Column, HeaderCell, Cell } = Table;
 
-const MemberTable = () => {
+const MemberTable = ({ dbData, setData }) => {
   const [sortColumn, setSortColumn] = useState("");
   const [sortType, setSortType] = useState();
   const [loading, setLoading] = useState(false);
   const prevData = useRef<DocumentData[]>([]);
-  const [dbData, setData] = useState<DocumentData[]>(prevData.current);
   const [changed, setChanged] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -32,7 +31,6 @@ const MemberTable = () => {
             if (
               !members.find((member: DocumentData) => member.id == doc.doc.id)
             ) {
-              console.log("added!");
               members.push(doc.doc.data());
             }
             break;
