@@ -7,11 +7,12 @@ import MyAccount from "./views/MyAccount/MyAccount";
 import ChangePassword from "./views/ChangePassword/ChangePassword";
 import PasswordReset from "./views/PasswordReset/PasswordReset";
 import ChangeEmail from "./views/ChangeEmail/ChangeEmail";
+import Register from "./views/Register/Register";
 import auth from "./backend/auth";
 
 const ProtectedRoute = ({ children }) => {
   return children;
-  /**if (auth.currentUser != null) {
+  /**if (auth.currentUser != "john02sun@gmail.com") {
     return children;
   } else {
     return <Navigate to="/" />;
@@ -39,6 +40,7 @@ const App = () => {
             </ProtectedRoute>
           }
         />
+        <Route path="/register" element={<Register />} />
         <Route
           path="/settings"
           element={

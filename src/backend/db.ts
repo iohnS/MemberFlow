@@ -8,7 +8,7 @@ import {
   updateDoc,
   deleteDoc,
 } from "firebase/firestore";
-import { firebaseConfig } from "./config";
+import { firebaseConfig } from "../config";
 import type { DocumentData } from "firebase/firestore";
 import { UserType } from "../types";
 
