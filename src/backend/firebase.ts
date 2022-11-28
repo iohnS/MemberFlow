@@ -11,10 +11,21 @@ import {
 import { firebaseConfig } from "../config";
 import type { DocumentData } from "firebase/firestore";
 import { UserType } from "../types";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
-const userCollectionRef = collection(db, "users");
+const userCollectionRef = collection(db, "members");
+export const userAuth = getAuth(app);
+
+export async function createUser(email: string, password: string) {
+  const userCred = await createUserWithEmailAndPassword(
+    userAuth,
+    email,
+    password
+  );
+  return userCred;
+}
 
 export async function getData() {
   const docsSnap = await getDocs(userCollectionRef);
@@ -33,7 +44,7 @@ export async function addUser(
   name: string,
   ssn: string,
   period: number,
-  status: string
+  status?: string
 ) {
   try {
     let currentDate = new Date().toJSON().slice(0, 10);
@@ -44,7 +55,7 @@ export async function addUser(
       email: email,
       ssn: ssn,
       period: period,
-      status: status,
+      // status: status,
       regDate: currentDate,
       id: id,
     });

@@ -17,7 +17,7 @@ import "../../styles/App.scss";
 import myImage from "../../assets/homepage_img.jpg";
 import RenderSmoothImage from "render-smooth-image-react";
 import "render-smooth-image-react/build/style.css";
-import auth from "../../backend/auth";
+import { userAuth } from "../../backend/firebase";
 import { signInWithEmailAndPassword, UserCredential } from "firebase/auth";
 
 type Props = {};
@@ -30,7 +30,7 @@ export default function Login({}: Props) {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
+    signInWithEmailAndPassword(userAuth, email, password)
       .then((response: UserCredential) => {
         if (response.user.email == null) {
           return;

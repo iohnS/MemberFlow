@@ -1,6 +1,6 @@
 import { Button, Modal, Row, Container, Col, Form } from "react-bootstrap";
 import { useState } from "react";
-import { addUser } from "../../backend/db";
+import { addUser } from "../../backend/firebase";
 
 const AddMember = () => {
   const [show, setShow] = useState(false);

@@ -2,7 +2,7 @@ import "rsuite-table/dist/css/rsuite-table.css";
 import { useEffect, useState, useRef } from "react";
 import { Table } from "rsuite";
 import { UserType } from "../../types";
-import { updateUser, db, removeUser } from "../../backend/db";
+import { updateUser, db, removeUser } from "../../backend/firebase";
 import { onSnapshot, collection } from "firebase/firestore";
 import { Form } from "react-bootstrap";
 import {
