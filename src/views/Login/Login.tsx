@@ -35,7 +35,7 @@ export default function Login({}: Props) {
         if (response.user.email == null) {
           return;
         }
-        navigate("/dashboard");
+        navigate("/account");
       })
       .catch(() => {
         setErrorMessage("Wrong login credentials");
@@ -96,6 +96,13 @@ export default function Login({}: Props) {
                     //onClick={handlePassword}
                   >
                     Forgot Your Password?
+                  </Button>
+                  <Button
+                    variant="outline-primary"
+                    className="btn-outline-primary"
+                    onClick={() => navigate("/register")}
+                  >
+                    Register
                   </Button>
                 </Submit>
               </Form>

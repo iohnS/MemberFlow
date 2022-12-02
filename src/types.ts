@@ -8,6 +8,8 @@ export type UserType = {
   status: string;
   regDate: string;
   id: number;
+  membershipStart: string;
+  membershipEnd: string;
 };
 
 export type CheckoutSession = {

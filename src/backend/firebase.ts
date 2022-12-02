@@ -11,11 +11,7 @@ import {
 import { firebaseConfig } from "../config";
 import type { DocumentData } from "firebase/firestore";
 import { UserType } from "../types";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);

@@ -8,14 +8,6 @@ import { UserType } from "../../types";
 
 const Account = () => {
   const [active, setStatus] = useState(false);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!userAuth.currentUser) {
-      navigate("/");
-    }
-  }, []);
-
   if (userAuth.currentUser) {
     const uid = userAuth.currentUser.uid;
     const docref = doc(db, "members", uid);
