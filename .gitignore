@@ -3,3 +3,7 @@ node_modules
 config.ts
 
 test
+
+database-debug.log
+firestore-debug.log
+ui-debug.log
