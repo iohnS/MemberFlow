@@ -1,72 +1,110 @@
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  Spinner,
+  Modal,
+} from "react-bootstrap";
 import DashboardTemplate from "../DashboardTemplate";
 import { useState } from "react";
-import { db } from "../../backend/db";
-import { addDoc, collection, onSnapshot } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import auth, { createUser } from "../../backend/auth";
-import { loadStripe } from "@stripe/stripe-js";
-import { CheckoutSession } from "../../types";
-import { stripeTestPK } from "../../config";
+import { userAuth, createUser, addUser } from "../../backend/firebase";
+import { ErrorMessage } from "./Register.style";
 
 const Register = () => {
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [ssn, setSSN] = useState("");
-  const [period, setPeriodState] = useState("");
-  const [price, setPrice] = useState(0);
+  const [gender, setGender] = useState("");
+  const [afmember, setAFMember] = useState("");
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [show, setShow] = useState(false);
+  const [agreed, setAgreed] = useState(false);
 
-  function setPeriod(value: string) {
-    if (value == "6") {
-      setPrice(50);
-    } else {
-      setPrice(70);
-    }
-    setPeriodState(value);
+  const navigate = useNavigate();
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  function formFilled() {
+    return (
+      email !== "" &&
+      firstName !== "" &&
+      ssn !== "" &&
+      lastName !== "" &&
+      gender !== "" &&
+      afmember !== "" &&
+      agreed
+    );
   }
 
-  async function startPayment() {
-    let priceID = "";
-    await createUser(email, ssn);
-    if (price == 50) {
-      priceID = "price_1M5cHLGYD6iG8N5VvN7iOL60";
-    } else {
-      priceID = "price_1M5cKJGYD6iG8N5VVHGMkawI";
-    }
-    const userCred = await signInWithEmailAndPassword(auth, email, ssn);
-    if (!auth.currentUser) {
+  function handleChange(e) {
+    setGender(e.target.value);
+  }
+
+  function handleCheck(e) {
+    setAgreed(e.target.checked);
+  }
+
+  async function register() {
+    setLoading(true);
+    console.log("creating user");
+    await createUser(email, ssn).catch(() => {
+      setError(true);
+    });
+    console.log("adding user");
+    await addUser(email, firstName, lastName, ssn).catch(() => {
+      setError(true);
+    });
+    console.log("loggin in user");
+    await signInWithEmailAndPassword(userAuth, email, ssn);
+    if (!userAuth.currentUser) {
       console.log("Authentication failed");
       return;
     }
-    console.log(auth.currentUser.uid);
-    const colRef = collection(
-      db,
-      "customers",
-      auth.currentUser.uid,
-      "checkout_sessions"
+
+    navigate("/account");
+  }
+
+  const Policy = () => {
+    return (
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Storing of your information</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          By ticking the box above and submitting the following form, you
+          consent to the processing of your personal data by the East Asian
+          Student Association Lund (EASA Lund). The purpose of collecting this
+          information is to enable EASA Lund to provide services related to your
+          membership. You have the legal right to, free of charge, access the
+          data collected on you, to have erroneous data corrected, to have your
+          data erased from our registries, to migrate your data to other systems
+          through the use of widely available data formats, and to object to the
+          use of your data for direct marketing, automated decision-making and
+          profiling. If you wish to exercise these rights, or if you have any
+          questions, please contact the secretary at president@asialund.org. The
+          personal data relating to your membership is deleted from the member
+          registry by EASA Lund no later than two years after your membership
+          has expired. EASA processes data in accordance with Article 6(1) of
+          the Regulation (EU) 2016/679 of the European Parliament and of the
+          Council of 27 April 2016 on the protection of natural persons with
+          regard to the processing of personal data and on the free movement of
+          such data, and repealing Directive 95/46/EC (General Data Protection
+          Regulation) and applicable Swedish law. The personal data is also
+          processed by, and stored on, third party services within and outside
+          of the EU that comply with the GDPR. If you believe that your data is
+          not processed according to applicable law, you can make a claim with
+          the Swedish Data Protection Authority (Datainspektionen).
+        </Modal.Body>
+      </Modal>
     );
-    const docRef = await addDoc(colRef, {
-      mode: "payment",
-      price: priceID,
-      success_url: window.location.origin,
-      cancel_url: window.location.origin,
-    });
-
-    onSnapshot(docRef, async (snap) => {
-      const stripe = await loadStripe(stripeTestPK);
-
-      const data = snap.data() as CheckoutSession;
-
-      const { sessionId } = data;
-      if (sessionId) {
-        await stripe?.redirectToCheckout({ sessionId });
-      }
-    });
-  }
-
-  function formFilled() {
-    return email != "" && name != "" && ssn != "" && period != "" && price != 0;
-  }
+  };
 
   const registrationForm = (
     <Container>
@@ -74,15 +112,27 @@ const Register = () => {
         <Row>
           <Col>
             <Form.Group>
-              <Form.Label>Name</Form.Label>
+              <Form.Label>First name</Form.Label>
               <Form.Control
                 type="name"
-                placeholder="Name"
-                onChange={(e) => setName(e.target.value)}
+                placeholder="First name"
+                onChange={(e) => setFirstName(e.target.value)}
               />
             </Form.Group>
           </Col>
+          <Col>
+            <Form.Group>
+              <Form.Label>Last name</Form.Label>
+              <Form.Control
+                type="name"
+                placeholder="Last name"
+                onChange={(e) => setLastName(e.target.value)}
+              />
+            </Form.Group>
+          </Col>
+        </Row>
 
+        <Row>
           <Col>
             <Form.Group>
               <Form.Label>Email address</Form.Label>
@@ -93,9 +143,6 @@ const Register = () => {
               />
             </Form.Group>
           </Col>
-        </Row>
-
-        <Row>
           <Col>
             <Form.Group>
               <Form.Label>SSN</Form.Label>
@@ -106,30 +153,86 @@ const Register = () => {
               />
             </Form.Group>
           </Col>
+        </Row>
+        <Row>
+          <Form.Group>
+            <Form.Label>Gender</Form.Label>
+            <Form.Check
+              value="male"
+              type="radio"
+              label="Male"
+              onChange={handleChange}
+              checked={gender === "male"}
+            />
+            <Form.Check
+              value="female"
+              type="radio"
+              label="Female"
+              onChange={handleChange}
+              checked={gender === "female"}
+            />
+            <Form.Check
+              value="other"
+              type="radio"
+              label="Other"
+              onChange={handleChange}
+              checked={gender === "other"}
+            />
+          </Form.Group>
+        </Row>
+        <Row>
+          <Form.Group>
+            <Form.Label>
+              Are you a member of AF? You must be a member of AF (Akademiska
+              Föreningen) in order to become an EASA member. If you are a
+              Studentlund member you are automatically an AF member.
+            </Form.Label>
+            <Form.Check
+              value="yes"
+              type="radio"
+              label="Yes"
+              onChange={() => setAFMember("yes")}
+              checked={afmember === "yes"}
+            />
+            <Form.Check
+              value="no"
+              type="radio"
+              label="No"
+              onChange={() => setAFMember("no")}
+              checked={afmember === "no"}
+            />
+          </Form.Group>
+        </Row>
+        <Row>
           <Col>
             <Form.Group>
-              <Form.Label>Period</Form.Label>
-              <Form.Select
-                defaultValue={0}
-                onChange={(e) => setPeriod(e.target.value)}
-              >
-                <option value="0" disabled hidden>
-                  Choose period
-                </option>
-                <option value="6">6 Months (50kr)</option>
-                <option value="12">12 Months (70kr)</option>
-              </Form.Select>
+              <Form.Label>
+                Do you agree to the storing of your personal data? More
+                information can be found in our privacy policy.
+              </Form.Label>
+              <Form.Check label="Yes" onClick={handleCheck} />
             </Form.Group>
+          </Col>
+          <Col>
+            <Button onClick={handleShow}>Privacy policy</Button>
+            <Policy />
           </Col>
         </Row>
       </Form>
+      {error ? (
+        <ErrorMessage>
+          Email already in use or invalid social security number
+        </ErrorMessage>
+      ) : (
+        <div></div>
+      )}
       <Button
         variant={!formFilled() ? "secondary" : "primary"}
         size="lg"
         disabled={!formFilled()}
-        onClick={startPayment}
+        onClick={register}
       >
-        Register and pay {price}
+        {loading ? <Spinner animation="border" /> : <div>Register</div>}
       </Button>
     </Container>
   );

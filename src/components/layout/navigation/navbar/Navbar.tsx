@@ -7,11 +7,8 @@ import {
   Navbar as BootstrapNavbar,
 } from "react-bootstrap";
 import { useNavigate, useLocation } from "react-router-dom";
-import {
-  ThemeMode,
-  NavBarHeight,
-  BackgroundColor,
-} from "../../../../styles/global.style";
+import { ThemeMode, NavBarHeight } from "../../../../styles/global.style";
+import { NavigationStyle } from "./Navbar.style";
 
 type Props = {};
 
@@ -31,39 +28,6 @@ const Navbar: React.FC = (props: Props) => {
   color: rgba(255, 255, 255, 0.9);
 }
  */
-  const NavigationStyle = styled.section`
-    .bg-light {
-      --bs-bg-opacity: 0 !important;
-      border-bottom: none;
-      background-color: ${BackgroundColor} !important;
-    }
-
-    .navbar-brand {
-      font-size: 1.25rem !important;
-      font-weight: 700 !important;
-      background: #3de2e8 !important;
-      color: transparent !important;
-      -webkit-background-clip: text !important;
-      background-clip: text !important;
-      padding-left: 1rem;
-    }
-
-    .nav-link {
-      font-size: 14px;
-    }
-
-    .nav-link:hover {
-      text-decoration-line: underline;
-    }
-  `;
-
-  /*   color: white;
-  border: 1px solid #fff;
-  ::placeholder { 
-      color: white;
-      opacity: 1;
-    } 
-    */
 
   return (
     <NavigationStyle>

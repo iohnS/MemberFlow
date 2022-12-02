@@ -8,7 +8,7 @@ import ChangePassword from "./views/ChangePassword/ChangePassword";
 import PasswordReset from "./views/PasswordReset/PasswordReset";
 import ChangeEmail from "./views/ChangeEmail/ChangeEmail";
 import Register from "./views/Register/Register";
-import auth from "./backend/auth";
+import Account from "./views/Account/Account";
 
 const ProtectedRoute = ({ children }) => {
   return children;
@@ -41,6 +41,14 @@ const App = () => {
           }
         />
         <Route path="/register" element={<Register />} />
+        <Route
+          path="/account"
+          element={
+            <ProtectedRoute>
+              <Account />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/settings"
           element={
