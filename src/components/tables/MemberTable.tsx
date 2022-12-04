@@ -23,7 +23,7 @@ const MemberTable = ({ dbData, setData }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    const unsub = onSnapshot(collection(db, "users"), (snapshot) => {
+    const unsub = onSnapshot(collection(db, "members"), (snapshot) => {
       let members = prevData.current.map((x) => x);
       snapshot.docChanges().forEach((doc) => {
         switch (doc.type) {
@@ -115,7 +115,8 @@ const MemberTable = ({ dbData, setData }) => {
     if (searchTerm) {
       return data.filter(
         (document: DocumentData) =>
-          document.name.toLowerCase().includes(searchTerm) ||
+          document.firstName.toLowerCase().includes(searchTerm) ||
+          document.lastName.toLowerCase().includes(searchTerm) ||
           document.email.toLowerCase().includes(searchTerm) ||
           document.ssn.toLowerCase().includes(searchTerm)
       );
@@ -203,10 +204,20 @@ const MemberTable = ({ dbData, setData }) => {
         loading={loading}
       >
         <Column width={130} fixed sortable resizable>
-          <HeaderCell>Name</HeaderCell>
+          <HeaderCell>First name</HeaderCell>
           <EditableCell
             rowData
-            dataKey="name"
+            dataKey="firstName"
+            type="form"
+            onChange={handleChange}
+          />
+        </Column>
+
+        <Column width={130} fixed sortable resizable>
+          <HeaderCell>Last name</HeaderCell>
+          <EditableCell
+            rowData
+            dataKey="lastName"
             type="form"
             onChange={handleChange}
           />
@@ -248,6 +259,16 @@ const MemberTable = ({ dbData, setData }) => {
             rowData
             dataKey="period"
             type="select"
+            onChange={handleChange}
+          />
+        </Column>
+
+        <Column width={200} sortable resizable>
+          <HeaderCell>Membership end date</HeaderCell>
+          <EditableSelectCell
+            rowData
+            dataKey="membershipEnd"
+            type="form"
             onChange={handleChange}
           />
         </Column>
