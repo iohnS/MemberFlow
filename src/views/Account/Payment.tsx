@@ -39,8 +39,7 @@ const Payment = () => {
     const docRef = await addDoc(colRef, {
       mode: "payment",
       price: priceID,
-      success_url:
-        window.location.origin + "/success?period=" + period.toString(),
+      success_url: window.location.origin + "/management",
       cancel_url: window.location.origin,
     });
 

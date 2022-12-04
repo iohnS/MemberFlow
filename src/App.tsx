@@ -9,6 +9,7 @@ import PasswordReset from "./views/PasswordReset/PasswordReset";
 import ChangeEmail from "./views/ChangeEmail/ChangeEmail";
 import Register from "./views/Register/Register";
 import Account from "./views/Account/Account";
+import Management from "./views/Account/Management";
 
 const ProtectedRoute = ({ children }) => {
   return children;
@@ -46,6 +47,14 @@ const App = () => {
           element={
             <ProtectedRoute>
               <Account />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/management"
+          element={
+            <ProtectedRoute>
+              <Management />
             </ProtectedRoute>
           }
         />

@@ -1,5 +1,4 @@
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { userAuth, db } from "../../backend/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import Payment from "./Payment";
@@ -8,13 +7,15 @@ import { UserType } from "../../types";
 
 const Account = () => {
   const [active, setStatus] = useState(false);
+
   if (userAuth.currentUser) {
     const uid = userAuth.currentUser.uid;
     const docref = doc(db, "members", uid);
 
     getDoc(docref).then((doc) => {
       const userData = doc.data() as UserType;
-      setStatus(userData.status === "active");
+      console.log(userData.status);
+      setStatus(userData.status == "active");
     });
   }
 
