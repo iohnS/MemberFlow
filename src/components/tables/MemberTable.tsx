@@ -4,7 +4,7 @@ import { Table } from "rsuite";
 import { UserType } from "../../types";
 import { updateUser, db, removeUser } from "../../backend/firebase";
 import { onSnapshot, collection } from "firebase/firestore";
-import { Form } from "react-bootstrap";
+import { Button, Col, Form, Row } from "react-bootstrap";
 import {
   EditableCell,
   EditActionCell,
@@ -12,6 +12,9 @@ import {
   RemoveActionCell,
 } from "./TableComponents";
 import type { DocumentData } from "firebase/firestore";
+import AddMember from "../buttons/AddMember";
+import ExportCSV from "../buttons/ExportCSV";
+import { Menu, TableStyle } from "./MemberTable.style";
 const { Column, HeaderCell, Cell } = Table;
 
 const MemberTable = ({ dbData, setData }) => {
@@ -29,19 +32,19 @@ const MemberTable = ({ dbData, setData }) => {
         switch (doc.type) {
           case "added":
             if (
-              !members.find((member: DocumentData) => member.id == doc.doc.id)
+              !members.find((member: DocumentData) => member.id === doc.doc.id)
             ) {
               members.push(doc.doc.data());
             }
             break;
           case "removed":
             members = members.filter(
-              (member: DocumentData) => member.id != doc.doc.id
+              (member: DocumentData) => member.id !== doc.doc.id
             );
             break;
           case "modified":
             members = members.filter(
-              (member: DocumentData) => member.id != doc.doc.id
+              (member: DocumentData) => member.id !== doc.doc.id
             );
             members.push(doc.doc.data());
             break;
@@ -54,12 +57,12 @@ const MemberTable = ({ dbData, setData }) => {
     return () => {
       unsub();
     };
-  }, []);
+  }, [setData]);
 
   function compareStrings(a: string, b: string, type: string) {
     let i = 0;
     try {
-      while (a.charCodeAt(i) == b.charCodeAt(0)) {
+      while (a.charCodeAt(i) === b.charCodeAt(0)) {
         i += 1;
       }
     } catch (e) {
@@ -95,7 +98,7 @@ const MemberTable = ({ dbData, setData }) => {
         if (typeof x === "string" && typeof y === "string") {
           return compareStrings(x, y, sortType);
         } else {
-          if (sortType == "asc") {
+          if (sortType === "asc") {
             return x - y;
           } else {
             return y - x;
@@ -187,23 +190,41 @@ const MemberTable = ({ dbData, setData }) => {
   }
 
   return (
-    <>
-      <Form>
-        <Form.Control
-          placeholder="Search..."
-          onChange={(event) => setSearchTerm(event.target.value.toLowerCase())}
-        />
-      </Form>
+    <TableStyle>
+      <Menu>
+        <h3>Membership Management</h3>
+        <div>
+          <Form.Control
+            placeholder="Search..."
+            onChange={(event) =>
+              setSearchTerm(event.target.value.toLowerCase())
+            }
+          />
+          <AddMember />
+          <Button variant={"secondary"}>
+            <ExportCSV data={dbData} />
+          </Button>
+        </div>
+      </Menu>
       <Table
         virtualized
-        data={formatedData(sortData(dbData))}
-        height={420}
+        data={formatedData(sortData(dbData)) || []}
+        height={640}
         sortColumn={sortColumn}
         sortType={sortType}
         onSortColumn={handleSortColumn}
         loading={loading}
       >
-        <Column width={130} fixed sortable resizable>
+        <Column flexGrow={1} sortable>
+          <HeaderCell>Id</HeaderCell>
+          <EditableCell
+            rowData
+            dataKey="id"
+            type="form"
+            onChange={handleChange}
+          />
+        </Column>
+        <Column flexGrow={2} fixed sortable>
           <HeaderCell>First name</HeaderCell>
           <EditableCell
             rowData
@@ -213,7 +234,7 @@ const MemberTable = ({ dbData, setData }) => {
           />
         </Column>
 
-        <Column width={130} fixed sortable resizable>
+        <Column flexGrow={2} fixed sortable>
           <HeaderCell>Last name</HeaderCell>
           <EditableCell
             rowData
@@ -223,7 +244,7 @@ const MemberTable = ({ dbData, setData }) => {
           />
         </Column>
 
-        <Column width={200} sortable resizable>
+        <Column flexGrow={4} sortable>
           <HeaderCell>Email</HeaderCell>
           <EditableCell
             rowData
@@ -233,7 +254,7 @@ const MemberTable = ({ dbData, setData }) => {
           />
         </Column>
 
-        <Column width={180} sortable resizable>
+        <Column flexGrow={2} sortable>
           <HeaderCell>SSN</HeaderCell>
           <EditableCell
             rowData
@@ -243,7 +264,7 @@ const MemberTable = ({ dbData, setData }) => {
           />
         </Column>
 
-        <Column width={180} sortable resizable>
+        <Column flexGrow={2} sortable>
           <HeaderCell>Registration date</HeaderCell>
           <EditableCell
             rowData
@@ -253,7 +274,7 @@ const MemberTable = ({ dbData, setData }) => {
           />
         </Column>
 
-        <Column width={150} sortable resizable>
+        <Column flexGrow={1} sortable>
           <HeaderCell>Period</HeaderCell>
           <EditableSelectCell
             rowData
@@ -263,8 +284,8 @@ const MemberTable = ({ dbData, setData }) => {
           />
         </Column>
 
-        <Column width={200} sortable resizable>
-          <HeaderCell>Membership end date</HeaderCell>
+        <Column flexGrow={2} sortable>
+          <HeaderCell>Expiration Date</HeaderCell>
           <EditableSelectCell
             rowData
             dataKey="membershipEnd"
@@ -273,7 +294,7 @@ const MemberTable = ({ dbData, setData }) => {
           />
         </Column>
 
-        <Column width={120} sortable resizable>
+        <Column flexGrow={2} sortable>
           <HeaderCell>Status</HeaderCell>
           <EditableSelectCell
             rowData
@@ -283,7 +304,7 @@ const MemberTable = ({ dbData, setData }) => {
           />
         </Column>
 
-        <Column width={100}>
+        <Column flexGrow={1}>
           <HeaderCell>#</HeaderCell>
           <RemoveActionCell
             rowData
@@ -292,7 +313,7 @@ const MemberTable = ({ dbData, setData }) => {
           />
         </Column>
 
-        <Column width={80} align="left" fixed="right">
+        <Column flexGrow={1} align="left" fixed="right">
           <HeaderCell>...</HeaderCell>
           <EditActionCell
             rowData
@@ -302,7 +323,7 @@ const MemberTable = ({ dbData, setData }) => {
           />
         </Column>
       </Table>
-    </>
+    </TableStyle>
   );
 };
 

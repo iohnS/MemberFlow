@@ -4,13 +4,11 @@ import { NavBarHeight } from "../../styles/global.style";
 
 export const Content = styled.section`
   min-height: calc(100vh - ${NavBarHeight});
-  display: flex;
-  flex-direction: column;
-  row-gap: ${ComponentGap};
+  display: grid;
+  padding-left: ${ComponentGap}; 
+  padding-right: ${ComponentGap}; 
+  padding-top: ${ComponentGap}; 
 
-  .row {
-    row-gap: ${ComponentGap};
-  }
 
   .card {
     border: none;
@@ -20,10 +18,6 @@ export const Content = styled.section`
 
   .card-body {
     padding: 1.5rem;
-  }
-
-  .ads {
-    height: 150px !important;
   }
 `;
 

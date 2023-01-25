@@ -6,34 +6,21 @@ import DashboardTemplate from "../DashboardTemplate";
 import { Content } from "./Members.style";
 import AddMember from "../../components/buttons/AddMember";
 import ExportCSV from "../../components/buttons/ExportCSV";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { DocumentData } from "firebase/firestore";
+import { getMembers } from "../../backend/firebase";
 
 const Members = () => {
   const [data, setData] = useState<DocumentData[]>([]);
 
   const Table = (
-    <Container>
+    <>
       <Row>
-        <IntroductionCard>
-          <Card>
-            <Card.Title>Welcome to EASA Lund</Card.Title>
-            <Card.Text>
-              Membership management page. Handle members information and status.
-            </Card.Text>
-          </Card>
-        </IntroductionCard>
-        <Col>
-          <AddMember />
-        </Col>
-        <Col>
-          <ExportCSV data={data} />
-        </Col>
         <Card>
           <MemberTable dbData={data} setData={setData} />
         </Card>
       </Row>
-    </Container>
+    </>
   );
 
   const body = (
