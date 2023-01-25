@@ -53,15 +53,25 @@ const Register = () => {
 
   async function register() {
     setLoading(true);
-    console.log("creating user");
+
     await createUser(email, ssn).catch(() => {
       setError(true);
     });
-    console.log("adding user");
-    await addUser(email, firstName, lastName, ssn).catch(() => {
+
+    await addUser(
+      email,
+      firstName,
+      lastName,
+      ssn,
+      gender,
+      undefined,
+      undefined,
+      undefined,
+      userAuth.currentUser?.uid
+    ).catch(() => {
       setError(true);
     });
-    console.log("loggin in user");
+
     await signInWithEmailAndPassword(userAuth, email, ssn);
     if (!userAuth.currentUser) {
       console.log("Authentication failed");

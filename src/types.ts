@@ -6,10 +6,11 @@ export type UserType = {
   ssn: string;
   period: number;
   status: string;
-  regDate: string;
-  id: number;
-  membershipStart: string;
-  membershipEnd: string;
+  regDate?: string;
+  id?: number;
+  membershipStart?: string;
+  membershipEnd?: string;
+  afmember?: string;
 };
 
 export type CheckoutSession = {

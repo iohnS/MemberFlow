@@ -14,7 +14,7 @@ import {
 import type { DocumentData } from "firebase/firestore";
 const { Column, HeaderCell, Cell } = Table;
 
-const MemberTable = ({ dbData, setData }) => {
+const MemberTable = ({ dbData, setData = (param) => {} }) => {
   const [sortColumn, setSortColumn] = useState("");
   const [sortType, setSortType] = useState();
   const [loading, setLoading] = useState(false);
@@ -223,6 +223,16 @@ const MemberTable = ({ dbData, setData }) => {
           />
         </Column>
 
+        <Column width={130} fixed sortable resizable>
+          <HeaderCell>Gender</HeaderCell>
+          <EditableCell
+            rowData
+            dataKey="gender"
+            type="form"
+            onChange={handleChange}
+          />
+        </Column>
+
         <Column width={200} sortable resizable>
           <HeaderCell>Email</HeaderCell>
           <EditableCell
@@ -265,7 +275,7 @@ const MemberTable = ({ dbData, setData }) => {
 
         <Column width={200} sortable resizable>
           <HeaderCell>Membership end date</HeaderCell>
-          <EditableSelectCell
+          <EditableCell
             rowData
             dataKey="membershipEnd"
             type="form"

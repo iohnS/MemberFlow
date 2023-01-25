@@ -16,7 +16,7 @@ const AddMember = () => {
   const addMember = () => {
     console.log();
     let intPeriod = parseInt(period);
-    addUser(email, name, "asdf", ssn, intPeriod, status);
+    //addUser(email, name, "asdf", ssn, status);
     handleClose();
   };
 

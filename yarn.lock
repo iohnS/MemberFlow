@@ -8760,6 +8760,11 @@ jose@^2.0.6:
   dependencies:
     "@panva/asn1.js" "^1.0.0"
 
+jquery-csv@^1.0.21:
+  version "1.0.21"
+  resolved "https://registry.yarnpkg.com/jquery-csv/-/jquery-csv-1.0.21.tgz#323b1b08cda39a70596e05f3ccbf8ddb3f952bc4"
+  integrity sha512-uDIFsJcC4xZEofK9pk3hwFQlyqf3FFwkQq6JIa882lf0pu/S0H4LqjCAEaULGM0uOcdCbGbMBh3b3LmPtF1a9A==
+
 js-sdsl@^4.1.4:
   version "4.1.4"
   resolved "https://registry.yarnpkg.com/js-sdsl/-/js-sdsl-4.1.4.tgz#78793c90f80e8430b7d8dc94515b6c77d98a26a6"

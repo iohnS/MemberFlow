@@ -44,24 +44,49 @@ export async function addUser(
   firstName: string,
   lastName: string,
   ssn: string,
+  gender: string,
   period?: number,
-  status?: string
+  regDate?: string,
+  status?: string,
+  uid?: string
 ) {
   try {
-    let currentDate = new Date().toJSON().slice(0, 10);
-
-    const uid = userAuth.currentUser?.uid;
-    await setDoc(doc(memberCollectionRef, uid), {
+    if (!regDate) {
+      let regDate = new Date().toJSON().slice(0, 10);
+    }
+    if (!status) {
+      let status = "inactive";
+    }
+    if (!period) {
+      let period = 0;
+    }
+    let document = doc(memberCollectionRef);
+    if (uid) {
+      let document = doc(memberCollectionRef, uid);
+    }
+    await setDoc(document, {
       firstName: firstName,
       lastName: lastName,
       email: email,
       ssn: ssn,
-      status: "inactive",
-      regDate: currentDate,
-      id: uid,
+      gender: gender,
+      status: status,
+      regDate: regDate,
+      period: period,
+      //id: uid,
     });
   } catch (error) {
-    console.log(error);
+    console.log(
+      email,
+      firstName,
+      lastName,
+      ssn,
+      gender,
+      period,
+      regDate,
+      status,
+      uid
+    );
   }
 }
 
@@ -72,6 +97,7 @@ export async function updateUser(rowData: UserType) {
     lastName: rowData.lastName,
     email: rowData.email,
     ssn: rowData.ssn,
+    gender: rowData.gender,
     period: rowData.period,
     status: rowData.status,
     regDate: rowData.regDate,

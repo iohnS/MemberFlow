@@ -45,6 +45,10 @@ export const EditableSelectCell = ({
     statusPlaceholder = rowData.period == 6 ? "6 Months" : "12 Months";
     dataValue = String(rowData.period);
   }
+  if (dataKey === "gender") {
+    statusPlaceholder = rowData.gender == "male" ? "Male" : "Female";
+    dataValue = statusPlaceholder;
+  }
   return (
     <Cell {...props}>
       {editing ? (
