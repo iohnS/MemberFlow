@@ -7,11 +7,15 @@ import {
   setDoc,
   updateDoc,
   deleteDoc,
+  Timestamp,
 } from "firebase/firestore";
 import { firebaseConfig } from "../config";
 import type { DocumentData } from "firebase/firestore";
 import { UserType } from "../types";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { v4 as uuidv4 } from "uuid";
+import moment from "moment";
+import { addRealMonths } from "../helpers/utils";
 
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
@@ -48,23 +52,22 @@ export async function getMembers() {
 
 export async function addUser(
   email: string,
-  firstName: string,
-  lastName: string,
+  name: string,
   ssn: string,
   period?: number,
   status?: string
 ) {
   try {
-    let currentDate = new Date().toJSON().slice(0, 10);
-
+    let currentDate = new Date();
     const uid = userAuth.currentUser?.uid;
+
     await setDoc(doc(memberCollectionRef, uid), {
-      firstName: firstName,
-      lastName: lastName,
+      name: name,
       email: email,
       ssn: ssn,
-      status: "inactive",
+      status: status || "inactive",
       regDate: currentDate,
+      period: period,
       id: uid,
     });
   } catch (error) {
@@ -72,20 +75,38 @@ export async function addUser(
   }
 }
 
-export async function updateUser(rowData: UserType) {
+export async function addMember(
+  email: string,
+  name: string,
+  ssn: string,
+  period: string,
+  status?: string
+) {
   try {
-    const userRef = doc(db, "users", String(rowData.id));
-    await updateDoc(userRef, {
-      firstName: rowData.firstName,
-      lastName: rowData.lastName,
-      email: rowData.email,
-      ssn: rowData.ssn,
-      period: rowData.period,
-      status: rowData.status,
-      regDate: rowData.regDate,
-      id: rowData.id,
+    const uid = uuidv4();
+
+    const reg_date = Timestamp.now();
+    console.log(moment(reg_date.toDate()).toString());
+
+    const added_date = addRealMonths(
+      moment(reg_date.toDate()),
+      parseInt(period)
+    );
+
+    const exp_date = Timestamp.fromDate(added_date.toDate());
+
+    console.log(exp_date);
+
+    await setDoc(doc(memberCollectionRef, uid), {
+      name: name,
+      email: email,
+      ssn: ssn,
+      status: status || "inactive",
+      reg_date: reg_date,
+      exp_date: exp_date,
+      period: period,
+      id: uid,
     });
-    console.log("update DOC");
   } catch (error) {
     console.log(error);
   }
@@ -93,7 +114,25 @@ export async function updateUser(rowData: UserType) {
 
 export async function removeUser(id: string) {
   try {
-    await deleteDoc(doc(db, "users", id));
+    const userRef = doc(db, "members", id);
+    await deleteDoc(userRef);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function updateUser(rowData: UserType) {
+  try {
+    const userRef = doc(db, "users", String(rowData.ssn));
+    await updateDoc(userRef, {
+      name: rowData.name,
+      email: rowData.email,
+      ssn: rowData.ssn,
+      period: rowData.period,
+      status: rowData.status,
+      regDate: rowData.reg_date,
+    });
+    console.log("update DOC");
   } catch (error) {
     console.log(error);
   }

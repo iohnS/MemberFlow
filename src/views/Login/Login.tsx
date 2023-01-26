@@ -55,27 +55,31 @@ export default function Login({}: Props) {
             </SubTitle>
             <LoginStyle>
               <Form>
-                <FloatingLabel
-                  controlId="floatingInput"
-                  label="Email address"
-                  className="mb-3"
-                >
-                  <Form.Control
-                    type="email"
-                    placeholder="name@example.com"
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                  <Form.Control.Feedback type="invalid">
-                    Please provide a valid email.
-                  </Form.Control.Feedback>
-                </FloatingLabel>
-                <FloatingLabel controlId="floatingPassword" label="Password">
-                  <Form.Control
-                    type="password"
-                    placeholder="Password"
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
-                </FloatingLabel>
+                <Form.Group>
+                  <FloatingLabel
+                    controlId="floatingInput"
+                    label="Email address"
+                    className="mb-3"
+                  >
+                    <Form.Control
+                      type="email"
+                      required
+                      placeholder="name@example.com"
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <Form.Control.Feedback type="invalid">
+                      Please provide a valid email.
+                    </Form.Control.Feedback>
+                  </FloatingLabel>
+                  <FloatingLabel controlId="floatingPassword" label="Password">
+                    <Form.Control
+                      type="password"
+                      required
+                      placeholder="Password"
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
+                  </FloatingLabel>
+                </Form.Group>
                 <InvalidLogin>
                   {errorMessage && (
                     <div className="error"> {errorMessage} </div>

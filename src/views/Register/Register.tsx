@@ -16,8 +16,7 @@ import { ErrorMessage } from "./Register.style";
 
 const Register = () => {
   const [email, setEmail] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [name, setName] = useState("");
   const [ssn, setSSN] = useState("");
   const [gender, setGender] = useState("");
   const [afmember, setAFMember] = useState("");
@@ -34,9 +33,8 @@ const Register = () => {
   function formFilled() {
     return (
       email !== "" &&
-      firstName !== "" &&
+      name !== "" &&
       ssn !== "" &&
-      lastName !== "" &&
       gender !== "" &&
       afmember !== "" &&
       agreed
@@ -58,7 +56,7 @@ const Register = () => {
       setError(true);
     });
     console.log("adding user");
-    await addUser(email, firstName, lastName, ssn).catch(() => {
+    await addUser(email, name, ssn).catch(() => {
       setError(true);
     });
     console.log("loggin in user");
@@ -112,21 +110,11 @@ const Register = () => {
         <Row>
           <Col>
             <Form.Group>
-              <Form.Label>First name</Form.Label>
+              <Form.Label>Name</Form.Label>
               <Form.Control
                 type="name"
-                placeholder="First name"
-                onChange={(e) => setFirstName(e.target.value)}
-              />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group>
-              <Form.Label>Last name</Form.Label>
-              <Form.Control
-                type="name"
-                placeholder="Last name"
-                onChange={(e) => setLastName(e.target.value)}
+                placeholder="Name"
+                onChange={(e) => setName(e.target.value)}
               />
             </Form.Group>
           </Col>

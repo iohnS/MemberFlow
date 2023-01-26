@@ -1,7 +1,12 @@
 import { Button, Form, Modal } from "react-bootstrap";
 import { Table } from "rsuite";
 import { useState } from "react";
+import { getRowDataFormat } from "../../helpers/utils";
 const { Cell } = Table;
+
+export const NormalCell = ({ rowData, dataKey, ...props }) => {
+  return <Cell {...props}>{getRowDataFormat(rowData[dataKey])}</Cell>;
+};
 
 export const EditableCell = ({
   rowData,
@@ -11,17 +16,19 @@ export const EditableCell = ({
   ...props
 }) => {
   const editing = rowData.edit === "EDIT";
+  const data = getRowDataFormat(rowData[dataKey]);
   return (
     <Cell {...props}>
       {editing ? (
         <Form.Control
-          placeholder={rowData[dataKey]}
+          size="sm"
+          value={data}
           onChange={(event) => {
             onChange && onChange(rowData.id, dataKey, event.target.value);
           }}
         />
       ) : (
-        <div>{rowData[dataKey]}</div>
+        <div>{data}</div>
       )}
     </Cell>
   );
@@ -37,18 +44,21 @@ export const EditableSelectCell = ({
   const editing = rowData.edit === "EDIT";
   let statusPlaceholder = "";
   let dataValue = "";
+  const data = getRowDataFormat(rowData[dataKey]);
+
   if (dataKey === "status") {
     statusPlaceholder = rowData.status === "Active" ? "Active" : "Inactive";
     dataValue = statusPlaceholder;
-  }
-  if (dataKey === "period") {
+  } else if (dataKey === "period") {
     statusPlaceholder = rowData.period === 6 ? "6 Months" : "12 Months";
     dataValue = String(rowData.period);
   }
+
   return (
     <Cell {...props}>
       {editing ? (
         <Form.Select
+          size="sm"
           placeholder={statusPlaceholder}
           onChange={(event) => {
             onChange && onChange(rowData.id, dataKey, event.target.value);
@@ -74,7 +84,7 @@ export const EditableSelectCell = ({
           )}
         </Form.Select>
       ) : (
-        <div>{rowData[dataKey]}</div>
+        <div>{data}</div>
       )}
     </Cell>
   );
@@ -112,12 +122,20 @@ export const RemoveActionCell = ({
   ...props
 }) => {
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const removeUser = (id: string) => {
+    console.log(rowData.id);
+    setTimeout(() => {
+      removeClick(rowData.id).then(() => {
+        handleClose();
+      }, 3000);
+    });
+  };
+
   return (
-    <Cell {...props} style={{padding: "4px"}}>
+    <Cell {...props} style={{ padding: "4px" }}>
       <div>
         <Button
           variant={rowData.edit ? "secondary" : "danger"}
@@ -131,16 +149,17 @@ export const RemoveActionCell = ({
         >
           {rowData.edit ? "Cancel" : "Delete"}
         </Button>
-
         <Modal show={show} onHide={handleClose} centered>
           <Modal.Header closeButton>
-            <Modal.Title>Remove {rowData.name}?</Modal.Title>
+            <Modal.Title>
+              Remove {rowData.name}?
+            </Modal.Title>
           </Modal.Header>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="danger" onClick={() => removeClick(rowData.id)}>
+            <Button variant="danger" onClick={() => removeUser(rowData.id)}>
               Remove
             </Button>
           </Modal.Footer>

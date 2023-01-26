@@ -21,7 +21,7 @@
     "firebase-admin": "^11.3.0",
     "firebase-functions": "^4.1.0",
     "firebase-tools": "^11.16.1",
-    "ka-table": "^7.6.3",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.6.0",
     "react-bootstrap-icons": "^1.9.1",
@@ -39,7 +39,8 @@
     "render-smooth-image-react": "^1.0.3",
     "rsuite": "^5.22.2",
     "sass": "^1.56.1",
-    "styled-components": "^5.3.6"
+    "styled-components": "^5.3.6",
+    "uuid": "^9.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

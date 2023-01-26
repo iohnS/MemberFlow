@@ -64,7 +64,7 @@ export default function Dashboard(props: Props) {
         icon={<PersonHeart />}
       />
       <InfoCard
-        title="9"
+        title="0"
         subtitle="Monthly Registers"
         color={FlowGreen}
         icon={<Calendar2HeartFill />}

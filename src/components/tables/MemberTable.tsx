@@ -1,20 +1,21 @@
 import "rsuite-table/dist/css/rsuite-table.css";
 import { useEffect, useState, useRef } from "react";
-import { Table } from "rsuite";
 import { UserType } from "../../types";
 import { updateUser, db, removeUser } from "../../backend/firebase";
 import { onSnapshot, collection } from "firebase/firestore";
 import { Button, Col, Form, Row } from "react-bootstrap";
-import {
-  EditableCell,
-  EditActionCell,
-  EditableSelectCell,
-  RemoveActionCell,
-} from "./TableComponents";
 import type { DocumentData } from "firebase/firestore";
 import AddMember from "../buttons/AddMember";
 import ExportCSV from "../buttons/ExportCSV";
 import { Menu, TableStyle } from "./MemberTable.style";
+import { Table } from "rsuite";
+import {
+  EditableCell,
+  EditableSelectCell,
+  EditActionCell,
+  NormalCell,
+  RemoveActionCell,
+} from "./CellTypes";
 const { Column, HeaderCell, Cell } = Table;
 
 const MemberTable = ({ dbData, setData }) => {
@@ -26,38 +27,44 @@ const MemberTable = ({ dbData, setData }) => {
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    const unsub = onSnapshot(collection(db, "members"), (snapshot) => {
-      let members = prevData.current.map((x) => x);
-      snapshot.docChanges().forEach((doc) => {
-        switch (doc.type) {
-          case "added":
-            if (
-              !members.find((member: DocumentData) => member.id === doc.doc.id)
-            ) {
-              members.push(doc.doc.data());
-            }
-            break;
-          case "removed":
-            members = members.filter(
-              (member: DocumentData) => member.id !== doc.doc.id
-            );
-            break;
-          case "modified":
-            members = members.filter(
-              (member: DocumentData) => member.id !== doc.doc.id
-            );
-            members.push(doc.doc.data());
-            break;
-        }
+    const unsub = async () =>
+      await onSnapshot(collection(db, "members"), (snapshot) => {
+        let members = prevData.current.map((x) => x);
+        snapshot.docChanges().forEach((change) => {
+          const memberData = change.doc.data();
+          const memberId = change.doc.id;
+          switch (change.type) {
+            case "added":
+              if (
+                !members.find((member: DocumentData) => member.id === memberId)
+              ) {
+                members.push(memberData);
+              }
+              break;
+            case "removed":
+              members = members.filter(
+                (member: DocumentData) => member.id !== memberId
+              );
+              break;
+            case "modified":
+              members = members.filter(
+                (member: DocumentData) => member.id !== memberId
+              );
+              members.push(memberData);
+              break;
+            default:
+              break;
+          }
+        });
+        prevData.current = members;
+        setData(prevData.current);
+        console.log(prevData.current);
       });
-      prevData.current = members;
-      setData(prevData.current);
-    });
 
     return () => {
       unsub();
     };
-  }, [setData]);
+  }, []);
 
   function compareStrings(a: string, b: string, type: string) {
     let i = 0;
@@ -106,7 +113,6 @@ const MemberTable = ({ dbData, setData }) => {
         }
       });
     }
-
     return data;
   }
 
@@ -118,8 +124,7 @@ const MemberTable = ({ dbData, setData }) => {
     if (searchTerm) {
       return data.filter(
         (document: DocumentData) =>
-          document.firstName.toLowerCase().includes(searchTerm) ||
-          document.lastName.toLowerCase().includes(searchTerm) ||
+          document.name.toLowerCase().includes(searchTerm) ||
           document.email.toLowerCase().includes(searchTerm) ||
           document.ssn.toLowerCase().includes(searchTerm)
       );
@@ -214,37 +219,20 @@ const MemberTable = ({ dbData, setData }) => {
         sortType={sortType}
         onSortColumn={handleSortColumn}
         loading={loading}
+        headerHeight={40}
+        rowHeight={46}
+        autoHeight={true}
       >
-        <Column flexGrow={1} sortable>
-          <HeaderCell>Id</HeaderCell>
-          <EditableCell
-            rowData
-            dataKey="id"
-            type="form"
-            onChange={handleChange}
-          />
-        </Column>
         <Column flexGrow={2} fixed sortable>
-          <HeaderCell>First name</HeaderCell>
+          <HeaderCell>Name</HeaderCell>
           <EditableCell
             rowData
-            dataKey="firstName"
+            dataKey="name"
             type="form"
             onChange={handleChange}
           />
         </Column>
-
-        <Column flexGrow={2} fixed sortable>
-          <HeaderCell>Last name</HeaderCell>
-          <EditableCell
-            rowData
-            dataKey="lastName"
-            type="form"
-            onChange={handleChange}
-          />
-        </Column>
-
-        <Column flexGrow={4} sortable>
+        <Column flexGrow={3} sortable>
           <HeaderCell>Email</HeaderCell>
           <EditableCell
             rowData
@@ -253,7 +241,6 @@ const MemberTable = ({ dbData, setData }) => {
             onChange={handleChange}
           />
         </Column>
-
         <Column flexGrow={2} sortable>
           <HeaderCell>SSN</HeaderCell>
           <EditableCell
@@ -263,18 +250,16 @@ const MemberTable = ({ dbData, setData }) => {
             onChange={handleChange}
           />
         </Column>
-
         <Column flexGrow={2} sortable>
           <HeaderCell>Registration date</HeaderCell>
           <EditableCell
             rowData
-            dataKey="regDate"
+            dataKey="reg_date"
             type="form"
             onChange={handleChange}
           />
         </Column>
-
-        <Column flexGrow={1} sortable>
+        <Column flexGrow={2} sortable>
           <HeaderCell>Period</HeaderCell>
           <EditableSelectCell
             rowData
@@ -283,17 +268,10 @@ const MemberTable = ({ dbData, setData }) => {
             onChange={handleChange}
           />
         </Column>
-
         <Column flexGrow={2} sortable>
           <HeaderCell>Expiration Date</HeaderCell>
-          <EditableSelectCell
-            rowData
-            dataKey="membershipEnd"
-            type="form"
-            onChange={handleChange}
-          />
+          <NormalCell rowData dataKey="exp_date" />
         </Column>
-
         <Column flexGrow={2} sortable>
           <HeaderCell>Status</HeaderCell>
           <EditableSelectCell
@@ -303,8 +281,7 @@ const MemberTable = ({ dbData, setData }) => {
             onChange={handleChange}
           />
         </Column>
-
-        <Column flexGrow={1}>
+        <Column>
           <HeaderCell>#</HeaderCell>
           <RemoveActionCell
             rowData
@@ -312,8 +289,7 @@ const MemberTable = ({ dbData, setData }) => {
             handleCancel={handleCancel}
           />
         </Column>
-
-        <Column flexGrow={1} align="left" fixed="right">
+        <Column align="left" fixed="right">
           <HeaderCell>...</HeaderCell>
           <EditActionCell
             rowData

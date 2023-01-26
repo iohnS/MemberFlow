@@ -1,15 +1,13 @@
 export type UserType = {
-  firstName: string;
-  lastName: string;
-  gender: string;
+  name: string;
+  gender: string; 
   email: string;
   ssn: string;
   period: number;
   status: string;
-  regDate: string;
+  reg_date: string;
   id: number;
-  membershipStart: string;
-  membershipEnd: string;
+  exp_date: string;
 };
 
 export type CheckoutSession = {

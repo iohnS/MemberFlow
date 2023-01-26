@@ -1,6 +1,19 @@
 import styled from "styled-components";
 
-export const TableStyle = styled.section``;
+export const TableStyle = styled.section`
+  .rs-table-body-row-wrapper {
+    font-size: 14px;
+  }
+
+  .rs-table-cell-content {
+    display: flex;
+    align-items: center;
+  }
+
+  .rs-table-row-header {
+    font-size: 14px;
+  }
+`;
 
 export const Menu = styled.div`
   display: flex;

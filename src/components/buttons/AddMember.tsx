@@ -1,23 +1,24 @@
 import { Button, Modal, Row, Container, Col, Form } from "react-bootstrap";
 import { useState } from "react";
-import { addUser } from "../../backend/firebase";
+import { addMember } from "../../backend/firebase";
 
 const AddMember = () => {
   const [show, setShow] = useState(false);
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [ssn, setSSN] = useState("");
-  const [period, setPeriod] = useState("");
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState("active");
+  const [period, setPeriod] = useState("6");
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const addMember = () => {
-    console.log();
-    let intPeriod = parseInt(period);
-    addUser(email, name, "asdf", ssn, intPeriod, status);
-    handleClose();
+  const addNewMember = () => {
+    addMember(email, name, ssn, period, status)
+      .then(() => {
+        handleClose();
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -44,7 +45,6 @@ const AddMember = () => {
                     />
                   </Form.Group>
                 </Col>
-
                 <Col>
                   <Form.Group>
                     <Form.Label>Email address</Form.Label>
@@ -78,9 +78,6 @@ const AddMember = () => {
                       defaultValue={0}
                       onChange={(e) => setPeriod(e.target.value)}
                     >
-                      <option value="0" disabled hidden>
-                        Choose period
-                      </option>
                       <option value="6">6 Months</option>
                       <option value="12">12 Months</option>
                     </Form.Select>
@@ -91,14 +88,11 @@ const AddMember = () => {
                   <Form.Group>
                     <Form.Label>Status</Form.Label>
                     <Form.Select
-                      defaultValue={1}
+                      defaultValue={0}
                       onChange={(e) => setStatus(e.target.value)}
                     >
-                      <option value="1" disabled hidden>
-                        Select status
-                      </option>
-                      <option value="Active">Active</option>
-                      <option value="Inactive">Inactive</option>
+                      <option value="active">Active</option>
+                      <option value="inactive">Inactive</option>
                     </Form.Select>
                   </Form.Group>
                 </Col>
@@ -110,7 +104,7 @@ const AddMember = () => {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={addMember} type="submit">
+          <Button variant="primary" onClick={addNewMember} type="submit">
             Add
           </Button>
         </Modal.Footer>
