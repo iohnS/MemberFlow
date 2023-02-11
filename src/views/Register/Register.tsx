@@ -11,8 +11,9 @@ import DashboardTemplate from "../DashboardTemplate";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { userAuth, createUser, addUser } from "../../backend/firebase";
+import { userAuth, } from "../../backend/firebase";
 import { ErrorMessage } from "./Register.style";
+import { createUser } from "../../backend/userApi";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -51,21 +52,6 @@ const Register = () => {
 
   async function register() {
     setLoading(true);
-    console.log("creating user");
-    await createUser(email, ssn).catch(() => {
-      setError(true);
-    });
-    console.log("adding user");
-    await addUser(email, name, ssn).catch(() => {
-      setError(true);
-    });
-    console.log("loggin in user");
-    await signInWithEmailAndPassword(userAuth, email, ssn);
-    if (!userAuth.currentUser) {
-      console.log("Authentication failed");
-      return;
-    }
-
     navigate("/account");
   }
 

@@ -17,8 +17,7 @@ import "../../styles/App.scss";
 import myImage from "../../assets/homepage_img.jpg";
 import RenderSmoothImage from "render-smooth-image-react";
 import "render-smooth-image-react/build/style.css";
-import { userAuth } from "../../backend/firebase";
-import { signInWithEmailAndPassword, UserCredential } from "firebase/auth";
+import { signIn } from "../../backend/authenticationApi";
 
 type Props = {};
 
@@ -30,15 +29,14 @@ export default function Login({}: Props) {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    signInWithEmailAndPassword(userAuth, email, password)
-      .then((response: UserCredential) => {
-        if (response.user.email == null) {
-          return;
-        }
-        navigate("/account");
+    signIn(email, password)
+      .then((user) => {
+        console.log("Signed in as:", user);
+        navigate("/dashboard");
       })
-      .catch(() => {
-        setErrorMessage("Wrong login credentials");
+      .catch((error) => {
+        setErrorMessage("Invalid user credentials");
+        console.error("Error signing in:", error);
       });
   };
 
@@ -101,13 +99,13 @@ export default function Login({}: Props) {
                   >
                     Forgot Your Password?
                   </Button>
-                  <Button
+                  {/*                   <Button
                     variant="outline-primary"
                     className="btn-outline-primary"
                     onClick={() => navigate("/register")}
                   >
                     Register
-                  </Button>
+                  </Button> */}
                 </Submit>
               </Form>
             </LoginStyle>

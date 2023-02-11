@@ -62,12 +62,12 @@ const Navbar: React.FC = (props: Props) => {
               >
                 Members
               </Nav.Link>
-              <Nav.Link
+{/*               <Nav.Link
                 onClick={() => navigateTo("/register")}
                 eventKey="/register"
               >
                 Register
-              </Nav.Link>
+              </Nav.Link> */}
               <Nav.Link
                 onClick={() => navigateTo("/settings")}
                 eventKey="/settings"
