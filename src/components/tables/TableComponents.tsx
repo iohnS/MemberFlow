@@ -42,7 +42,7 @@ export const EditableSelectCell = ({
     dataValue = statusPlaceholder;
   }
   if (dataKey === "period") {
-    statusPlaceholder = rowData.period == 6 ? "6 Months" : "12 Months";
+    statusPlaceholder = rowData.period === 6 ? "6 Months" : "12 Months";
     dataValue = String(rowData.period);
   }
   if (dataKey === "gender") {
@@ -92,7 +92,7 @@ export const EditActionCell = ({
   ...props
 }) => {
   return (
-    <Cell {...props} style={{ padding: "6px" }}>
+    <Cell {...props} style={{ padding: "4px" }}>
       <Button
         variant="primary"
         onClick={() => {
@@ -121,7 +121,7 @@ export const RemoveActionCell = ({
   const handleShow = () => setShow(true);
 
   return (
-    <Cell {...props}>
+    <Cell {...props} style={{padding: "4px"}}>
       <div>
         <Button
           variant={rowData.edit ? "secondary" : "danger"}

@@ -19,24 +19,31 @@ const memberCollectionRef = collection(db, "members");
 export const userAuth = getAuth(app);
 
 export async function createUser(email: string, password: string) {
-  const userCred = await createUserWithEmailAndPassword(
-    userAuth,
-    email,
-    password
-  );
-  return userCred;
+  try {
+    const userCred = await createUserWithEmailAndPassword(
+      userAuth,
+      email,
+      password
+    );
+    return userCred;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
-export async function getData() {
-  const docsSnap = await getDocs(memberCollectionRef);
-  const dataList: DocumentData[] = [];
-
-  docsSnap.forEach((doc) => {
-    const data = doc.data();
-    dataList.push(data);
-  });
-
-  return dataList;
+export async function getMembers() {
+  try {
+    const dataList: DocumentData[] = [];
+    await getDocs(memberCollectionRef).then((snapshot) => {
+      snapshot.forEach((doc) => {
+        const data = doc.data();
+        dataList.push(data);
+      });
+    });
+    return dataList;
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export async function addUser(
@@ -91,21 +98,28 @@ export async function addUser(
 }
 
 export async function updateUser(rowData: UserType) {
-  const userRef = doc(db, "users", String(rowData.id));
-  await updateDoc(userRef, {
-    firstName: rowData.firstName,
-    lastName: rowData.lastName,
-    email: rowData.email,
-    ssn: rowData.ssn,
-    gender: rowData.gender,
-    period: rowData.period,
-    status: rowData.status,
-    regDate: rowData.regDate,
-    id: rowData.id,
-  });
-  console.log("update DOC");
+  try {
+    const userRef = doc(db, "users", String(rowData.id));
+    await updateDoc(userRef, {
+      firstName: rowData.firstName,
+      lastName: rowData.lastName,
+      email: rowData.email,
+      ssn: rowData.ssn,
+      period: rowData.period,
+      status: rowData.status,
+      regDate: rowData.regDate,
+      id: rowData.id,
+    });
+    console.log("update DOC");
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export async function removeUser(id: string) {
-  await deleteDoc(doc(db, "users", id));
+  try {
+    await deleteDoc(doc(db, "users", id));
+  } catch (error) {
+    console.log(error);
+  }
 }

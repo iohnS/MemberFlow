@@ -4,7 +4,7 @@ const ExportCSV = ({ data }) => {
   return (
     <div>
       <CSVLink separator={";"} data={data} target="_blank">
-        DOWNLOAD CSV
+        Export to CSV
       </CSVLink>
     </div>
   );

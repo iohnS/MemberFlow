@@ -9,6 +9,7 @@ import ExportCSV from "../../components/buttons/ExportCSV";
 import ImportCSV from "../../components/buttons/ImportCSV";
 import { useEffect, useState } from "react";
 import type { DocumentData } from "firebase/firestore";
+import { getMembers } from "../../backend/firebase";
 
 const Members = () => {
   const [data, setData] = useState<DocumentData[]>([]);
@@ -24,30 +25,13 @@ const Members = () => {
   }, [data]);
 
   const Table = (
-    <Container>
+    <>
       <Row>
-        <IntroductionCard>
-          <Card>
-            <Card.Title>Welcome to EASA Lund</Card.Title>
-            <Card.Text>
-              Membership management page. Handle members information and status.
-            </Card.Text>
-          </Card>
-        </IntroductionCard>
-        <Col>
-          <AddMember />
-        </Col>
-        <Col>
-          <ImportCSV />
-        </Col>
-        <Col>
-          <ExportCSV data={csvData} />
-        </Col>
         <Card>
           <MemberTable dbData={data} setData={setData} />
         </Card>
       </Row>
-    </Container>
+    </>
   );
 
   const body = (
